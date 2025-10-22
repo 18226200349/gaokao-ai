@@ -3,5 +3,13 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script.
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?bc496c6424a2cb836a0512cba7f6d737";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
   body
     block content
