@@ -1,181 +1,210 @@
-/* 页面整体背景与布局 */
-body {
-  font-family: 'SF Pro Display', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 30px;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* 全局样式重置和基础设置 */
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* 聊天主卡片 */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  color: #333;
+  overflow: hidden;
+}
+
+/* 聊天容器样式 */
 .chat-wrapper {
   width: 100%;
-  max-width: 700px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(20px);
-  border-radius: 24px;
-  padding: 25px;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
-  color: #fff;
-  animation: fadeIn 0.8s ease;
+  max-width: 720px;
+  height: 90vh;
   display: flex;
   flex-direction: column;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  overflow: hidden;
 }
 
-/* 顶部标题 */
+/* 聊天头部样式 */
 .chat-header {
   text-align: center;
-  margin-bottom: 16px;
+  padding: 20px 16px 10px;
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
 .chat-header h1 {
-  font-size: 1.8em;
-  font-weight: 700;
-  letter-spacing: 1px;
+  margin: 10px 0 4px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #2c3e50;
 }
 
-.chat-header .subtext {
-  font-size: 0.9em;
-  opacity: 0.85;
+.chat-header .subtitle {
+  font-size: 13px;
+  color: #7f8c8d;
 }
 
-/* 聊天区域 */
-#chat-container {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  height: 500px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 16px;
+/* 聊天消息区域样式 */
+.chat-container {
+  flex: 1;
   overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,0.3) transparent;
+  padding: 20px;
+  scroll-behavior: smooth;
 }
 
-/* 消息区 */
-#messages {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  justify-content: flex-end;
+.chat-container::-webkit-scrollbar {
+  width: 8px;
 }
 
-/* 单条消息 */
+.chat-container::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.05);
+  border-radius: 4px;
+}
+
+.chat-container::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.2);
+  border-radius: 4px;
+}
+
+.chat-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,0.3);
+}
+
+/* 消息样式 */
 .message {
   display: flex;
-  align-items: flex-end;
-  animation: slideIn 0.3s ease;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  animation: fadeIn 0.3s ease;
 }
 
-/* 系统或AI消息（左侧） */
-.message.system, .message.ai {
-  flex-direction: row;
-  justify-content: flex-start;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.message.system .content, .message.ai .content {
-  background: rgba(255,255,255,0.25);
-  color: #fff;
-  border-radius: 16px 16px 16px 4px;
-}
-
-/* 用户消息（右侧） */
-.message.user {
-  flex-direction: row-reverse;
-  justify-content: flex-end;
-}
-
-.message.user .content {
-  background: #fff;
-  color: #333;
-  border-radius: 16px 16px 4px 16px;
-}
-
-/* 头像 */
-.avatar {
+.message .avatar {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.3);
+  margin-right: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 10px;
+  background: rgba(0,0,0,0.1);
   font-size: 18px;
 }
 
-/* 消息内容 */
-.message .content {
-  padding: 10px 14px;
-  max-width: 75%;
+.message .bubble {
+  background: #fff;
+  padding: 12px 16px;
+  border-radius: 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  max-width: 80%;
   line-height: 1.5;
-  font-size: 0.95em;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  color: #333;
+  transition: all 0.3s ease;
+  word-wrap: break-word;
 }
 
-/* 输入区 */
+.message.user {
+  flex-direction: row-reverse;
+}
+
+.message.user .avatar {
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+.message.user .bubble {
+  background: #007aff;
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.message.system .bubble {
+  border-bottom-left-radius: 4px;
+}
+
+/* 表单样式 */
 #chat-form {
   display: flex;
-  gap: 10px;
-  margin-top: 16px;
+  align-items: center;
+  padding: 12px 16px;
+  border-top: 1px solid rgba(0,0,0,0.05);
+  background: rgba(255,255,255,0.9);
 }
 
 #message-input {
   flex: 1;
-  border: none;
-  border-radius: 12px;
-  padding: 12px 14px;
-  font-size: 1em;
+  padding: 12px 16px;
+  border-radius: 24px;
+  border: 1px solid #ccc;
   outline: none;
-  background: rgba(255,255,255,0.3);
-  color: #fff;
-  transition: box-shadow 0.3s ease, background 0.3s ease;
-}
-
-#message-input:focus {
-  background: rgba(255,255,255,0.5);
-  box-shadow: 0 0 8px rgba(255,255,255,0.6);
-}
-
-#message-input::placeholder {
-  color: rgba(255,255,255,0.8);
-}
-
-/* 按钮样式 */
-button {
-  border: none;
-  border-radius: 12px;
-  padding: 12px 18px;
-  font-size: 0.95em;
-  cursor: pointer;
+  font-size: 14px;
   transition: all 0.3s ease;
-  color: #333;
-}
-
-#send-button {
   background: #fff;
 }
 
+#message-input:focus {
+  border-color: #007aff;
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+/* 按钮样式 */
+#send-button, #clear-button {
+  background: #007aff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 8px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
 #clear-button {
-  background: rgba(255,255,255,0.6);
+  background: #ff3b30;
 }
 
-button:hover {
-  transform: scale(1.05);
+#send-button:hover, #clear-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
-/* 动画 */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+#send-button:active, #clear-button:active {
+  transform: translateY(0);
 }
 
-@keyframes slideIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+/* 响应式设计 */
+@media (max-width: 600px) {
+  .chat-wrapper {
+    height: 100vh;
+    border-radius: 0;
+  }
+  
+  #chat-form {
+    padding: 8px 12px;
+  }
+  
+  #message-input {
+    padding: 10px 12px;
+  }
+  
+  #send-button, #clear-button {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
 }

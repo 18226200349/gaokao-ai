@@ -54,6 +54,7 @@ app.use(express.static(publicPath));
 app.use('/', indexRouter);
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/gaokao', gaokaoRouter);
+app.use('/api/v1/chat', chatRouter);
 
 // catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: NextFunction) => {
