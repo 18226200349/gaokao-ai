@@ -41,15 +41,19 @@ app.use(morgan('dev') as any);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser() as any);
-app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(cors(corsOptions))
 app.use(compression())
 
-app.use(baseUrl, indexRouter);
-app.use(`${baseUrl}/users`, usersRouter);
-app.use(`${baseUrl}/chat`, chatRouter);
-app.use(`${baseUrl}/gaokao`, gaokaoRouter);
+// 静态文件中间件应该放在所有路由之前
+// 更正静态文件路径 - public目录在根目录下，不是src目录下
+const publicPath = path.join(__dirname, '..', 'public');
+console.log('Static files path:', publicPath);
+app.use(express.static(publicPath));
+
+// 路由配置
+app.use('/', indexRouter);
+app.use('/api/v1/users', usersRouter);
+app.use('/api/v1/gaokao', gaokaoRouter);
 
 // catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: NextFunction) => {

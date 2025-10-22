@@ -8,4 +8,9 @@ router.get('/', function(req: any, res: any, next: any) {
 
 // router.get('/get_user', userController.showUser)
 
+/* GET chat page. */
+router.get('/chat', function(req: any, res: any, next: any) {
+  res.render('chat', { title: '高考AI聊天助手' });
+});
+
 export default router;
