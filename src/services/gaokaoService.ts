@@ -78,13 +78,13 @@ class GaokaoAssistant {
   }
   
   // 志愿预匹配
-  matchMajors(interests: string[], province: string): string {
+  matchMajors(interests: string[], province: string): object {
     // 简单的志愿匹配逻辑
     const majorRecommendations = {
-      '理工': ['计算机科学与技术', '人工智能', '电子信息工程', '机械设计制造及其自动化'],
-      '文史': ['汉语言文学', '历史学', '哲学', '新闻传播学'],
-      '经管': ['工商管理', '经济学', '金融学', '会计学'],
-      '医学': ['临床医学', '口腔医学', '药学', '护理学']
+      '理工': ['计算机科学与技术', '人工智能', '电子信息工程', '机械设计制造及其自动化', '软件工程'],
+      '文史': ['汉语言文学', '历史学', '哲学', '新闻传播学', '教育学'],
+      '经管': ['工商管理', '经济学', '金融学', '会计学', '市场营销'],
+      '医学': ['临床医学', '口腔医学', '药学', '护理学', '医学影像']
     };
     
     let recommendations: string[] = [];
@@ -94,7 +94,11 @@ class GaokaoAssistant {
       }
     });
     
-    return `\n根据您的兴趣，为您推荐以下专业:\n${recommendations.slice(0, 5).join('\n')}`;
+    // 返回结构化数据，包含推荐文本和专业列表
+    return {
+      text: `您有什么意向专业么？我们为您推荐以下专业：`,
+      majors: recommendations.slice(0, 5)
+    };
   }
   
   // 风险预警

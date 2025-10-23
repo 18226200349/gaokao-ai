@@ -135,13 +135,43 @@ body {
   border-bottom-left-radius: 4px;
 }
 
+/* 专业选择容器样式 */
+.majors-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* 专业选择按钮样式 */
+.major-button {
+  padding: 6px 12px;
+  background-color: #e3f2fd;
+  color: #1976d2;
+  border: 1px solid #bbdefb;
+  border-radius: 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.major-button:hover {
+  background-color: #1976d2;
+  color: white;
+  border-color: #1976d2;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(25, 118, 210, 0.3);
+}
+
 /* 表单样式 */
 #chat-form {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   padding: 12px 16px;
   border-top: 1px solid rgba(0,0,0,0.05);
   background: rgba(255,255,255,0.9);
+  gap: 10px;
 }
 
 #message-input {
@@ -160,28 +190,165 @@ body {
   box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
 }
 
+/* 省份选择下拉框样式 */
+#province-select {
+  padding: 12px 16px;
+  border-radius: 24px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 14px;
+  background: #fff;
+  transition: all 0.3s ease;
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  cursor: pointer;
+  min-width: 120px;
+}
+
+#province-select:focus {
+  border-color: #007aff;
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+/* 分数输入框样式 */
+#score-input {
+  padding: 12px 16px;
+  border-radius: 24px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 14px;
+  background: #fff;
+  transition: all 0.3s ease;
+  width: 120px;
+}
+
+#score-input:focus {
+  border-color: #007aff;
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+/* 文理科单选按钮样式 */
+.subject-selection {
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: 1px solid #e9ecef;
+}
+
+.subject-selection label {
+  display: flex;
+  align-items: center;
+  margin-right: 12px;
+  cursor: pointer;
+  position: relative;
+  padding-left: 28px;
+  font-size: 14px;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.subject-selection label:last-child {
+  margin-right: 0;
+}
+
+.subject-selection label:hover {
+  color: #007aff;
+}
+
+.subject-selection input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.radio-custom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.subject-selection label:hover input ~ .radio-custom {
+  border-color: #007aff;
+  transform: scale(1.05);
+}
+
+.subject-selection input:checked ~ .radio-custom {
+  background-color: #007aff;
+  border-color: #007aff;
+  animation: radioCheck 0.2s ease;
+}
+
+@keyframes radioCheck {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+.radio-custom:after {
+  content: "";
+  position: absolute;
+  display: none;
+  top: 6px;
+  left: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+
+.subject-selection input:checked ~ .radio-custom:after {
+  display: block;
+  animation: radioDot 0.3s ease;
+}
+
+@keyframes radioDot {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
 /* 按钮样式 */
 #send-button, #clear-button {
   background: #007aff;
   color: white;
   border: none;
-  padding: 8px 16px;
-  border-radius: 20px;
+  padding: 12px 20px;
+  border-radius: 24px;
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  margin-left: 8px;
   transition: all 0.3s ease;
   white-space: nowrap;
+  box-shadow: 0 2px 5px rgba(0, 122, 255, 0.2);
 }
 
 #clear-button {
   background: #ff3b30;
+  box-shadow: 0 2px 5px rgba(255, 59, 48, 0.2);
 }
 
 #send-button:hover, #clear-button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+#send-button:hover {
+  background: #0062cc;
+}
+
+#clear-button:hover {
+  background: #d32f2f;
 }
 
 #send-button:active, #clear-button:active {
@@ -189,7 +356,7 @@ body {
 }
 
 /* 响应式设计 */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .chat-wrapper {
     height: 100vh;
     border-radius: 0;
@@ -197,14 +364,31 @@ body {
   
   #chat-form {
     padding: 8px 12px;
+    gap: 8px;
+  }
+  
+  #province-select,
+  #score-input {
+    flex: 1;
+    min-width: auto;
+  }
+  
+  .subject-selection {
+    width: 100%;
+    justify-content: center;
   }
   
   #message-input {
-    padding: 10px 12px;
+    width: 100%;
   }
   
   #send-button, #clear-button {
-    padding: 6px 12px;
+    flex: 1;
+    padding: 10px 16px;
     font-size: 13px;
+  }
+  
+  .majors-container {
+    justify-content: center;
   }
 }
