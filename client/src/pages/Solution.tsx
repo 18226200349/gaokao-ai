@@ -52,7 +52,6 @@ const Solution: React.FC = () => {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null)
   const [estimatedRank, setEstimatedRank] = useState<number>(0)
   const [activeTab, setActiveTab] = useState<string>('stable')
-  const [loading, setLoading] = useState(false)
   const [stableUniversities, setStableUniversities] = useState<University[]>([])
   const [moderateUniversities, setModerateUniversities] = useState<University[]>([])
   const [reachUniversities, setReachUniversities] = useState<University[]>([])
