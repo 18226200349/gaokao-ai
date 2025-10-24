@@ -96,7 +96,7 @@ const Chat: React.FC = () => {
     // 如果没有输入内容，构造默认消息
     let displayText = trimmedInput
     if (!displayText) {
-      displayText = `我想了解${province}${subject}${score}分的高考志愿报名`
+      displayText = `我想了解${province}${subject}${score ? score + '分' : ''}的高考志愿报名`
     }
 
     const userMessage: Message = {
@@ -128,7 +128,7 @@ const Chat: React.FC = () => {
       // 构造问题文本，包含省份、文理科和分数信息
       let questionText = trimmedInput
       if (!questionText) {
-        questionText = `我想了解${province}${subject}${score}分的高考志愿报名`
+        questionText = `我想了解${province}${subject}${score ? score + '分' : ''}的高考志愿报名`
       }
       
       let accumulatedContent = '';
@@ -696,7 +696,7 @@ const Chat: React.FC = () => {
                   e.currentTarget.style.boxShadow = '0 4px 16px rgba(82, 196, 26, 0.3)'
                 }}
               >
-                生成方案
+                AI生成方案
               </Button>
             </Space>
           </form>
