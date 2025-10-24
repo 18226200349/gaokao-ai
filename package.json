@@ -3,12 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "ts-node bin/www",
+    "start": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
     "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
     "server:dev": "nodemon",
     "client:dev": "cd client && npm run dev",
     "build": "cd client && npm run build",
-    "client:install": "cd client && npm install"
+    "client:install": "cd client && pnpm install",
+    "postinstall": "cd client && pnpm install"
   },
   "dependencies": {
     "@types/compression": "^1.7.5",
