@@ -90,9 +90,6 @@ const Solution: React.FC = () => {
   
   // 监控状态变化
   useEffect(() => {
-    console.log('状态更新 - 稳妥院校:', stableUniversities)
-    console.log('状态更新 - 适中院校:', moderateUniversities)
-    console.log('状态更新 - 冲刺院校:', reachUniversities)
   }, [stableUniversities, moderateUniversities, reachUniversities])
 
   // 估算位次
@@ -116,15 +113,10 @@ const Solution: React.FC = () => {
       
       const result = await response.json()
       
-      console.log('后端返回的完整数据:', result)
-      console.log('safe数据:', result.data?.safe)
-      console.log('moderate数据:', result.data?.moderate)
-      console.log('reach数据:', result.data?.reach)
       
       if (result.success && result.data) {
         // 转换后端数据格式到前端格式
         const convertToFrontendFormat = (universities: any[], type: string): University[] => {
-          console.log(`转换${type}类型的院校数据,原始数据:`, universities)
           const converted = universities.map(uni => {
             // 计算录取概率
             let probability = '未知'
@@ -160,12 +152,11 @@ const Solution: React.FC = () => {
               level: uni.level || '本科',
               admissionScore: uni.cutoff_score || uni.score || 0,
               probability,
-              majorRecommendations: uni.key_disciplines?.slice(0, 3) || uni.major_recommendations || []
+              majorRecommendations: uni.key_disciplines?.slice(0, 3) || uni.major_recommendations || [],
+              website: uni.website || uni.official_website || uni.url || `https://www.baidu.com/s?wd=${encodeURIComponent(uni.name)}官网`
             }
-            console.log('转换后的院校数据:', formatted)
             return formatted
           })
-          console.log(`${type}类型转换完成,结果:`, converted)
           return converted
         }
         
@@ -173,21 +164,16 @@ const Solution: React.FC = () => {
         const moderateData = convertToFrontendFormat(result.data.moderate || [], 'moderate')
         const reachData = convertToFrontendFormat(result.data.reach || [], 'reach')
         
-        console.log('准备设置state - 稳妥:', safeData)
-        console.log('准备设置state - 适中:', moderateData)
-        console.log('准备设置state - 冲刺:', reachData)
         
         setStableUniversities(safeData)
         setModerateUniversities(moderateData)
         setReachUniversities(reachData)
         
-        console.log('State已更新')
       } else {
         throw new Error(result.message || '获取推荐数据失败')
       }
     } catch (error) {
       message.error('获取推荐数据失败,使用默认方案')
-      console.error('获取推荐失败:', error)
       
       // 降级到模拟数据
       const stable = generateUniversityList(info.score - 25, info.score - 15, info.province, '稳妥')
@@ -236,7 +222,8 @@ const Solution: React.FC = () => {
         name: `${template.name}${i > 0 ? '' : ''}`,
         admissionScore: score,
         probability,
-        majorRecommendations: ['计算机科学与技术', '软件工程', '人工智能']
+        majorRecommendations: ['计算机科学与技术', '软件工程', '人工智能'],
+        website: `https://www.baidu.com/s?wd=${encodeURIComponent(template.name)}官网`
       })
     }
 
@@ -523,6 +510,7 @@ const Solution: React.FC = () => {
     )
   }
 
+
   return (
     <div 
       ref={solutionRef}
@@ -609,7 +597,6 @@ const Solution: React.FC = () => {
           onChange={(key) => {
             setActiveTab(key)
             // 标签页切换时可以触发数据刷新或其他操作
-            console.log('切换到标签页:', key)
           }}
           type="card"
           size="large"
@@ -628,7 +615,6 @@ const Solution: React.FC = () => {
                 这些院校的录取分数线低于您的成绩，录取概率较高（85%以上）
               </Text>
               {(() => {
-                console.log('渲染稳妥院校,数量:', stableUniversities.length, '数据:', stableUniversities)
                 return null
               })()}
               {stableUniversities.length === 0 ? (
@@ -652,7 +638,6 @@ const Solution: React.FC = () => {
                 这些院校的录取分数线接近您的成绩，有一定录取机会（60%左右）
               </Text>
               {(() => {
-                console.log('渲染适中院校,数量:', moderateUniversities.length, '数据:', moderateUniversities)
                 return null
               })()}
               {moderateUniversities.length === 0 ? (
@@ -676,7 +661,6 @@ const Solution: React.FC = () => {
                 这些院校的录取分数线高于您的成绩，可以尝试冲刺（30%左右）
               </Text>
               {(() => {
-                console.log('渲染冲刺院校,数量:', reachUniversities.length, '数据:', reachUniversities)
                 return null
               })()}
               {reachUniversities.length === 0 ? (
@@ -855,13 +839,6 @@ const Solution: React.FC = () => {
             <Descriptions.Item label="类型">
               {selectedUniversity.type}
             </Descriptions.Item>
-            {selectedUniversity.website && (
-              <Descriptions.Item label="官方网站" span={2}>
-                <a href={selectedUniversity.website} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary-color)' }}>
-                  {selectedUniversity.website}
-                </a>
-              </Descriptions.Item>
-            )}
             <Descriptions.Item label="层次" span={2}>
               <Space wrap>
                 {selectedUniversity.level.split('/').map((l, i) => (
@@ -918,6 +895,13 @@ const Solution: React.FC = () => {
                 )}
               </div>
             </Descriptions.Item>
+            {selectedUniversity.website && (
+              <Descriptions.Item label="官方网站" span={2}>
+                <a href={selectedUniversity.website} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary-color)' }}>
+                  {selectedUniversity.website}
+                </a>
+              </Descriptions.Item>
+            )}
           </Descriptions>
         )}
       </Modal>

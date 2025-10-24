@@ -10,13 +10,28 @@ interface UniversityData {
   id: string
   name: string
   location: string
+  geographical_location?: {
+    province: string
+    city: string
+    district?: string
+    address?: string
+  }
   type: string
   level: string
-  score: number | null
+  score?: number | null
+  max_cutoff_score?: number | null
+  min_cutoff_score?: number | null
+  cutoff_scores?: {
+    [province: string]: {
+      [subject: string]: number
+    }
+  }
   ranking: number | null
   website: string
-  keyDisciplines: string[]
-  admissionRate: number | null
+  key_disciplines?: string[]
+  keyDisciplines?: string[]
+  admission_rate?: number | null
+  admissionRate?: number | null
 }
 
 interface MajorData {
@@ -43,11 +58,31 @@ const GaokaoQuery: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   const hasInitialized = useRef(false)
+  
+  // 省份名称映射函数
+  const getProvinceKey = (provinceName: string): string => {
+    const provinceMap: { [key: string]: string } = {
+      '北京市': '北京',
+      '上海市': '上海', 
+      '广东省': '广东',
+      '江苏省': '江苏',
+      '浙江省': '浙江',
+      '山东省': '山东',
+      '湖北省': '湖北',
+      '湖南省': '湖南',
+      '四川省': '四川',
+      '陕西省': '陕西'
+    }
+    return provinceMap[provinceName] || provinceName
+  }
 
   // 默认查询条件
   const defaultSearchParams = {
     university: {
-      level: '985'  // 默认查询985高校
+      level: undefined,  // 默认查询985高校
+      province: undefined,  // 默认查询北京的分数线
+      minScore: undefined,  // 最低分数线600分
+      maxScore: undefined   // 最高分数线700分
     },
     major: {
       category: '工学'  // 默认查询工学专业
@@ -99,7 +134,6 @@ const GaokaoQuery: React.FC = () => {
           setCurrentPage(1)
         }
       } catch (error) {
-        console.error('查询失败:', error)
         message.error('查询失败，请稍后重试')
         setData([])
       } finally {
@@ -156,16 +190,64 @@ const GaokaoQuery: React.FC = () => {
       title: '分数线',
       dataIndex: 'score',
       key: 'score',
-      sorter: (a: any, b: any) => (a.score || 0) - (b.score || 0),
-      render: (score: number) => score ? (
-        <div style={{ 
-          color: 'var(--primary-color)', 
-          fontWeight: 600,
-          fontSize: '16px'
-        }}>
-          {score}分
-        </div>
-      ) : <Text type="secondary">-</Text>,
+      sorter: (a: any, b: any) => {
+        const getScore = (record: any) => {
+          // 优先使用查询省份的分数线
+          const mappedProvince = searchProvince ? getProvinceKey(searchProvince) : ''
+          if (searchProvince && record.cutoff_scores && record.cutoff_scores[mappedProvince]) {
+            const provinceScores = record.cutoff_scores[mappedProvince]
+            // 取该省份的最高分数
+            return Math.max(...Object.values(provinceScores).map(score => Number(score)))
+          }
+          // 其次使用最高分数线
+          return record.max_cutoff_score || record.min_cutoff_score || record.score || 0
+        }
+        return getScore(a) - getScore(b)
+      },
+      render: (_score: number, record: any) => {
+        let actualScore = null
+        let scoreInfo = ''
+        // 优先显示查询省份的分数线
+        const mappedProvince = searchProvince ? getProvinceKey(searchProvince) : ''
+        if (searchProvince && record.cutoff_scores && record.cutoff_scores[mappedProvince]) {
+          const provinceScores = record.cutoff_scores[mappedProvince]
+          const subjects = Object.keys(provinceScores)
+          
+          // 直接显示所有科目的分数线，每个科目换行
+          return (
+            <div style={{ lineHeight: '1.4' }}>
+              {subjects.map((subject, index) => (
+                <div key={subject} style={{ marginBottom: index < subjects.length - 1 ? '2px' : '0' }}>
+                  <span style={{ color: 'var(--text-secondary)', fontSize: '12px' }}>
+                    {subject}：
+                  </span>
+                  <span style={{ color: 'var(--primary-color)', fontWeight: 600, fontSize: '14px' }}>
+                    {provinceScores[subject]}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )
+        } else {
+          // 使用最高/最低分数线
+          actualScore = record.max_cutoff_score || record.min_cutoff_score || record.score
+        }
+        
+        return actualScore ? (
+          <div style={{ 
+            color: 'var(--primary-color)', 
+            fontWeight: 600,
+            fontSize: '16px'
+          }}>
+            <div>{actualScore}分</div>
+            {scoreInfo && (
+              <Text type="secondary" style={{ fontSize: '12px' }}>
+                {scoreInfo}
+              </Text>
+            )}
+          </div>
+        ) : <Text type="secondary">-</Text>
+      },
     },
     {
       title: '操作',
@@ -296,7 +378,6 @@ const GaokaoQuery: React.FC = () => {
         setCurrentPage(1)
       }
     } catch (error) {
-      console.error('查询失败:', error)
       message.error('查询失败，请稍后重试')
       setData([])
     } finally {
@@ -347,7 +428,6 @@ const GaokaoQuery: React.FC = () => {
         setCurrentPage(1)
       }
     } catch (error) {
-      console.error('查询失败:', error)
       message.error('查询失败，请稍后重试')
       setData([])
     } finally {
@@ -705,24 +785,55 @@ const GaokaoQuery: React.FC = () => {
                 </Tag>
               </Descriptions.Item>
             )}
-            {selectedItem.score && (
-              <Descriptions.Item label={`${searchProvince || '参考'}分数线`}>
-                <Text strong style={{ fontSize: '18px', color: 'var(--primary-color)' }}>
-                  {selectedItem.score}分
-                </Text>
+            {(selectedItem.cutoff_scores || selectedItem.max_cutoff_score || selectedItem.min_cutoff_score || selectedItem.score) && (
+              <Descriptions.Item label={`${searchProvince || '参考'}分数线`} span={2}>
+                <div>
+                  {searchProvince && selectedItem.cutoff_scores && selectedItem.cutoff_scores[getProvinceKey(searchProvince)] ? (
+                    <div>
+                      <div style={{ marginBottom: '8px' }}>
+                        <Text strong style={{ color: 'var(--text-primary)' }}>
+                          {searchProvince}分数线：
+                        </Text>
+                      </div>
+                      <div style={{ lineHeight: '1.6' }}>
+                        {Object.entries(selectedItem.cutoff_scores[getProvinceKey(searchProvince)]).map(([subject, score]) => (
+                          <div key={subject} style={{ marginBottom: '8px' }}>
+                            <Text style={{ color: 'var(--text-secondary)', fontSize: '14px', marginRight: '8px' }}>
+                              {subject}：
+                            </Text>
+                            <Text strong style={{ color: 'var(--primary-color)', fontSize: '16px' }}>
+                              {score}分
+                            </Text>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <Text strong style={{ fontSize: '18px', color: 'var(--primary-color)' }}>
+                      {selectedItem.max_cutoff_score || selectedItem.min_cutoff_score || selectedItem.score}分
+                    </Text>
+                  )}
+                  {selectedItem.max_cutoff_score && selectedItem.min_cutoff_score && selectedItem.max_cutoff_score !== selectedItem.min_cutoff_score && (
+                    <div style={{ marginTop: '8px' }}>
+                      <Text type="secondary">
+                        分数范围: {selectedItem.min_cutoff_score} - {selectedItem.max_cutoff_score}分
+                      </Text>
+                    </div>
+                  )}
+                </div>
               </Descriptions.Item>
             )}
-            {selectedItem.admissionRate && (
+            {(selectedItem.admission_rate || selectedItem.admissionRate) && (
               <Descriptions.Item label="录取率" span={2}>
                 <Text style={{ color: '#52c41a' }}>
-                  {(selectedItem.admissionRate * 100).toFixed(2)}%
+                  {((selectedItem.admission_rate || selectedItem.admissionRate || 0) * 100).toFixed(2)}%
                 </Text>
               </Descriptions.Item>
             )}
-            {selectedItem.keyDisciplines && selectedItem.keyDisciplines.length > 0 && (
+            {(selectedItem.key_disciplines || selectedItem.keyDisciplines) && (selectedItem.key_disciplines || selectedItem.keyDisciplines)!.length > 0 && (
               <Descriptions.Item label="重点学科" span={2}>
                 <Space wrap>
-                  {selectedItem.keyDisciplines.map((discipline, i) => (
+                  {(selectedItem.key_disciplines || selectedItem.keyDisciplines)!.map((discipline, i) => (
                     <Tag key={i} color="blue">{discipline}</Tag>
                   ))}
                 </Space>
