@@ -62,14 +62,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <Content className={`app-content fade-in ${isMobile ? 'mobile-content' : ''}`}>
         {children}
       </Content>
-      {!isMobile && (
-        <Footer className="app-footer">
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-            <RobotOutlined />
-            <span>高考AI助手 ©2025 让每一个问题都有权威答案</span>
-          </div>
-        </Footer>
-      )}
+      <Footer className={`app-footer ${isMobile ? 'mobile-footer' : ''}`}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+          <RobotOutlined />
+          <span>高考AI助手 ©2025 让每一个问题都有权威答案</span>
+        </div>
+      </Footer>
       
       {/* 移动端底部导航 */}
       {isMobile && (

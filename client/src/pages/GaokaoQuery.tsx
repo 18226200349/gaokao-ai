@@ -254,8 +254,17 @@ const GaokaoQuery: React.FC = () => {
   ]
 
   const handleQuickSearch = (searchParams: any) => {
-    form.setFieldsValue(searchParams)
-    handleSearch(searchParams)
+    // 获取当前表单已填写的值
+    const currentValues = form.getFieldsValue()
+    
+    // 合并快速查询参数和已有的表单值
+    const mergedValues = { ...currentValues, ...searchParams }
+    
+    // 更新表单显示
+    form.setFieldsValue(mergedValues)
+    
+    // 执行查询
+    handleSearch(mergedValues)
   }
 
   return (
