@@ -13,8 +13,77 @@ document.addEventListener('DOMContentLoaded', function() {
     container.scrollTop = container.scrollHeight;
   };
 
+  // 格式化文本为HTML
+  function formatTextToHTML(text) {
+    // 转义HTML特殊字符（除了我们要处理的格式标记）
+    const escapeHtml = (str) => {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    };
+
+    // 处理代码块
+    text = text.replace(/```([\s\S]*?)```/g, (match, code) => {
+      return `<pre><code>${escapeHtml(code.trim())}</code></pre>`;
+    });
+
+    // 处理行内代码
+    text = text.replace(/`([^`]+)`/g, (match, code) => {
+      return `<code class="inline-code">${escapeHtml(code)}</code>`;
+    });
+
+    // 处理标题（### 三级标题）
+    text = text.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+    
+    // 处理标题（## 二级标题）
+    text = text.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+    
+    // 处理标题（# 一级标题）
+    text = text.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+
+    // 处理粗体 **text**
+    text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
+    // 处理斜体 *text*
+    text = text.replace(/\*(.+?)\*/g, '<em>$1</em>');
+
+    // 处理无序列表
+    text = text.replace(/^[•\-\*] (.+)$/gm, '<li>$1</li>');
+    text = text.replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>');
+
+    // 处理有序列表
+    text = text.replace(/^(\d+)\. (.+)$/gm, '<li>$2</li>');
+    const orderedListRegex = /(<li>.*?<\/li>\n?)+/g;
+    text = text.replace(orderedListRegex, (match) => {
+      if (!match.includes('<ul>')) {
+        return `<ol>${match}</ol>`;
+      }
+      return match;
+    });
+
+    // 处理链接 [text](url)
+    text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+
+    // 处理换行（两个或以上换行符变为段落分隔）
+    const paragraphs = text.split(/\n\s*\n/);
+    text = paragraphs.map(p => {
+      // 跳过已经是HTML标签的段落
+      if (p.trim().startsWith('<')) {
+        return p;
+      }
+      // 处理单个换行
+      const lines = p.split('\n').filter(line => line.trim());
+      if (lines.length > 0) {
+        return `<p>${lines.join('<br>')}</p>`;
+      }
+      return '';
+    }).join('');
+
+    return text;
+  }
+
   // 添加消息
-  function addMessage(role, text) {
+  function addMessage(role, text, isHTML = false) {
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('message', role);
 
@@ -24,7 +93,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const bubble = document.createElement('div');
     bubble.classList.add('bubble');
-    bubble.textContent = text;
+    
+    if (isHTML) {
+      bubble.innerHTML = text;
+    } else if (role === 'ai') {
+      // AI回复使用格式化
+      bubble.innerHTML = formatTextToHTML(text);
+    } else {
+      // 用户消息保持纯文本
+      bubble.textContent = text;
+    }
 
     messageDiv.appendChild(avatar);
     messageDiv.appendChild(bubble);
@@ -139,8 +217,8 @@ document.addEventListener('DOMContentLoaded', function() {
           // 记录回复到对话历史
           conversationHistory.push({ role: 'ai', content: data.data.text + '\n' + data.data.details });
         } else if (data.data.reply) {
-          // 普通文本回复
-          messages.lastChild.querySelector('.bubble').textContent = data.data.reply;
+          // 普通文本回复 - 使用格式化显示
+          messages.lastChild.querySelector('.bubble').innerHTML = formatTextToHTML(data.data.reply);
           // 记录回复到对话历史
           conversationHistory.push({ role: 'ai', content: data.data.reply });
         }

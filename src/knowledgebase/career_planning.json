@@ -1,0 +1,241 @@
+{
+  "id": "career_planning",
+  "name": "职业规划指导",
+  "description": "包含各类职业发展路径、行业前景分析等信息",
+  "lastUpdated": "2025-10-23",
+  "career_paths": [
+    {
+      "id": "it_internet",
+      "name": "IT互联网行业",
+      "description": "包括软件开发、人工智能、数据科学、网络安全等领域",
+      "related_majors": [
+        "计算机科学与技术", "软件工程", "人工智能",
+        "数据科学与大数据技术", "网络空间安全", "物联网工程"
+      ],
+      "typical_positions": [
+        {
+          "name": "软件工程师",
+          "entry_salary": "8000-15000",
+          "senior_salary": "20000-50000",
+          "required_skills": ["编程语言", "算法", "数据结构", "框架应用"],
+          "career_ladder": ["初级工程师", "中级工程师", "高级工程师", "架构师", "技术总监"]
+        },
+        {
+          "name": "算法工程师",
+          "entry_salary": "12000-20000",
+          "senior_salary": "30000-80000",
+          "required_skills": ["机器学习", "深度学习", "数学基础", "编程能力"],
+          "career_ladder": ["算法工程师", "资深算法工程师", "算法专家", "首席科学家"]
+        },
+        {
+          "name": "产品经理",
+          "entry_salary": "8000-15000",
+          "senior_salary": "25000-60000",
+          "required_skills": ["需求分析", "用户研究", "项目管理", "沟通能力"],
+          "career_ladder": ["产品助理", "产品经理", "高级产品经理", "产品总监"]
+        }
+      ],
+      "industry_outlook": {
+        "growth_rate": "高",
+        "job_demand": "非常旺盛",
+        "automation_risk": "低",
+        "future_trends": ["人工智能", "云计算", "大数据", "区块链", "元宇宙"]
+      },
+      "advantages": ["薪资待遇好", "发展空间大", "创新机会多", "远程办公机会"],
+      "challenges": ["技术更新快", "工作强度大", "竞争激烈", "持续学习压力"]
+    },
+    {
+      "id": "finance",
+      "name": "金融行业",
+      "description": "包括银行、证券、保险、投资等金融服务领域",
+      "related_majors": [
+        "金融学", "金融工程", "保险学", "投资学",
+        "经济学", "会计学", "财务管理"
+      ],
+      "typical_positions": [
+        {
+          "name": "投资分析师",
+          "entry_salary": "8000-15000",
+          "senior_salary": "25000-100000",
+          "required_skills": ["财务分析", "投资理论", "数据分析", "行业研究"],
+          "career_ladder": ["分析师助理", "分析师", "高级分析师", "投资经理", "基金经理"]
+        },
+        {
+          "name": "银行客户经理",
+          "entry_salary": "6000-10000",
+          "senior_salary": "15000-40000",
+          "required_skills": ["金融知识", "客户管理", "销售能力", "风险控制"],
+          "career_ladder": ["客户经理", "高级客户经理", "私人银行家", "支行行长"]
+        },
+        {
+          "name": "风控专员",
+          "entry_salary": "7000-12000",
+          "senior_salary": "20000-50000",
+          "required_skills": ["风险评估", "数据分析", "法律法规", "模型构建"],
+          "career_ladder": ["风控专员", "高级风控", "风控经理", "首席风险官"]
+        }
+      ],
+      "industry_outlook": {
+        "growth_rate": "中等",
+        "job_demand": "稳定",
+        "automation_risk": "中等",
+        "future_trends": ["金融科技", "数字货币", "智能投顾", "绿色金融"]
+      },
+      "advantages": ["收入稳定", "社会地位高", "行业规范", "福利待遇好"],
+      "challenges": ["压力大", "需要考证", "监管严格", "竞争激烈"]
+    },
+    {
+      "id": "medical",
+      "name": "医疗健康行业",
+      "description": "包括临床医疗、医药研发、医疗器械、健康管理等领域",
+      "related_majors": [
+        "临床医学", "口腔医学", "中医学", "药学",
+        "护理学", "医学影像学", "预防医学"
+      ],
+      "typical_positions": [
+        {
+          "name": "临床医生",
+          "entry_salary": "6000-10000",
+          "senior_salary": "20000-100000",
+          "required_skills": ["医学知识", "临床技能", "沟通能力", "应急处理"],
+          "career_ladder": ["住院医师", "主治医师", "副主任医师", "主任医师"]
+        },
+        {
+          "name": "药品研发人员",
+          "entry_salary": "8000-15000",
+          "senior_salary": "25000-60000",
+          "required_skills": ["药学知识", "实验技能", "数据分析", "科研能力"],
+          "career_ladder": ["研发助理", "研发工程师", "高级研发", "研发总监"]
+        },
+        {
+          "name": "医疗器械工程师",
+          "entry_salary": "7000-12000",
+          "senior_salary": "20000-45000",
+          "required_skills": ["医疗器械知识", "工程技术", "质量控制", "注册法规"],
+          "career_ladder": ["工程师", "高级工程师", "技术经理", "技术总监"]
+        }
+      ],
+      "industry_outlook": {
+        "growth_rate": "高",
+        "job_demand": "旺盛",
+        "automation_risk": "低",
+        "future_trends": ["精准医疗", "远程医疗", "AI诊断", "基因治疗", "老龄化需求"]
+      },
+      "advantages": ["职业稳定", "社会尊重", "技术性强", "就业率高"],
+      "challenges": ["学习周期长", "工作强度大", "责任重大", "晋升慢"]
+    },
+    {
+      "id": "education",
+      "name": "教育行业",
+      "description": "包括基础教育、高等教育、职业教育、在线教育等领域",
+      "related_majors": [
+        "师范类专业", "教育学", "学前教育",
+        "特殊教育", "教育技术学"
+      ],
+      "typical_positions": [
+        {
+          "name": "中小学教师",
+          "entry_salary": "5000-8000",
+          "senior_salary": "10000-20000",
+          "required_skills": ["学科知识", "教学能力", "学生管理", "教育理论"],
+          "career_ladder": ["见习教师", "教师", "高级教师", "特级教师", "正高级教师"]
+        },
+        {
+          "name": "高校教师",
+          "entry_salary": "8000-15000",
+          "senior_salary": "15000-50000",
+          "required_skills": ["专业知识", "科研能力", "教学能力", "学术素养"],
+          "career_ladder": ["助教", "讲师", "副教授", "教授"]
+        },
+        {
+          "name": "教育培训讲师",
+          "entry_salary": "6000-12000",
+          "senior_salary": "15000-40000",
+          "required_skills": ["专业知识", "授课技巧", "沟通能力", "课程设计"],
+          "career_ladder": ["助教", "讲师", "高级讲师", "教学总监"]
+        }
+      ],
+      "industry_outlook": {
+        "growth_rate": "中等",
+        "job_demand": "稳定",
+        "automation_risk": "低",
+        "future_trends": ["在线教育", "个性化学习", "STEM教育", "终身教育"]
+      },
+      "advantages": ["工作稳定", "假期多", "社会认可", "成就感强"],
+      "challenges": ["初期收入较低", "工作繁琐", "竞争激烈", "持续学习压力"]
+    },
+    {
+      "id": "civil_service",
+      "name": "公务员/事业单位",
+      "description": "包括政府机关、事业单位等公共部门",
+      "related_majors": [
+        "法学", "行政管理", "公共事业管理",
+        "经济学", "财政学", "会计学", "中文", "新闻学"
+      ],
+      "typical_positions": [
+        {
+          "name": "综合管理岗",
+          "entry_salary": "5000-8000",
+          "senior_salary": "10000-20000",
+          "required_skills": ["公文写作", "组织协调", "政策理解", "沟通能力"],
+          "career_ladder": ["科员", "副科级", "正科级", "副处级", "正处级"]
+        },
+        {
+          "name": "专业技术岗",
+          "entry_salary": "5000-8000",
+          "senior_salary": "12000-25000",
+          "required_skills": ["专业知识", "技术能力", "业务素养"],
+          "career_ladder": ["初级", "中级", "副高级", "正高级"]
+        }
+      ],
+      "industry_outlook": {
+        "growth_rate": "稳定",
+        "job_demand": "竞争激烈",
+        "automation_risk": "低",
+        "future_trends": ["数字政府", "放管服改革", "公共服务优化"]
+      },
+      "advantages": ["工作稳定", "福利完善", "社会地位", "退休保障"],
+      "challenges": ["晋升慢", "收入增长有限", "工作规范严格", "竞争激烈"]
+    }
+  ],
+  "career_assessment": {
+    "holland_types": [
+      {
+        "type": "R-实用型",
+        "characteristics": ["动手能力强", "喜欢使用工具", "务实稳重"],
+        "suitable_careers": ["工程师", "技术员", "机械师", "农业工作"],
+        "suitable_majors": ["机械类", "土木类", "电气类", "农学类"]
+      },
+      {
+        "type": "I-研究型",
+        "characteristics": ["善于思考", "喜欢钻研", "理性分析"],
+        "suitable_careers": ["科研人员", "工程师", "医生", "数据分析师"],
+        "suitable_majors": ["理学类", "工学类", "医学类", "计算机类"]
+      },
+      {
+        "type": "A-艺术型",
+        "characteristics": ["富有创造力", "感性", "追求美感"],
+        "suitable_careers": ["设计师", "艺术家", "作家", "音乐家"],
+        "suitable_majors": ["艺术设计", "音乐", "美术", "广告学"]
+      },
+      {
+        "type": "S-社会型",
+        "characteristics": ["善于沟通", "热心助人", "责任感强"],
+        "suitable_careers": ["教师", "咨询师", "社会工作者", "护士"],
+        "suitable_majors": ["教育学", "心理学", "社会工作", "护理学"]
+      },
+      {
+        "type": "E-企业型",
+        "characteristics": ["有领导力", "善于说服", "目标导向"],
+        "suitable_careers": ["管理者", "销售", "律师", "企业家"],
+        "suitable_majors": ["工商管理", "市场营销", "法学", "经济学"]
+      },
+      {
+        "type": "C-常规型",
+        "characteristics": ["细致认真", "有条理", "服从规范"],
+        "suitable_careers": ["会计师", "银行职员", "档案管理员", "秘书"],
+        "suitable_majors": ["会计学", "财务管理", "行政管理", "图书馆学"]
+      }
+    ]
+  }
+}

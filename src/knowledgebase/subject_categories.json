@@ -1,0 +1,116 @@
+{
+  "id": "subject_categories",
+  "name": "科类信息",
+  "description": "包含文科、理科、新高考选科等科类相关信息",
+  "lastUpdated": "2025-10-23",
+  "traditional_categories": [
+    {
+      "id": "arts",
+      "name": "文科",
+      "subjects": ["语文", "数学（文）", "外语", "政治", "历史", "地理"],
+      "suitable_majors": [
+        "哲学类", "经济学类", "法学类", "教育学类", "文学类", 
+        "历史学类", "管理学类", "艺术学类"
+      ],
+      "career_directions": [
+        "教育科研", "文化传播", "公共管理", "市场营销", "金融服务",
+        "法律事务", "旅游服务", "设计创意"
+      ],
+      "ability_requirements": [
+        "语言表达能力", "阅读理解能力", "记忆能力", "逻辑分析能力",
+        "人文素养", "社会责任感", "沟通协调能力"
+      ]
+    },
+    {
+      "id": "science",
+      "name": "理科",
+      "subjects": ["语文", "数学（理）", "外语", "物理", "化学", "生物"],
+      "suitable_majors": [
+        "理学类", "工学类", "农学类", "医学类", "计算机类",
+        "电子信息类", "机械类", "材料类"
+      ],
+      "career_directions": [
+        "科学研究", "工程技术", "医疗卫生", "软件开发", "数据分析",
+        "智能制造", "环境保护", "航空航天"
+      ],
+      "ability_requirements": [
+        "逻辑推理能力", "数学计算能力", "实验操作能力", "空间想象能力",
+        "创新思维", "严谨细致", "问题解决能力"
+      ]
+    }
+  ],
+  "new_gaokao_modes": [
+    {
+      "id": "3+3",
+      "name": "3+3模式",
+      "description": "语文、数学、外语为必考科目，考生从物理、化学、生物、历史、地理、政治中选择3门作为选考科目。",
+      "adopted_regions": ["北京", "上海", "浙江", "山东", "天津", "海南"],
+      "subject_combinations": 20
+    },
+    {
+      "id": "3+1+2",
+      "name": "3+1+2模式",
+      "description": "语文、数学、外语为必考科目（3），物理或历史中选择1门（1），思想政治、地理、化学、生物学中选择2门（2）。",
+      "adopted_regions": ["广东", "江苏", "河北", "辽宁", "湖北", "湖南", "福建"],
+      "subject_combinations": 12
+    }
+  ],
+  "subject_selection_guidance": [
+    {
+      "id": "based_on_interests",
+      "title": "基于兴趣选科",
+      "content": "兴趣是学习的动力源泉，应优先考虑自己感兴趣的学科，这样学习起来会更有积极性和主动性。",
+      "suggestions": [
+        "列出自己最喜欢的学科和最不喜欢的学科",
+        "分析自己在不同学科上的学习体验和成就感",
+        "考虑自己对学科内容的好奇心和探索欲"
+      ]
+    },
+    {
+      "id": "based_on_abilities",
+      "title": "基于能力选科",
+      "content": "应客观评估自己在各学科上的能力水平，选择自己擅长的学科，这样更容易取得好成绩。",
+      "suggestions": [
+        "分析历次考试成绩，找出自己的优势学科",
+        "评估自己的思维方式（逻辑思维、形象思维等）适合哪些学科",
+        "考虑自己的学习能力和学习习惯"
+      ]
+    },
+    {
+      "id": "based_on_careers",
+      "title": "基于职业规划选科",
+      "content": "选科与未来的专业选择和职业发展密切相关，应提前了解目标专业对选科的要求。",
+      "suggestions": [
+        "初步确定未来可能的职业方向",
+        "了解目标职业对应的大学专业",
+        "查询这些专业对选科的具体要求"
+      ]
+    }
+  ],
+  "major_subject_requirements": {
+    "computer_science": {
+      "major_name": "计算机科学与技术",
+      "required_subjects": ["物理"],
+      "recommended_subjects": ["化学", "生物", "信息技术"],
+      "description": "计算机科学与技术专业通常要求必选物理，部分高校可能对化学或信息技术有要求。"
+    },
+    "medicine": {
+      "major_name": "临床医学",
+      "required_subjects": ["物理", "化学", "生物"],
+      "recommended_subjects": [],
+      "description": "临床医学专业通常要求物理、化学、生物三科必选，部分高校可能只要求其中两科。"
+    },
+    "finance": {
+      "major_name": "金融学",
+      "required_subjects": [],
+      "recommended_subjects": ["数学", "政治", "历史"],
+      "description": "金融学专业一般没有严格的选科限制，但数学基础好的学生更有优势。"
+    },
+    "foreign_language": {
+      "major_name": "英语",
+      "required_subjects": [],
+      "recommended_subjects": ["语文", "历史"],
+      "description": "外语类专业通常没有选科限制，但语文基础好的学生更有优势。"
+    }
+  }
+}

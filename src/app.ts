@@ -11,6 +11,7 @@ import indexRouter from './routes/index';
 import usersRouter from './routes/users';
 import chatRouter from './routes/chat'
 import gaokaoRouter from './routes/gaokao'
+import knowledgeBaseRoutes from './routes/knowledgeBaseRoutes';
 import routes from './routes'
 import MoonshotAIChatbot from './services/getAi';
 import compression from 'compression'
@@ -55,6 +56,7 @@ app.use('/', indexRouter);
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/gaokao', gaokaoRouter);
 app.use('/api/v1/chat', chatRouter);
+app.use('/api/v1', knowledgeBaseRoutes);
 
 // catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: NextFunction) => {

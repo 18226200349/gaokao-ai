@@ -1,0 +1,294 @@
+{
+  "id": "universities",
+  "name": "院校信息",
+  "description": "包含全国重点大学的详细信息",
+  "lastUpdated": "2025-10-23",
+  "universities": [
+    {
+      "id": "pku",
+      "name": "北京大学",
+      "english_name": "Peking University",
+      "abbreviation": "北大",
+      "type": "综合类",
+      "level": "985/211/双一流",
+      "location": {
+        "province": "北京市",
+        "city": "北京市",
+        "district": "海淀区",
+        "address": "颐和园路5号"
+      },
+      "established": 1898,
+      "motto": "博学 审问 慎思 明辨 笃行",
+      "website": "https://www.pku.edu.cn",
+      "ranking": {
+        "national": 1,
+        "qs_world": 17,
+        "times_world": 16
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 687, "文科": 665},
+          "上海": {"综合": 618},
+          "广东": {"物理": 685, "历史": 658}
+        },
+        "enrollment_plan_2025": 3500,
+        "admission_rate": 0.02
+      },
+      "key_disciplines": [
+        "数学", "物理学", "化学", "生物学", "计算机科学",
+        "中国语言文学", "历史学", "哲学", "经济学", "法学"
+      ],
+      "featured_programs": [
+        "元培学院",
+        "数学英才班",
+        "图灵班",
+        "燕京学堂"
+      ],
+      "campus_area": 2743934,
+      "student_count": 45000,
+      "faculty_count": 7000,
+      "academician_count": 101
+    },
+    {
+      "id": "tsinghua",
+      "name": "清华大学",
+      "english_name": "Tsinghua University",
+      "abbreviation": "清华",
+      "type": "理工类",
+      "level": "985/211/双一流",
+      "location": {
+        "province": "北京市",
+        "city": "北京市",
+        "district": "海淀区",
+        "address": "清华园1号"
+      },
+      "established": 1911,
+      "motto": "自强不息 厚德载物",
+      "website": "https://www.tsinghua.edu.cn",
+      "ranking": {
+        "national": 1,
+        "qs_world": 25,
+        "times_world": 14
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 688, "文科": 668},
+          "上海": {"综合": 619},
+          "广东": {"物理": 688, "历史": 660}
+        },
+        "enrollment_plan_2025": 3800,
+        "admission_rate": 0.018
+      },
+      "key_disciplines": [
+        "计算机科学与技术", "电子工程", "自动化", "建筑学",
+        "土木工程", "机械工程", "化学工程", "材料科学", "物理学", "数学"
+      ],
+      "featured_programs": [
+        "姚班(计算机科学实验班)",
+        "钱学森力学班",
+        "数理基础科学班",
+        "新雅书院"
+      ],
+      "campus_area": 4420000,
+      "student_count": 53000,
+      "faculty_count": 7600,
+      "academician_count": 87
+    },
+    {
+      "id": "fudan",
+      "name": "复旦大学",
+      "english_name": "Fudan University",
+      "abbreviation": "复旦",
+      "type": "综合类",
+      "level": "985/211/双一流",
+      "location": {
+        "province": "上海市",
+        "city": "上海市",
+        "district": "杨浦区",
+        "address": "邯郸路220号"
+      },
+      "established": 1905,
+      "motto": "博学而笃志 切问而近思",
+      "website": "https://www.fudan.edu.cn",
+      "ranking": {
+        "national": 3,
+        "qs_world": 50,
+        "times_world": 51
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 678, "文科": 658},
+          "上海": {"综合": 612},
+          "广东": {"物理": 675, "历史": 650}
+        },
+        "enrollment_plan_2025": 3300,
+        "admission_rate": 0.025
+      },
+      "key_disciplines": [
+        "数学", "物理学", "化学", "生物学", "基础医学",
+        "临床医学", "新闻传播学", "哲学", "理论经济学"
+      ],
+      "featured_programs": [
+        "复旦学院",
+        "医学试验班",
+        "技术科学试验班"
+      ],
+      "campus_area": 2440000,
+      "student_count": 35000,
+      "faculty_count": 5800,
+      "academician_count": 62
+    },
+    {
+      "id": "sjtu",
+      "name": "上海交通大学",
+      "english_name": "Shanghai Jiao Tong University",
+      "abbreviation": "上交",
+      "type": "综合类",
+      "level": "985/211/双一流",
+      "location": {
+        "province": "上海市",
+        "city": "上海市",
+        "district": "闵行区",
+        "address": "东川路800号"
+      },
+      "established": 1896,
+      "motto": "饮水思源 爱国荣校",
+      "website": "https://www.sjtu.edu.cn",
+      "ranking": {
+        "national": 4,
+        "qs_world": 46,
+        "times_world": 52
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 680, "文科": 660},
+          "上海": {"综合": 615},
+          "广东": {"物理": 678, "历史": 653}
+        },
+        "enrollment_plan_2025": 4500,
+        "admission_rate": 0.022
+      },
+      "key_disciplines": [
+        "机械工程", "船舶与海洋工程", "控制科学与工程",
+        "计算机科学与技术", "电子科学与技术", "临床医学", "管理科学与工程"
+      ],
+      "featured_programs": [
+        "致远学院",
+        "ACM班",
+        "IEEE试点班",
+        "交大密西根学院"
+      ],
+      "campus_area": 3000000,
+      "student_count": 42000,
+      "faculty_count": 6800,
+      "academician_count": 55
+    },
+    {
+      "id": "zju",
+      "name": "浙江大学",
+      "english_name": "Zhejiang University",
+      "abbreviation": "浙大",
+      "type": "综合类",
+      "level": "985/211/双一流",
+      "location": {
+        "province": "浙江省",
+        "city": "杭州市",
+        "district": "西湖区",
+        "address": "余杭塘路866号"
+      },
+      "established": 1897,
+      "motto": "求是创新",
+      "website": "https://www.zju.edu.cn",
+      "ranking": {
+        "national": 3,
+        "qs_world": 44,
+        "times_world": 67
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 676, "文科": 656},
+          "浙江": {"综合": 670},
+          "广东": {"物理": 673, "历史": 648}
+        },
+        "enrollment_plan_2025": 6000,
+        "admission_rate": 0.028
+      },
+      "key_disciplines": [
+        "计算机科学与技术", "控制科学与工程", "光学工程",
+        "软件工程", "农业工程", "临床医学", "管理科学与工程"
+      ],
+      "featured_programs": [
+        "竺可桢学院",
+        "图灵班",
+        "巴德年医学班"
+      ],
+      "campus_area": 5739898,
+      "student_count": 60000,
+      "faculty_count": 9000,
+      "academician_count": 64
+    },
+    {
+      "id": "nju",
+      "name": "南京大学",
+      "english_name": "Nanjing University",
+      "abbreviation": "南大",
+      "type": "综合类",
+      "level": "985/211/双一流",
+      "location": {
+        "province": "江苏省",
+        "city": "南京市",
+        "district": "栖霞区",
+        "address": "仙林大道163号"
+      },
+      "established": 1902,
+      "motto": "诚朴雄伟 励学敦行",
+      "website": "https://www.nju.edu.cn",
+      "ranking": {
+        "national": 5,
+        "qs_world": 133,
+        "times_world": 105
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 672, "文科": 652},
+          "江苏": {"物理": 665, "历史": 640},
+          "广东": {"物理": 668, "历史": 645}
+        },
+        "enrollment_plan_2025": 3200,
+        "admission_rate": 0.03
+      },
+      "key_disciplines": [
+        "物理学", "化学", "天文学", "地质学",
+        "计算机科学与技术", "软件工程", "大气科学", "文学"
+      ],
+      "featured_programs": [
+        "匡亚明学院",
+        "人工智能学院",
+        "大理科班"
+      ],
+      "campus_area": 4600000,
+      "student_count": 36000,
+      "faculty_count": 5200,
+      "academician_count": 48
+    }
+  ],
+  "university_rankings": {
+    "c9_league": [
+      "北京大学", "清华大学", "复旦大学", "上海交通大学",
+      "浙江大学", "南京大学", "中国科学技术大学", "哈尔滨工业大学", "西安交通大学"
+    ],
+    "top_985": [
+      "北京大学", "清华大学", "复旦大学", "上海交通大学",
+      "浙江大学", "南京大学", "中国人民大学", "北京师范大学",
+      "武汉大学", "华中科技大学", "中山大学", "四川大学"
+    ],
+    "by_category": {
+      "理工类": ["清华大学", "中国科学技术大学", "哈尔滨工业大学", "北京航空航天大学"],
+      "综合类": ["北京大学", "复旦大学", "浙江大学", "南京大学"],
+      "师范类": ["北京师范大学", "华东师范大学", "华中师范大学"],
+      "财经类": ["上海财经大学", "中央财经大学", "对外经济贸易大学"],
+      "医学类": ["北京协和医学院", "首都医科大学", "南方医科大学"],
+      "政法类": ["中国政法大学", "中国人民公安大学", "西南政法大学"]
+    }
+  }
+}
