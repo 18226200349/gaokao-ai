@@ -9,6 +9,7 @@ import Solution from './pages/Solution'
 import './App.css'
 
 function App() {
+  console.log('')
   return (
     <ConfigProvider locale={zhCN}>
       <Router>
