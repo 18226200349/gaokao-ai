@@ -17,6 +17,9 @@ RUN pnpm install
 # 复制项目剩余文件
 COPY . .
 
+# 构建前端代码
+RUN cd client && pnpm run build
+
 # 暴露端口
 EXPOSE 3000
 
