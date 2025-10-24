@@ -56,10 +56,17 @@ const distPath = path.join(__dirname, '..', 'dist');
 console.log('React build files path:', distPath);
 app.use(express.static(distPath));
 
-// 传统页面路由（Jade模板）- 只处理特定路径
-app.get('/chat', (req: Request, res: Response) => {
-  res.render('chat', { title: '高考AI聊天助手' });
+// 代理根路径到 Vite 开发服务器
+app.get('/', (req: Request, res: Response) => {
+  res.redirect('http://localhost:3000/');
 });
+
+// 代理 /chat 路径到 Vite 开发服务器
+app.get('/chat', (req: Request, res: Response) => {
+  res.redirect('http://localhost:3000/chat');
+});
+
+// 传统页面路由（Jade模板）- 只保留jade路径
 app.get('/jade', (req: Request, res: Response) => {
   res.render('chat', { title: '高考AI聊天助手' });
 });
