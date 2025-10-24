@@ -40,6 +40,8 @@ const GaokaoQuery: React.FC = () => {
   const [detailModalVisible, setDetailModalVisible] = useState(false)
   const [selectedItem, setSelectedItem] = useState<UniversityData | MajorData | null>(null)
   const [searchProvince, setSearchProvince] = useState<string>('')
+  const [currentPage, setCurrentPage] = useState(1)
+  const [pageSize, setPageSize] = useState(10)
 
   // 高校列表列定义
   const universityColumns = [
@@ -215,6 +217,7 @@ const GaokaoQuery: React.FC = () => {
       
       if (response.data.success) {
         setData(response.data.data || [])
+        setCurrentPage(1) // 新查询结果，重置到第一页
         if (response.data.data?.length === 0) {
           message.info('未找到相关数据')
         } else {
@@ -223,6 +226,7 @@ const GaokaoQuery: React.FC = () => {
       } else {
         message.error(response.data.message || '查询失败')
         setData([])
+        setCurrentPage(1)
       }
     } catch (error) {
       console.error('查询失败:', error)
@@ -236,6 +240,8 @@ const GaokaoQuery: React.FC = () => {
   const handleReset = () => {
     form.resetFields()
     setData([])
+    setCurrentPage(1)
+    setPageSize(10)
   }
 
   const quickSearchOptions = [
@@ -319,6 +325,8 @@ const GaokaoQuery: React.FC = () => {
                     setQueryType(value)
                     form.resetFields()
                     setData([])
+                    setCurrentPage(1)
+                    setPageSize(10)
                   }}
                   style={{ borderRadius: '8px' }}
                   placeholder="选择查询类型"
@@ -503,10 +511,19 @@ const GaokaoQuery: React.FC = () => {
           loading={loading}
           rowKey="id"
           pagination={{
-            pageSize: 10,
+            current: currentPage,
+            pageSize: pageSize,
             showSizeChanger: true,
             showQuickJumper: true,
             showTotal: (total: number) => `共 ${total} 条记录`,
+            pageSizeOptions: ['10', '20', '50', '100'],
+            onChange: (page, size) => {
+              setCurrentPage(page)
+              if (size !== pageSize) {
+                setPageSize(size)
+                setCurrentPage(1) // 切换每页条数时回到第一页
+              }
+            },
             style: { marginTop: '16px' }
           }}
           locale={{
