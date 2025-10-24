@@ -53,7 +53,7 @@ const Solution: React.FC = () => {
 
   useEffect(() => {
     // 从localStorage加载用户信息
-    const savedInfo = localStorage.getItem('userInfo')
+    const savedInfo = localStorage.getItem('gaokao_user_info')
     if (savedInfo) {
       const info = JSON.parse(savedInfo)
       setUserInfo(info)
