@@ -1,0 +1,58 @@
+{
+  "version": "1.0",
+  "name": "高考知识库",
+  "description": "包含高考相关的政策、地区、学籍、体检、科类等信息的知识库",
+  "lastUpdated": "2025-10-23",
+  "sections": [
+    {
+      "id": "policy",
+      "name": "高考政策",
+      "file": "policy.json",
+      "description": "包含国家和各地区的高考政策信息"
+    },
+    {
+      "id": "regions",
+      "name": "地区信息",
+      "file": "regions.json",
+      "description": "包含各省份、城市的相关信息"
+    },
+    {
+      "id": "student_status",
+      "name": "学籍管理",
+      "file": "student_status.json",
+      "description": "包含学籍相关的规定和管理办法"
+    },
+    {
+      "id": "medical_exam",
+      "name": "体检标准",
+      "file": "medical_exam.json",
+      "description": "包含高考体检的标准和要求"
+    },
+    {
+      "id": "subject_categories",
+      "name": "科类信息",
+      "file": "subject_categories.json",
+      "description": "包含文科、理科、新高考选科等科类相关信息"
+    },
+    {
+      "id": "majors",
+      "name": "专业目录",
+      "file": "majors.json"
+    },
+    {
+      "id": "universities",
+      "name": "院校信息",
+      "file": "universities.json"
+    },
+    {
+      "id": "admission_guide",
+      "name": "志愿填报指导",
+      "file": "admission_guide.json"
+    },
+    {
+      "id": "career_planning",
+      "name": "职业规划指导",
+      "file": "career_planning.json"
+    }
+  ]
+}

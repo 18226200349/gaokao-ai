@@ -6,15 +6,60 @@ block content
   .chat-wrapper
     .chat-header
       h1 高考AI智能助手 🤖
-      p.subtext 让你的每一个问题，都有权威答案
+      p.subtitle 让你的每一个问题，都有权威答案
 
-    #chat-container
+    .chat-container
       #messages
         .message.system
           .avatar 💬
-          .content 欢迎使用【高考AI聊天助手】！请输入您的问题，我将为您提供帮助。
+          .bubble 欢迎使用【高考AI聊天助手】！请输入您的问题，我将为您提供帮助。
 
     form#chat-form
+      select#province-select
+        option(value='北京') 北京
+        option(value='上海') 上海
+        option(value='广东') 广东
+        option(value='江苏') 江苏
+        option(value='浙江') 浙江
+        option(value='山东') 山东
+        option(value='河南') 河南
+        option(value='四川') 四川
+        option(value='湖北') 湖北
+        option(value='湖南') 湖南
+        option(value='河北') 河北
+        option(value='安徽') 安徽
+        option(value='福建') 福建
+        option(value='江西') 江西
+        option(value='陕西') 陕西
+        option(value='山西') 山西
+        option(value='重庆') 重庆
+        option(value='云南') 云南
+        option(value='辽宁') 辽宁
+        option(value='黑龙江') 黑龙江
+        option(value='广西') 广西
+        option(value='贵州') 贵州
+        option(value='甘肃') 甘肃
+        option(value='内蒙古') 内蒙古
+        option(value='海南') 海南
+        option(value='宁夏') 宁夏
+        option(value='青海') 青海
+        option(value='新疆') 新疆
+        option(value='西藏') 西藏
+        option(value='天津') 天津
+        option(value='吉林') 吉林
+        option(value='台湾') 台湾
+        option(value='香港') 香港
+        option(value='澳门') 澳门
+      .subject-selection
+        label
+          input#science-radio(type='radio', name='subject', value='理科', checked)
+          span.radio-custom
+          理科
+        label
+          input#arts-radio(type='radio', name='subject', value='文科')
+          span.radio-custom
+          文科
+      input#score-input(type='number', placeholder='分数：', min='0', max='750', step='1')
       input#message-input(type='text', placeholder='请输入您的问题...')
       button#send-button(type='submit') 🚀 发送
       button#clear-button(type='button') 🧹 清空
