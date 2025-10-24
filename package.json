@@ -4,9 +4,12 @@
   "private": true,
   "scripts": {
     "start": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
+    "start:prod": "concurrently \"npm run server:prod\" \"npm run client:prod\"",
     "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
     "server:dev": "nodemon",
+    "server:prod": "ts-node bin/www",
     "client:dev": "cd client && npm run dev",
+    "client:prod": "cd client && npm run preview",
     "build": "cd client && npm run build",
     "client:install": "cd client && pnpm install",
     "postinstall": "cd client && pnpm install"
