@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Form, Input, Button, Select, Table, message, Space, Typography, Row, Col, Modal, Tag, Descriptions, InputNumber } from 'antd'
 import { SearchOutlined, BookOutlined, EnvironmentOutlined, StarOutlined, TrophyOutlined, DollarOutlined, PercentageOutlined, InfoCircleOutlined } from '@ant-design/icons'
 import axios from 'axios'
@@ -42,6 +42,73 @@ const GaokaoQuery: React.FC = () => {
   const [searchProvince, setSearchProvince] = useState<string>('')
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
+  const hasInitialized = useRef(false)
+
+  // 默认查询条件
+  const defaultSearchParams = {
+    university: {
+      level: '985'  // 默认查询985高校
+    },
+    major: {
+      category: '工学'  // 默认查询工学专业
+    }
+  }
+
+  // 页面加载时执行默认查询
+  useEffect(() => {
+    // 防止严格模式下的重复执行
+    if (hasInitialized.current) {
+      return
+    }
+    hasInitialized.current = true
+    
+    const performDefaultSearch = async () => {
+      const defaultParams = defaultSearchParams[queryType] as any
+      form.setFieldsValue(defaultParams)
+      
+      setLoading(true)
+      try {
+        const endpoint = queryType === 'university' ? '/api/v1/gaokao/universities' : '/api/v1/gaokao/majors'
+        
+        // 构建查询参数
+        const params: any = {}
+        if (defaultParams.keyword) params.keyword = defaultParams.keyword
+        if (defaultParams.location) params.location = defaultParams.location
+        if (defaultParams.level) params.level = defaultParams.level
+        if (defaultParams.category) params.category = defaultParams.category
+        if (defaultParams.province) {
+          params.province = defaultParams.province
+          setSearchProvince(defaultParams.province)
+        }
+        if (defaultParams.minScore) params.minScore = defaultParams.minScore
+        if (defaultParams.maxScore) params.maxScore = defaultParams.maxScore
+        
+        const response = await axios.get(endpoint, { params })
+        
+        if (response.data.success) {
+          setData(response.data.data || [])
+          setCurrentPage(1)
+          if (response.data.data?.length === 0) {
+            message.info('未找到相关数据')
+          } else {
+            message.success(`找到 ${response.data.data.length} 条记录`)
+          }
+        } else {
+          message.error(response.data.message || '查询失败')
+          setData([])
+          setCurrentPage(1)
+        }
+      } catch (error) {
+        console.error('查询失败:', error)
+        message.error('查询失败，请稍后重试')
+        setData([])
+      } finally {
+        setLoading(false)
+      }
+    }
+    
+    performDefaultSearch()
+  }, []) // 只在组件挂载时执行一次
 
   // 高校列表列定义
   const universityColumns = [
@@ -237,11 +304,55 @@ const GaokaoQuery: React.FC = () => {
     }
   }
 
-  const handleReset = () => {
+  const handleReset = async () => {
     form.resetFields()
     setData([])
     setCurrentPage(1)
     setPageSize(10)
+    
+    // 重置后执行默认查询
+    const defaultParams = defaultSearchParams[queryType] as any
+    form.setFieldsValue(defaultParams)
+    
+    setLoading(true)
+    try {
+      const endpoint = queryType === 'university' ? '/api/v1/gaokao/universities' : '/api/v1/gaokao/majors'
+      
+      // 构建查询参数
+      const params: any = {}
+      if (defaultParams.keyword) params.keyword = defaultParams.keyword
+      if (defaultParams.location) params.location = defaultParams.location
+      if (defaultParams.level) params.level = defaultParams.level
+      if (defaultParams.category) params.category = defaultParams.category
+      if (defaultParams.province) {
+        params.province = defaultParams.province
+        setSearchProvince(defaultParams.province)
+      }
+      if (defaultParams.minScore) params.minScore = defaultParams.minScore
+      if (defaultParams.maxScore) params.maxScore = defaultParams.maxScore
+      
+      const response = await axios.get(endpoint, { params })
+      
+      if (response.data.success) {
+        setData(response.data.data || [])
+        setCurrentPage(1)
+        if (response.data.data?.length === 0) {
+          message.info('未找到相关数据')
+        } else {
+          message.success(`找到 ${response.data.data.length} 条记录`)
+        }
+      } else {
+        message.error(response.data.message || '查询失败')
+        setData([])
+        setCurrentPage(1)
+      }
+    } catch (error) {
+      console.error('查询失败:', error)
+      message.error('查询失败，请稍后重试')
+      setData([])
+    } finally {
+      setLoading(false)
+    }
   }
 
   const quickSearchOptions = [
