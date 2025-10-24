@@ -1,0 +1,164 @@
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-layout {
+  min-height: 100vh;
+  background: transparent;
+}
+
+.app-header {
+  background: var(--bg-light) !important;
+  backdrop-filter: blur(10px);
+  padding: 0 var(--spacing-xl);
+  border-bottom: 1px solid var(--border-light);
+  box-shadow: var(--shadow-light);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.app-header .header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.app-header .logo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.app-header .logo h1 {
+  color: var(--text-primary) !important;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.app-header .ant-menu {
+  background: transparent !important;
+  border-bottom: none !important;
+  font-weight: 500;
+}
+
+.app-header .ant-menu-item {
+  border-radius: var(--radius-medium) !important;
+  margin: 0 var(--spacing-xs) !important;
+  transition: all 0.3s ease !important;
+}
+
+.app-header .ant-menu-item:hover {
+  background: rgba(0, 122, 255, 0.1) !important;
+  transform: translateY(-1px);
+}
+
+.app-header .ant-menu-item-selected {
+  background: var(--primary-color) !important;
+  color: white !important;
+}
+
+.app-header .ant-menu-item-selected a {
+  color: white !important;
+}
+
+.app-content {
+  flex: 1;
+  padding: var(--spacing-lg);
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.app-footer {
+  text-align: center;
+  background: var(--bg-light) !important;
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--border-light);
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* 移动端内容样式 */
+.mobile-content {
+  padding: 0 !important;
+  margin: 0 !important;
+  max-width: 100% !important;
+  padding-bottom: 70px !important; /* 为底部导航留出空间 */
+}
+
+/* 移动端底部导航 */
+.mobile-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: var(--bg-light);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-bottom-nav .nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: var(--text-muted);
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  min-width: 60px;
+}
+
+.mobile-bottom-nav .nav-item span {
+  font-size: 12px;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.mobile-bottom-nav .nav-item.active {
+  color: var(--primary-color);
+  background: rgba(0, 122, 255, 0.1);
+}
+
+.mobile-bottom-nav .nav-item:hover {
+  color: var(--primary-color);
+  background: rgba(0, 122, 255, 0.05);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .app-content {
+    padding: 0;
+    margin: 0;
+    max-width: 100%;
+  }
+  
+  .app-layout {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-content {
+    padding: 0;
+  }
+}

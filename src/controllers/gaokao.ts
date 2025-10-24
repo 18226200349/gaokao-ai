@@ -213,6 +213,52 @@ const gaokaoController = {
         }
       });
     }
+  },
+  
+  // 高考专用聊天接口
+  chat: async function (req: any, res: any, next: any) {
+    try {
+      const { message, province } = req.body;
+      
+      // 参数校验
+      if (!message) {
+        return res.json({
+          code: 400,
+          success: false,
+          message: '缺少必要参数：message',
+          data: null
+        });
+      }
+      
+      // 这里可以调用AI服务，针对高考相关问题进行专门处理
+      // 暂时返回一个模拟响应
+      const reply = `关于高考的问题："${message}"，我建议你${province ? `在${province}` : ''}可以考虑以下几个方面：
+1. 了解当地的高考政策和报名要求
+2. 根据自己的兴趣和成绩选择合适的专业
+3. 提前准备相关的报名材料
+4. 关注重要的时间节点
+
+如需更详细的个性化建议，请使用我们的高考咨询功能。`;
+      
+      res.json({
+        code: 200,
+        success: true,
+        message: '操作成功',
+        data: {
+          reply: reply,
+          timestamp: new Date().toISOString()
+        }
+      });
+    } catch (error: any) {
+      res.json({
+        code: 500,
+        success: false,
+        message: '服务器内部错误',
+        data: { 
+          error: error.message 
+        }
+      });
+    }
   }
 }
 

@@ -46,19 +46,48 @@ app.use(cors(corsOptions))
 app.use(compression())
 
 // 静态文件中间件应该放在所有路由之前
-// 更正静态文件路径 - public目录在根目录下，不是src目录下
+// 首先提供public目录的静态文件服务（保持原有的Jade模板样式正常）
 const publicPath = path.join(__dirname, '..', 'public');
 console.log('Static files path:', publicPath);
 app.use(express.static(publicPath));
 
-// 路由配置
-app.use('/', indexRouter);
+// 然后提供React构建产物的静态文件服务
+const distPath = path.join(__dirname, '..', 'dist');
+console.log('React build files path:', distPath);
+app.use(express.static(distPath));
+
+// 传统页面路由（Jade模板）- 只处理特定路径
+app.get('/chat', (req: Request, res: Response) => {
+  res.render('chat', { title: '高考AI聊天助手' });
+});
+app.get('/jade', (req: Request, res: Response) => {
+  res.render('chat', { title: '高考AI聊天助手' });
+});
+
+// API路由配置
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/gaokao', gaokaoRouter);
 app.use('/api/v1/chat', chatRouter);
 app.use('/api/v1', knowledgeBaseRoutes);
 
-// catch 404 and forward to error handler
+// 对于所有非API路由，返回React应用的index.html (支持客户端路由)
+app.get('*', (req: Request, res: Response, next: NextFunction) => {
+  // 如果是API路由，继续到404处理
+  if (req.path.startsWith('/api/')) {
+    return next();
+  }
+  
+  // 返回React应用的index.html
+  const indexPath = path.join(__dirname, '..', 'dist', 'index.html');
+  res.sendFile(indexPath, (err) => {
+    if (err) {
+      console.error('Error sending index.html:', err);
+      next(createError(404));
+    }
+  });
+});
+
+// catch 404 and forward to error handler (只处理API路由的404)
 app.use((req: Request, res: Response, next: NextFunction) => {
   next(createError(404));
 });
