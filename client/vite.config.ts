@@ -9,19 +9,13 @@ export default defineConfig({
     emptyOutDir: true,
   },
   server: {
-    port: 3000,
+    port: 4001,
     host: true,
     hmr: {
       overlay: true,
     },
     watch: {
       usePolling: true,
-    },
-    proxy: {
-      '/api': {
-        target: 'http://localhost:4001',
-        changeOrigin: true,
-      },
     },
   },
 })

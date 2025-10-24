@@ -3,10 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV=production ts-node bin/www.ts",
-    "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
-    "server:dev": "nodemon",
-    "client:dev": "cd client && npm run dev",
+    "start": "npm run build && ts-node bin/www.ts",
+    "dev": "npm run build && nodemon",
     "build": "cd client && npm run build",
     "client:install": "cd client && pnpm install",
     "postinstall": "cd client && pnpm install"

@@ -74,7 +74,7 @@ app.get('*', (req: Request, res: Response, next: NextFunction) => {
     return next();
   }
   
-  // 返回React应用的index.html
+  // 返回React应用的index.html (SPA路由支持)
   const indexPath = path.join(__dirname, '..', 'dist', 'index.html');
   res.sendFile(indexPath, (err) => {
     if (err) {
