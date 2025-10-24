@@ -4,6 +4,7 @@ import { Response } from 'express';
 import ExcelJS from 'exceljs';
 import { knowledgeBaseService } from '../services/knowledgeBaseService';
 import logger from '../../logger';
+import getAi from '../services/getAi';
 
 interface University {
   id: string;
@@ -277,6 +278,116 @@ const gaokaoController = {
     }
   },
   
+  // AI生成排名最高的10所学校
+  getTopUniversitiesByAI: async function (req: any, res: any, next: any) {
+    try {
+      const { keyword, level, location } = req.query;
+      
+      logger.info('AI生成排名最高的学校', { keyword, level, location });
+      
+      // 参数校验
+      if (!keyword) {
+        return res.json({
+          code: 400,
+          message: '缺少必要参数：keyword（院校关键词）',
+          data: null
+        });
+      }
+      
+      // 从知识库获取大学数据
+      const universitiesData = await knowledgeBaseService.getUniversitiesData();
+      const universities: University[] = universitiesData?.universities || [];
+      
+      // 初步筛选匹配的大学
+      let matchedUniversities = universities.filter(u => {
+        const keywordLower = (keyword as string).toLowerCase();
+        const nameMatch = u.name.toLowerCase().includes(keywordLower);
+        const levelMatch = !level || (u.level && u.level.includes(level as string));
+        const locationMatch = !location || 
+          u.location.province.includes(location as string) || 
+          u.location.city.includes(location as string) ||
+          (location as string).includes(u.location.province) ||
+          (location as string).includes(u.location.city);
+        return nameMatch && levelMatch && locationMatch;
+      });
+      
+      // 如果没有找到匹配的大学，尝试更宽松的匹配
+      if (matchedUniversities.length === 0) {
+        matchedUniversities = universities.filter(u => {
+          const keywordLower = (keyword as string).toLowerCase();
+          return u.name.toLowerCase().includes(keywordLower) ||
+                 u.location.province.toLowerCase().includes(keywordLower) ||
+                 u.location.city.toLowerCase().includes(keywordLower) ||
+                 (u.type && u.type.toLowerCase().includes(keywordLower));
+        });
+      }
+      
+      // 按排名排序（优先考虑全国排名）
+      matchedUniversities.sort((a, b) => {
+        const rankA = a.ranking?.national || 9999;
+        const rankB = b.ranking?.national || 9999;
+        return rankA - rankB;
+      });
+      
+      // 取前10所
+      const top10Universities = matchedUniversities.slice(0, 10);
+      
+      // 构建AI分析的上下文
+      let context = `作为高考志愿填报专家，请根据以下院校信息，分析并推荐排名最高的10所学校。\n\n`;
+      context += `用户搜索关键词：${keyword}\n`;
+      if (level) context += `层次要求：${level}\n`;
+      if (location) context += `地区要求：${location}\n\n`;
+      
+      context += `匹配到的院校列表（已按全国排名排序）：\n`;
+      top10Universities.forEach((u, index) => {
+        context += `${index + 1}. ${u.name}\n`;
+        context += `   - 层次：${u.level || '未知'}\n`;
+        context += `   - 地区：${u.location.province} ${u.location.city}\n`;
+        context += `   - 类型：${u.type || '未知'}\n`;
+        context += `   - 全国排名：${u.ranking?.national || '未排名'}\n`;
+        if (u.ranking?.qs_world) context += `   - QS世界排名：${u.ranking.qs_world}\n`;
+        if (u.key_disciplines?.length > 0) {
+          context += `   - 重点学科：${u.key_disciplines.slice(0, 3).join('、')}等\n`;
+        }
+        context += `\n`;
+      });
+      
+      context += `请对这些院校进行简要分析，包括：\n`;
+      context += `1. 这些院校的综合实力和特色\n`;
+      context += `2. 推荐理由（为什么这些学校排名靠前）\n`;
+      context += `3. 选择建议（适合什么样的考生）\n\n`;
+      context += `请用简洁专业的语言回答，重点突出每所学校的优势。`;
+      
+      // 调用AI生成分析报告
+      const aiAnalysis = await getAi.chat(context);
+      
+      res.json({
+        code: 200,
+        message: '操作成功',
+        data: {
+          universities: top10Universities,
+          total: top10Universities.length,
+          aiAnalysis: aiAnalysis,
+          searchInfo: {
+            keyword,
+            level: level || null,
+            location: location || null,
+            totalMatched: matchedUniversities.length
+          }
+        }
+      });
+    } catch (error: any) {
+      logger.error('AI生成排名最高的学校失败', error);
+      res.json({
+        code: 500,
+        message: '服务器内部错误',
+        data: { 
+          error: error.message 
+        }
+      });
+    }
+  },
+  
   // 获取大学列表
   getUniversities: async function (req: any, res: any, next: any) {
     try {
@@ -298,11 +409,13 @@ const gaokaoController = {
         );
       }
       
-      // 按location过滤
+      // 按location过滤（支持模糊匹配）
       if (location) {
         filteredUniversities = filteredUniversities.filter(u => 
           u.location.province.includes(location) || 
-          u.location.city.includes(location)
+          u.location.city.includes(location) ||
+          location.includes(u.location.province) ||
+          location.includes(u.location.city)
         );
       }
       

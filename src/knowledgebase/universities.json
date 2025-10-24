@@ -270,10 +270,1858 @@
       "student_count": 36000,
       "faculty_count": 5200,
       "academician_count": 48
+    },
+    {
+      "id": "ruc",
+      "name": "中国人民大学",
+      "english_name": "Renmin University of China",
+      "abbreviation": "人大",
+      "type": "综合类",
+      "level": "985/211/双一流",
+      "location": {
+        "province": "北京市",
+        "city": "北京市",
+        "district": "海淀区",
+        "address": "中关村大街59号"
+      },
+      "established": 1937,
+      "motto": "实事求是",
+      "website": "https://www.ruc.edu.cn",
+      "ranking": {
+        "national": 10,
+        "qs_world": 581,
+        "times_world": 601
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 668, "文科": 655},
+          "上海": {"综合": 608},
+          "广东": {"物理": 665, "历史": 648}
+        },
+        "enrollment_plan_2025": 2800,
+        "admission_rate": 0.025
+      },
+      "key_disciplines": [
+        "应用经济学", "法学", "政治学", "社会学",
+        "新闻传播学", "工商管理", "公共管理", "哲学"
+      ],
+      "featured_programs": [
+        "国学院",
+        "PPE实验班",
+        "明德书院"
+      ],
+      "campus_area": 1700000,
+      "student_count": 28000,
+      "faculty_count": 2800,
+      "academician_count": 15
+    },
+    {
+      "id": "bnu",
+      "name": "北京师范大学",
+      "english_name": "Beijing Normal University",
+      "abbreviation": "北师大",
+      "type": "师范类",
+      "level": "985/211/双一流",
+      "location": {
+        "province": "北京市",
+        "city": "北京市",
+        "district": "海淀区",
+        "address": "新街口外大街19号"
+      },
+      "established": 1902,
+      "motto": "学为人师 行为世范",
+      "website": "https://www.bnu.edu.cn",
+      "ranking": {
+        "national": 15,
+        "qs_world": 272,
+        "times_world": 301
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 665, "文科": 650},
+          "上海": {"综合": 605},
+          "广东": {"物理": 662, "历史": 645}
+        },
+        "enrollment_plan_2025": 2500,
+        "admission_rate": 0.028
+      },
+      "key_disciplines": [
+        "教育学", "心理学", "中国语言文学", "数学",
+        "地理学", "系统科学", "生态学", "环境科学"
+      ],
+      "featured_programs": [
+        "珠海校区UIC",
+        "励耘学院",
+        "强基计划"
+      ],
+      "campus_area": 1191000,
+      "student_count": 24000,
+      "faculty_count": 3100,
+      "academician_count": 26
+    },
+    {
+      "id": "buaa",
+      "name": "北京航空航天大学",
+      "english_name": "Beihang University",
+      "abbreviation": "北航",
+      "type": "理工类",
+      "level": "985/211/双一流",
+      "location": {
+        "province": "北京市",
+        "city": "北京市",
+        "district": "海淀区",
+        "address": "学院路37号"
+      },
+      "established": 1952,
+      "motto": "德才兼备 知行合一",
+      "website": "https://www.buaa.edu.cn",
+      "ranking": {
+        "national": 18,
+        "qs_world": 383,
+        "times_world": 501
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 670, "文科": 640},
+          "上海": {"综合": 610},
+          "广东": {"物理": 668, "历史": 635}
+        },
+        "enrollment_plan_2025": 3800,
+        "admission_rate": 0.03
+      },
+      "key_disciplines": [
+        "航空宇航科学与技术", "仪器科学与技术", "材料科学与工程",
+        "软件工程", "控制科学与工程", "计算机科学与技术"
+      ],
+      "featured_programs": [
+        "高等理工学院",
+        "知行文科试验班",
+        "医工交叉试验班"
+      ],
+      "campus_area": 4100000,
+      "student_count": 35000,
+      "faculty_count": 3200,
+      "academician_count": 28
+    },
+    {
+      "id": "seu",
+      "name": "东南大学",
+      "english_name": "Southeast University",
+      "abbreviation": "东大",
+      "type": "综合类",
+      "level": "985/211/双一流",
+      "location": {
+        "province": "江苏省",
+        "city": "南京市",
+        "district": "玄武区",
+        "address": "四牌楼2号"
+      },
+      "established": 1902,
+      "motto": "止于至善",
+      "website": "https://www.seu.edu.cn",
+      "ranking": {
+        "national": 17,
+        "qs_world": 701,
+        "times_world": 501
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 665, "文科": 650},
+          "上海": {"综合": 575},
+          "广东": {"物理": 670, "历史": 645}
+        },
+        "enrollment_plan_2025": 4200,
+        "admission_rate": 0.03
+      },
+      "key_disciplines": [
+        "建筑学", "土木工程", "交通运输工程",
+        "生物医学工程", "电子科学与技术", "艺术学理论"
+      ],
+      "featured_programs": [
+        "吴健雄学院",
+        "茅以升学院",
+        "建筑学(本硕博贯通)"
+      ],
+      "campus_area": 5880000,
+      "student_count": 36000,
+      "faculty_count": 3500,
+      "academician_count": 15
+    },
+    {
+      "id": "nuaa",
+      "name": "南京航空航天大学",
+      "english_name": "Nanjing University of Aeronautics and Astronautics",
+      "abbreviation": "南航",
+      "type": "理工类",
+      "level": "211/双一流",
+      "location": {
+        "province": "江苏省",
+        "city": "南京市",
+        "district": "秦淮区",
+        "address": "御道街29号"
+      },
+      "established": 1952,
+      "motto": "智周万物 道济天下",
+      "website": "https://www.nuaa.edu.cn",
+      "ranking": {
+        "national": 35,
+        "qs_world": 901,
+        "times_world": 801
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 655, "文科": 635},
+          "上海": {"综合": 568},
+          "广东": {"物理": 660, "历史": 630}
+        },
+        "enrollment_plan_2025": 5000,
+        "admission_rate": 0.042
+      },
+      "key_disciplines": [
+        "航空宇航科学与技术", "力学", "控制科学与工程",
+        "计算机科学与技术", "机械工程", "材料科学与工程"
+      ],
+      "featured_programs": [
+        "长空学院",
+        "航空航天类(本硕博贯通)",
+        "飞行器设计与工程"
+      ],
+      "campus_area": 3560000,
+      "student_count": 32000,
+      "faculty_count": 3100,
+      "academician_count": 12
+    },
+    {
+      "id": "njust",
+      "name": "南京理工大学",
+      "english_name": "Nanjing University of Science and Technology",
+      "abbreviation": "南理工",
+      "type": "理工类",
+      "level": "211/双一流",
+      "location": {
+        "province": "江苏省",
+        "city": "南京市",
+        "district": "玄武区",
+        "address": "孝陵卫200号"
+      },
+      "established": 1953,
+      "motto": "进德修业 志道鼎新",
+      "website": "https://www.njust.edu.cn",
+      "ranking": {
+        "national": 37,
+        "qs_world": 951,
+        "times_world": 851
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 653, "文科": 633},
+          "上海": {"综合": 566},
+          "广东": {"物理": 658, "历史": 628}
+        },
+        "enrollment_plan_2025": 4800,
+        "admission_rate": 0.044
+      },
+      "key_disciplines": [
+        "兵器科学与技术", "化学工程与技术", "光学工程",
+        "控制科学与工程", "材料科学与工程", "计算机科学与技术"
+      ],
+      "featured_programs": [
+        "钱学森学院",
+        "兵器类(本硕博贯通)",
+        "智能制造工程"
+      ],
+      "campus_area": 3300000,
+      "student_count": 30000,
+      "faculty_count": 2900,
+      "academician_count": 10
+    },
+    {
+      "id": "hhu",
+      "name": "河海大学",
+      "english_name": "Hohai University",
+      "abbreviation": "河海",
+      "type": "理工类",
+      "level": "211/双一流",
+      "location": {
+        "province": "江苏省",
+        "city": "南京市",
+        "district": "鼓楼区",
+        "address": "西康路1号"
+      },
+      "established": 1915,
+      "motto": "艰苦朴素 实事求是 严格要求 勇于探索",
+      "website": "https://www.hhu.edu.cn",
+      "ranking": {
+        "national": 42,
+        "qs_world": 1001,
+        "times_world": 901
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 650, "文科": 630},
+          "上海": {"综合": 563},
+          "广东": {"物理": 655, "历史": 625}
+        },
+        "enrollment_plan_2025": 5200,
+        "admission_rate": 0.046
+      },
+      "key_disciplines": [
+        "水利工程", "环境科学与工程", "土木工程",
+        "海洋科学", "地质资源与地质工程", "力学"
+      ],
+      "featured_programs": [
+        "大禹学院",
+        "水利类(本硕博贯通)",
+        "港口航道与海岸工程"
+      ],
+      "campus_area": 2580000,
+      "student_count": 28000,
+      "faculty_count": 2700,
+      "academician_count": 11
+    },
+    {
+      "id": "njnu",
+      "name": "南京师范大学",
+      "english_name": "Nanjing Normal University",
+      "abbreviation": "南师大",
+      "type": "师范类",
+      "level": "211/双一流",
+      "location": {
+        "province": "江苏省",
+        "city": "南京市",
+        "district": "栖霞区",
+        "address": "文苑路1号"
+      },
+      "established": 1902,
+      "motto": "正德厚生 笃学敏行",
+      "website": "https://www.njnu.edu.cn",
+      "ranking": {
+        "national": 45,
+        "qs_world": 1051,
+        "times_world": 951
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 645, "文科": 638},
+          "上海": {"综合": 560},
+          "广东": {"物理": 650, "历史": 632}
+        },
+        "enrollment_plan_2025": 5400,
+        "admission_rate": 0.048
+      },
+      "key_disciplines": [
+        "教育学", "心理学", "中国语言文学",
+        "地理学", "外国语言文学", "美术学"
+      ],
+      "featured_programs": [
+        "厚生国际学院",
+        "公费师范生",
+        "卓越教师培养计划"
+      ],
+      "campus_area": 2700000,
+      "student_count": 31000,
+      "faculty_count": 2800,
+      "academician_count": 9
+    },
+    {
+      "id": "cumt",
+      "name": "中国矿业大学",
+      "english_name": "China University of Mining and Technology",
+      "abbreviation": "矿大",
+      "type": "理工类",
+      "level": "211/双一流",
+      "location": {
+        "province": "江苏省",
+        "city": "徐州市",
+        "district": "铜山区",
+        "address": "大学路1号"
+      },
+      "established": 1909,
+      "motto": "开拓创新 严谨治学",
+      "website": "https://www.cumt.edu.cn",
+      "ranking": {
+        "national": 50,
+        "qs_world": 1101,
+        "times_world": 1001
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 640, "文科": 625},
+          "上海": {"综合": 555},
+          "广东": {"物理": 645, "历史": 620}
+        },
+        "enrollment_plan_2025": 5600,
+        "admission_rate": 0.05
+      },
+      "key_disciplines": [
+        "矿业工程", "安全科学与工程", "测绘科学与技术",
+        "地质资源与地质工程", "机械工程", "土木工程"
+      ],
+      "featured_programs": [
+        "孙越崎学院",
+        "矿业类(本硕博贯通)",
+        "智能采矿工程"
+      ],
+      "campus_area": 4413000,
+      "student_count": 34000,
+      "faculty_count": 3000,
+      "academician_count": 12
+    },
+    {
+      "id": "njau",
+      "name": "南京农业大学",
+      "english_name": "Nanjing Agricultural University",
+      "abbreviation": "南农",
+      "type": "农林类",
+      "level": "211/双一流",
+      "location": {
+        "province": "江苏省",
+        "city": "南京市",
+        "district": "玄武区",
+        "address": "卫岗1号"
+      },
+      "established": 1902,
+      "motto": "诚朴勤仁",
+      "website": "https://www.njau.edu.cn",
+      "ranking": {
+        "national": 48,
+        "qs_world": 1081,
+        "times_world": 981
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 642, "文科": 628},
+          "上海": {"综合": 557},
+          "广东": {"物理": 647, "历史": 622}
+        },
+        "enrollment_plan_2025": 4700,
+        "admission_rate": 0.047
+      },
+      "key_disciplines": [
+        "作物学", "农业资源与环境", "植物保护",
+        "兽医学", "农林经济管理", "食品科学与工程"
+      ],
+      "featured_programs": [
+         "金善宝实验班",
+         "农业类(本硕博贯通)",
+         "智慧农业"
+       ],
+       "campus_area": 2330000,
+       "student_count": 27000,
+       "faculty_count": 2500,
+       "academician_count": 8
+     },
+     {
+       "id": "suda",
+       "name": "苏州大学",
+       "english_name": "Soochow University",
+       "abbreviation": "苏大",
+       "type": "综合类",
+       "level": "211/双一流",
+       "location": {
+         "province": "江苏省",
+         "city": "苏州市",
+         "district": "姑苏区",
+         "address": "十梓街1号"
+       },
+       "established": 1900,
+       "motto": "养天地正气 法古今完人",
+       "website": "https://www.suda.edu.cn",
+       "ranking": {
+         "national": 38,
+         "qs_world": 851,
+         "times_world": 801
+       },
+       "admission_info": {
+         "2024_cutoff_scores": {
+           "北京": {"理科": 652, "文科": 640},
+           "上海": {"综合": 570},
+           "广东": {"物理": 657, "历史": 635}
+         },
+         "enrollment_plan_2025": 6200,
+         "admission_rate": 0.045
+       },
+       "key_disciplines": [
+         "材料科学与工程", "纳米科学与技术", "法学",
+         "中国语言文学", "软件工程", "设计学"
+       ],
+       "featured_programs": [
+         "纳米科学技术学院",
+         "敬文书院",
+         "唐文治书院"
+       ],
+       "campus_area": 4000000,
+       "student_count": 52000,
+       "faculty_count": 3800,
+       "academician_count": 7
+     },
+     {
+       "id": "jiangnan",
+       "name": "江南大学",
+       "english_name": "Jiangnan University",
+       "abbreviation": "江大",
+       "type": "综合类",
+       "level": "211/双一流",
+       "location": {
+         "province": "江苏省",
+         "city": "无锡市",
+         "district": "滨湖区",
+         "address": "蠡湖大道1800号"
+       },
+       "established": 1902,
+       "motto": "笃学尚行 止于至善",
+       "website": "https://www.jiangnan.edu.cn",
+       "ranking": {
+         "national": 47,
+         "qs_world": 1001,
+         "times_world": 951
+       },
+       "admission_info": {
+         "2024_cutoff_scores": {
+           "北京": {"理科": 648, "文科": 632},
+           "上海": {"综合": 565},
+           "广东": {"物理": 653, "历史": 627}
+         },
+         "enrollment_plan_2025": 5300,
+         "admission_rate": 0.046
+       },
+       "key_disciplines": [
+         "食品科学与工程", "轻工技术与工程", "设计学",
+         "纺织科学与工程", "化学工程与技术", "控制科学与工程"
+       ],
+       "featured_programs": [
+         "至善学院",
+         "食品科学与工程(本硕博贯通)",
+         "生物工程类拔尖班"
+       ],
+       "campus_area": 3200000,
+       "student_count": 33000,
+       "faculty_count": 3200,
+       "academician_count": 6
+     },
+     {
+       "id": "sysu",
+       "name": "中山大学",
+       "english_name": "Sun Yat-sen University",
+       "abbreviation": "中大",
+       "type": "综合类",
+       "level": "985/211/双一流",
+       "location": {
+         "province": "广东省",
+         "city": "广州市",
+         "district": "海珠区",
+         "address": "新港西路135号"
+       },
+       "established": 1924,
+       "motto": "博学 审问 慎思 明辨 笃行",
+       "website": "https://www.sysu.edu.cn",
+       "ranking": {
+         "national": 10,
+         "qs_world": 267,
+         "times_world": 251
+       },
+       "admission_info": {
+         "2024_cutoff_scores": {
+           "北京": {"理科": 672, "文科": 655},
+           "上海": {"综合": 580},
+           "广东": {"物理": 675, "历史": 650}
+         },
+         "enrollment_plan_2025": 8000,
+         "admission_rate": 0.025
+       },
+       "key_disciplines": [
+         "临床医学", "工商管理", "生态学",
+         "哲学", "数学", "化学"
+       ],
+       "featured_programs": [
+         "逸仙学院",
+         "博雅学院",
+         "临床医学八年制"
+       ],
+       "campus_area": 8180000,
+       "student_count": 65000,
+       "faculty_count": 4500,
+       "academician_count": 25
+     },
+     {
+       "id": "scut",
+       "name": "华南理工大学",
+       "english_name": "South China University of Technology",
+       "abbreviation": "华工",
+       "type": "理工类",
+       "level": "985/211/双一流",
+       "location": {
+         "province": "广东省",
+         "city": "广州市",
+         "district": "天河区",
+         "address": "五山路381号"
+       },
+       "established": 1952,
+       "motto": "博学慎思 明辨笃行",
+       "website": "https://www.scut.edu.cn",
+       "ranking": {
+         "national": 24,
+         "qs_world": 601,
+         "times_world": 501
+       },
+       "admission_info": {
+         "2024_cutoff_scores": {
+           "北京": {"理科": 660, "文科": 642},
+           "上海": {"综合": 572},
+           "广东": {"物理": 665, "历史": 640}
+         },
+         "enrollment_plan_2025": 6800,
+         "admission_rate": 0.032
+       },
+       "key_disciplines": [
+         "化学工程与技术", "材料科学与工程", "轻工技术与工程",
+         "建筑学", "食品科学与工程", "机械工程"
+       ],
+       "featured_programs": [
+         "全英创新班",
+         "卓越工程师计划",
+         "建筑学(本硕博贯通)"
+       ],
+       "campus_area": 4417000,
+       "student_count": 48000,
+       "faculty_count": 3800,
+       "academician_count": 18
+     },
+     {
+       "id": "jnu",
+       "name": "暨南大学",
+       "english_name": "Jinan University",
+       "abbreviation": "暨大",
+       "type": "综合类",
+       "level": "211/双一流",
+       "location": {
+         "province": "广东省",
+         "city": "广州市",
+         "district": "天河区",
+         "address": "黄埔大道西601号"
+       },
+       "established": 1906,
+       "motto": "忠信笃敬",
+       "website": "https://www.jnu.edu.cn",
+       "ranking": {
+         "national": 51,
+         "qs_world": 801,
+         "times_world": 751
+       },
+       "admission_info": {
+         "2024_cutoff_scores": {
+           "北京": {"理科": 648, "文科": 638},
+           "上海": {"综合": 565},
+           "广东": {"物理": 653, "历史": 635}
+         },
+         "enrollment_plan_2025": 7000,
+         "admission_rate": 0.043
+       },
+       "key_disciplines": [
+         "新闻传播学", "应用经济学", "中药学",
+         "生物学", "工商管理", "华文教育"
+       ],
+       "featured_programs": [
+         "伯明翰大学联合学院",
+         "经济学拔尖班",
+         "新闻传播学(本硕连读)"
+       ],
+       "campus_area": 2120000,
+       "student_count": 45000,
+       "faculty_count": 3200,
+       "academician_count": 8
+     },
+     {
+       "id": "scnu",
+       "name": "华南师范大学",
+       "english_name": "South China Normal University",
+       "abbreviation": "华师",
+       "type": "师范类",
+       "level": "211/双一流",
+       "location": {
+         "province": "广东省",
+         "city": "广州市",
+         "district": "天河区",
+         "address": "中山大道西55号"
+       },
+       "established": 1933,
+       "motto": "艰苦奋斗 严谨治学 求实创新 为人师表",
+       "website": "https://www.scnu.edu.cn",
+       "ranking": {
+         "national": 53,
+         "qs_world": 851,
+         "times_world": 801
+       },
+       "admission_info": {
+         "2024_cutoff_scores": {
+           "北京": {"理科": 643, "文科": 635},
+           "上海": {"综合": 562},
+           "广东": {"物理": 648, "历史": 633}
+         },
+         "enrollment_plan_2025": 7200,
+         "admission_rate": 0.045
+       },
+       "key_disciplines": [
+         "教育学", "心理学", "体育学",
+         "马克思主义理论", "物理学", "化学"
+       ],
+       "featured_programs": [
+         "公费师范生",
+         "教师教育改革创新实验区",
+         "心理学拔尖班"
+       ],
+       "campus_area": 3025000,
+       "student_count": 41000,
+       "faculty_count": 2900,
+       "academician_count": 7
+     },
+     {
+       "id": "szu",
+       "name": "深圳大学",
+       "english_name": "Shenzhen University",
+       "abbreviation": "深大",
+       "type": "综合类",
+       "level": "双一流",
+       "location": {
+         "province": "广东省",
+         "city": "深圳市",
+         "district": "南山区",
+         "address": "南海大道3688号"
+       },
+       "established": 1983,
+       "motto": "自立 自律 自强",
+       "website": "https://www.szu.edu.cn",
+       "ranking": {
+         "national": 57,
+         "qs_world": 901,
+         "times_world": 851
+       },
+       "admission_info": {
+         "2024_cutoff_scores": {
+           "北京": {"理科": 640, "文科": 630},
+           "上海": {"综合": 560},
+           "广东": {"物理": 645, "历史": 628}
+         },
+         "enrollment_plan_2025": 7500,
+         "admission_rate": 0.046
+       },
+       "key_disciplines": [
+         "光学工程", "信息与通信工程", "计算机科学与技术",
+         "建筑学", "土木工程", "生物医学工程"
+       ],
+       "featured_programs": [
+         "高等研究院",
+         "腾讯班",
+         "微电子学院(本硕博贯通)"
+       ],
+       "campus_area": 2720000,
+       "student_count": 43000,
+       "faculty_count": 3500,
+       "academician_count": 28
+     },
+     {
+       "id": "scau",
+       "name": "华南农业大学",
+       "english_name": "South China Agricultural University",
+       "abbreviation": "华农",
+       "type": "农林类",
+       "level": "双一流",
+       "location": {
+         "province": "广东省",
+         "city": "广州市",
+         "district": "天河区",
+         "address": "五山路483号"
+       },
+       "established": 1909,
+       "motto": "修德 博学 求实 创新",
+       "website": "https://www.scau.edu.cn",
+       "ranking": {
+         "national": 70,
+         "qs_world": 1001,
+         "times_world": 951
+       },
+       "admission_info": {
+         "2024_cutoff_scores": {
+           "北京": {"理科": 630, "文科": 620},
+           "上海": {"综合": 550},
+           "广东": {"物理": 635, "历史": 615}
+         },
+         "enrollment_plan_2025": 8000,
+         "admission_rate": 0.05
+       },
+       "key_disciplines": [
+         "作物学", "植物保护", "农业工程",
+         "兽医学", "风景园林学", "农林经济管理"
+       ],
+       "featured_programs": [
+         "丁颖创新班",
+         "温氏班",
+         "生物科学拔尖班"
+       ],
+       "campus_area": 5500000,
+       "student_count": 50000,
+       "faculty_count": 3300,
+       "academician_count": 6
+     },
+     {
+       "id": "gdufs",
+       "name": "广东外语外贸大学",
+       "english_name": "Guangdong University of Foreign Studies",
+       "abbreviation": "广外",
+       "type": "语言类",
+       "level": "双一流",
+       "location": {
+         "province": "广东省",
+         "city": "广州市",
+         "district": "白云区",
+         "address": "白云大道北2号"
+       },
+       "established": 1965,
+       "motto": "明德尚行 学贯中西",
+       "website": "https://www.gdufs.edu.cn",
+       "ranking": {
+         "national": 125,
+         "qs_world": 1201,
+         "times_world": 1101
+       },
+       "admission_info": {
+         "2024_cutoff_scores": {
+           "北京": {"理科": 625, "文科": 628},
+           "上海": {"综合": 548},
+           "广东": {"物理": 630, "历史": 625}
+         },
+         "enrollment_plan_2025": 5200,
+         "admission_rate": 0.052
+       },
+       "key_disciplines": [
+         "外国语言文学", "应用经济学", "工商管理",
+         "国际法学", "翻译学", "比较文学"
+       ],
+       "featured_programs": [
+         "国际组织人才培养创新班",
+         "多语种高级翻译人才实验班",
+         "国际商务创新班"
+       ],
+       "campus_area": 2290000,
+        "student_count": 27000,
+        "faculty_count": 2200,
+        "academician_count": 5
+      },
+      {
+        "id": "gdut",
+        "name": "广东工业大学",
+        "english_name": "Guangdong University of Technology",
+        "abbreviation": "广工",
+        "type": "理工类",
+        "level": "双一流",
+        "location": {
+          "province": "广东省",
+          "city": "广州市",
+          "district": "番禺区",
+          "address": "大学城外环西路100号"
+        },
+        "established": 1995,
+        "motto": "团结 勤奋 求实 创新",
+        "website": "https://www.gdut.edu.cn",
+        "ranking": {
+          "national": 152,
+          "qs_world": 1401,
+          "times_world": 1201
+        },
+        "admission_info": {
+          "2024_cutoff_scores": {
+            "北京": {"理科": 615, "文科": 610},
+            "上海": {"综合": 540},
+            "广东": {"物理": 620, "历史": 605}
+          },
+          "enrollment_plan_2025": 8500,
+          "admission_rate": 0.055
+        },
+        "key_disciplines": [
+          "机械工程", "控制科学与工程", "化学工程与技术",
+          "材料科学与工程", "计算机科学与技术", "设计学"
+        ],
+        "featured_programs": [
+          "粤港机器人学院",
+          "集成电路学院",
+          "工业设计创新班"
+        ],
+        "campus_area": 2300000,
+        "student_count": 48000,
+        "faculty_count": 3100,
+        "academician_count": 4
+      },
+      {
+        "id": "gzmu",
+        "name": "广州医科大学",
+        "english_name": "Guangzhou Medical University",
+        "abbreviation": "广医",
+        "type": "医药类",
+        "level": "双一流",
+        "location": {
+          "province": "广东省",
+          "city": "广州市",
+          "district": "番禺区",
+          "address": "新造镇新造路1号"
+        },
+        "established": 1958,
+        "motto": "厚德修身 博学致远",
+        "website": "https://www.gzhmu.edu.cn",
+        "ranking": {
+          "national": 180,
+          "qs_world": 1501,
+          "times_world": 1301
+        },
+        "admission_info": {
+          "2024_cutoff_scores": {
+            "北京": {"理科": 638, "文科": 618},
+            "上海": {"综合": 555},
+            "广东": {"物理": 642, "历史": 620}
+          },
+          "enrollment_plan_2025": 2800,
+          "admission_rate": 0.035
+        },
+        "key_disciplines": [
+          "临床医学", "基础医学", "药学",
+          "公共卫生与预防医学", "护理学", "生物医学工程"
+        ],
+        "featured_programs": [
+          "南山学院",
+          "临床医学八年制",
+          "呼吸病学国家重点实验室"
+        ],
+        "campus_area": 1200000,
+        "student_count": 15000,
+        "faculty_count": 1800,
+        "academician_count": 2
+      },
+      {
+        "id": "gdpu",
+        "name": "广东药科大学",
+        "english_name": "Guangdong Pharmaceutical University",
+        "abbreviation": "广药",
+        "type": "医药类",
+        "level": "省重点",
+        "location": {
+          "province": "广东省",
+          "city": "广州市",
+          "district": "大学城",
+          "address": "外环东路280号"
+        },
+        "established": 1958,
+        "motto": "药学中西 医道济世",
+        "website": "https://www.gdpu.edu.cn",
+        "ranking": {
+          "national": 315,
+          "qs_world": 1801,
+          "times_world": 1601
+        },
+        "admission_info": {
+          "2024_cutoff_scores": {
+            "北京": {"理科": 605, "文科": 598},
+            "上海": {"综合": 532},
+            "广东": {"物理": 610, "历史": 595}
+          },
+          "enrollment_plan_2025": 6500,
+          "admission_rate": 0.065
+        },
+        "key_disciplines": [
+          "药学", "中药学", "临床药学",
+          "制药工程", "预防医学", "生物制药"
+        ],
+        "featured_programs": [
+          "药学拔尖创新人才培养实验班",
+          "中药现代化创新班",
+          "临床药师培养计划"
+        ],
+        "campus_area": 1950000,
+        "student_count": 25000,
+        "faculty_count": 2000,
+        "academician_count": 3
+      },
+      {
+        "id": "bit",
+        "name": "北京理工大学",
+      "english_name": "Beijing Institute of Technology",
+      "abbreviation": "北理工",
+      "type": "理工类",
+      "level": "985/211/双一流",
+      "location": {
+        "province": "北京市",
+        "city": "北京市",
+        "district": "海淀区",
+        "address": "中关村南大街5号"
+      },
+      "established": 1940,
+      "motto": "德以明理 学以精工",
+      "website": "https://www.bit.edu.cn",
+      "ranking": {
+        "national": 20,
+        "qs_world": 434,
+        "times_world": 601
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 668, "文科": 638},
+          "上海": {"综合": 608},
+          "广东": {"物理": 665, "历史": 633}
+        },
+        "enrollment_plan_2025": 3600,
+        "admission_rate": 0.032
+      },
+      "key_disciplines": [
+        "兵器科学与技术", "机械工程", "控制科学与工程",
+        "光学工程", "信息与通信工程", "计算机科学与技术"
+      ],
+      "featured_programs": [
+        "精工书院",
+        "特立书院",
+        "睿信书院"
+      ],
+      "campus_area": 1870000,
+      "student_count": 32000,
+      "faculty_count": 3800,
+      "academician_count": 23
+    },
+    {
+      "id": "cau",
+      "name": "中国农业大学",
+      "english_name": "China Agricultural University",
+      "abbreviation": "农大",
+      "type": "农林类",
+      "level": "985/211/双一流",
+      "location": {
+        "province": "北京市",
+        "city": "北京市",
+        "district": "海淀区",
+        "address": "圆明园西路2号"
+      },
+      "established": 1905,
+      "motto": "解民生之多艰 育天下之英才",
+      "website": "https://www.cau.edu.cn",
+      "ranking": {
+        "national": 28,
+        "qs_world": 512,
+        "times_world": 601
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 655, "文科": 630},
+          "上海": {"综合": 598},
+          "广东": {"物理": 652, "历史": 625}
+        },
+        "enrollment_plan_2025": 3200,
+        "admission_rate": 0.035
+      },
+      "key_disciplines": [
+        "农业工程", "食品科学与工程", "作物学", "畜牧学",
+        "兽医学", "农业资源与环境", "植物保护", "园艺学"
+      ],
+      "featured_programs": [
+        "生物科学类",
+        "农学试验班",
+        "国际学院"
+      ],
+      "campus_area": 1260000,
+      "student_count": 26000,
+      "faculty_count": 2800,
+      "academician_count": 18
+    },
+    {
+      "id": "ustb",
+      "name": "北京科技大学",
+      "english_name": "University of Science and Technology Beijing",
+      "abbreviation": "北科大",
+      "type": "理工类",
+      "level": "211/双一流",
+      "location": {
+        "province": "北京市",
+        "city": "北京市",
+        "district": "海淀区",
+        "address": "学院路30号"
+      },
+      "established": 1952,
+      "motto": "求实鼎新",
+      "website": "https://www.ustb.edu.cn",
+      "ranking": {
+        "national": 35,
+        "qs_world": 601,
+        "times_world": 801
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 650, "文科": 625},
+          "上海": {"综合": 595},
+          "广东": {"物理": 648, "历史": 620}
+        },
+        "enrollment_plan_2025": 3000,
+        "admission_rate": 0.04
+      },
+      "key_disciplines": [
+        "冶金工程", "材料科学与工程", "矿业工程",
+        "科学技术史", "机械工程", "控制科学与工程"
+      ],
+      "featured_programs": [
+        "理科试验班",
+        "工科试验班",
+        "材料科学与工程实验班"
+      ],
+      "campus_area": 800000,
+      "student_count": 24000,
+      "faculty_count": 2400,
+      "academician_count": 12
+    },
+    {
+      "id": "bupt",
+      "name": "北京邮电大学",
+      "english_name": "Beijing University of Posts and Telecommunications",
+      "abbreviation": "北邮",
+      "type": "理工类",
+      "level": "211/双一流",
+      "location": {
+        "province": "北京市",
+        "city": "北京市",
+        "district": "海淀区",
+        "address": "西土城路10号"
+      },
+      "established": 1955,
+      "motto": "厚德博学 敬业乐群",
+      "website": "https://www.bupt.edu.cn",
+      "ranking": {
+        "national": 38,
+        "qs_world": 701,
+        "times_world": 801
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 658, "文科": 628},
+          "上海": {"综合": 600},
+          "广东": {"物理": 655, "历史": 623}
+        },
+        "enrollment_plan_2025": 2800,
+        "admission_rate": 0.038
+      },
+      "key_disciplines": [
+        "信息与通信工程", "计算机科学与技术", "电子科学与技术",
+        "软件工程", "网络空间安全", "控制科学与工程"
+      ],
+      "featured_programs": [
+        "叶培大学院",
+        "元班",
+        "网络空间安全实验班"
+      ],
+      "campus_area": 690000,
+      "student_count": 22000,
+      "faculty_count": 2200,
+      "academician_count": 8
+    },
+    {
+      "id": "uibe",
+      "name": "对外经济贸易大学",
+      "english_name": "University of International Business and Economics",
+      "abbreviation": "贸大",
+      "type": "财经类",
+      "level": "211/双一流",
+      "location": {
+        "province": "北京市",
+        "city": "北京市",
+        "district": "朝阳区",
+        "address": "惠新东街10号"
+      },
+      "established": 1951,
+      "motto": "博学 诚信 求索 笃行",
+      "website": "https://www.uibe.edu.cn",
+      "ranking": {
+        "national": 45,
+        "qs_world": 801,
+        "times_world": 1001
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 652, "文科": 645},
+          "上海": {"综合": 598},
+          "广东": {"物理": 650, "历史": 640}
+        },
+        "enrollment_plan_2025": 2000,
+        "admission_rate": 0.042
+      },
+      "key_disciplines": [
+        "应用经济学", "工商管理", "法学",
+        "外国语言文学", "统计学", "理论经济学"
+      ],
+      "featured_programs": [
+        "三语实验班",
+        "国际组织人才基地班",
+        "量化金融实验班"
+      ],
+      "campus_area": 340000,
+      "student_count": 16000,
+      "faculty_count": 1600,
+      "academician_count": 3
+    },
+    {
+      "id": "cufe",
+      "name": "中央财经大学",
+      "english_name": "Central University of Finance and Economics",
+      "abbreviation": "央财",
+      "type": "财经类",
+      "level": "211/双一流",
+      "location": {
+        "province": "北京市",
+        "city": "北京市",
+        "district": "海淀区",
+        "address": "学院南路39号"
+      },
+      "established": 1949,
+      "motto": "忠诚 团结 求实 创新",
+      "website": "https://www.cufe.edu.cn",
+      "ranking": {
+        "national": 48,
+        "qs_world": 901,
+        "times_world": 1001
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 650, "文科": 643},
+          "上海": {"综合": 596},
+          "广东": {"物理": 648, "历史": 638}
+        },
+        "enrollment_plan_2025": 2200,
+        "admission_rate": 0.045
+      },
+      "key_disciplines": [
+        "应用经济学", "工商管理", "理论经济学",
+        "统计学", "法学", "社会学"
+      ],
+      "featured_programs": [
+        "经济学拔尖学生培养基地",
+        "数字经济实验班",
+        "国际金融组织班"
+      ],
+      "campus_area": 440000,
+      "student_count": 18000,
+      "faculty_count": 1800,
+      "academician_count": 2
+    },
+    {
+      "id": "tongji",
+      "name": "同济大学",
+      "english_name": "Tongji University",
+      "abbreviation": "同济",
+      "type": "理工类",
+      "level": "985/211/双一流",
+      "location": {
+        "province": "上海市",
+        "city": "上海市",
+        "district": "杨浦区",
+        "address": "四平路1239号"
+      },
+      "established": 1907,
+      "motto": "同舟共济 自强不息",
+      "website": "https://www.tongji.edu.cn",
+      "ranking": {
+        "national": 18,
+        "qs_world": 216,
+        "times_world": 301
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 670, "文科": 645},
+          "上海": {"综合": 578},
+          "广东": {"物理": 668, "历史": 640}
+        },
+        "enrollment_plan_2025": 4500,
+        "admission_rate": 0.028
+      },
+      "key_disciplines": [
+        "土木工程", "建筑学", "城乡规划学", "交通运输工程",
+        "环境科学与工程", "设计学", "海洋科学", "风景园林学"
+      ],
+      "featured_programs": [
+        "工科试验班(同济特色班)",
+        "医学试验班",
+        "建筑城规景观与设计类"
+      ],
+      "campus_area": 2560000,
+      "student_count": 35000,
+      "faculty_count": 3400,
+      "academician_count": 28
+    },
+    {
+      "id": "ecnu",
+      "name": "华东师范大学",
+      "english_name": "East China Normal University",
+      "abbreviation": "华师大",
+      "type": "师范类",
+      "level": "985/211/双一流",
+      "location": {
+        "province": "上海市",
+        "city": "上海市",
+        "district": "普陀区",
+        "address": "中山北路3663号"
+      },
+      "established": 1951,
+      "motto": "求实创造 为人师表",
+      "website": "https://www.ecnu.edu.cn",
+      "ranking": {
+        "national": 25,
+        "qs_world": 295,
+        "times_world": 351
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 658, "文科": 642},
+          "上海": {"综合": 570},
+          "广东": {"物理": 660, "历史": 635}
+        },
+        "enrollment_plan_2025": 3800,
+        "admission_rate": 0.032
+      },
+      "key_disciplines": [
+        "教育学", "地理学", "数学", "心理学",
+        "软件工程", "生态学", "统计学", "体育学"
+      ],
+      "featured_programs": [
+        "基础学科拔尖学生培养试验班",
+        "公费师范生",
+        "卓越教师培养计划"
+      ],
+      "campus_area": 2070000,
+      "student_count": 32000,
+      "faculty_count": 3200,
+      "academician_count": 15
+    },
+    {
+      "id": "shufe",
+      "name": "上海财经大学",
+      "english_name": "Shanghai University of Finance and Economics",
+      "abbreviation": "上财",
+      "type": "财经类",
+      "level": "211/双一流",
+      "location": {
+        "province": "上海市",
+        "city": "上海市",
+        "district": "杨浦区",
+        "address": "国定路777号"
+      },
+      "established": 1917,
+      "motto": "厚德博学 经济匡时",
+      "website": "https://www.shufe.edu.cn",
+      "ranking": {
+        "national": 42,
+        "qs_world": 701,
+        "times_world": 801
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 655, "文科": 648},
+          "上海": {"综合": 575},
+          "广东": {"物理": 658, "历史": 642}
+        },
+        "enrollment_plan_2025": 2000,
+        "admission_rate": 0.038
+      },
+      "key_disciplines": [
+        "应用经济学", "工商管理", "统计学",
+        "理论经济学", "管理科学与工程", "法学"
+      ],
+      "featured_programs": [
+        "经济学创新实验班",
+        "数量经济学实验班",
+        "会计学(CPA China)"
+      ],
+      "campus_area": 830000,
+      "student_count": 15000,
+      "faculty_count": 1400,
+      "academician_count": 3
+    },
+    {
+      "id": "sufe",
+      "name": "上海外国语大学",
+      "english_name": "Shanghai International Studies University",
+      "abbreviation": "上外",
+      "type": "语言类",
+      "level": "211/双一流",
+      "location": {
+        "province": "上海市",
+        "city": "上海市",
+        "district": "虹口区",
+        "address": "大连西路550号"
+      },
+      "established": 1949,
+      "motto": "格高志远 学贯中外",
+      "website": "https://www.shisu.edu.cn",
+      "ranking": {
+        "national": 55,
+        "qs_world": 901,
+        "times_world": 1001
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 645, "文科": 642},
+          "上海": {"综合": 568},
+          "广东": {"物理": 650, "历史": 638}
+        },
+        "enrollment_plan_2025": 1800,
+        "admission_rate": 0.042
+      },
+      "key_disciplines": [
+        "外国语言文学", "政治学", "工商管理",
+        "新闻传播学", "应用经济学", "法学"
+      ],
+      "featured_programs": [
+        "多语种高级翻译人才实验班",
+        "卓越外语人才培养",
+        "国际组织人才基地"
+      ],
+      "campus_area": 740000,
+      "student_count": 13000,
+      "faculty_count": 1200,
+      "academician_count": 1
+    },
+    {
+      "id": "dhu",
+      "name": "东华大学",
+      "english_name": "Donghua University",
+      "abbreviation": "东华",
+      "type": "理工类",
+      "level": "211/双一流",
+      "location": {
+        "province": "上海市",
+        "city": "上海市",
+        "district": "松江区",
+        "address": "人民北路2999号"
+      },
+      "established": 1951,
+      "motto": "崇德博学 砺志尚实",
+      "website": "https://www.dhu.edu.cn",
+      "ranking": {
+        "national": 60,
+        "qs_world": 801,
+        "times_world": 1001
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 640, "文科": 628},
+          "上海": {"综合": 560},
+          "广东": {"物理": 645, "历史": 625}
+        },
+        "enrollment_plan_2025": 3500,
+        "admission_rate": 0.045
+      },
+      "key_disciplines": [
+        "纺织科学与工程", "材料科学与工程", "设计学",
+        "控制科学与工程", "环境科学与工程", "机械工程"
+      ],
+      "featured_programs": [
+        "纺织工程(中外合作)",
+        "服装与服饰设计",
+        "功能材料实验班"
+      ],
+      "campus_area": 2000000,
+      "student_count": 28000,
+      "faculty_count": 2600,
+      "academician_count": 8
+    },
+    {
+      "id": "usst",
+      "name": "上海理工大学",
+      "english_name": "University of Shanghai for Science and Technology",
+      "abbreviation": "上理工",
+      "type": "理工类",
+      "level": "双一流(学科)",
+      "location": {
+        "province": "上海市",
+        "city": "上海市",
+        "district": "杨浦区",
+        "address": "军工路516号"
+      },
+      "established": 1906,
+      "motto": "信义勤爱 思学志远",
+      "website": "https://www.usst.edu.cn",
+      "ranking": {
+        "national": 85,
+        "qs_world": 1201,
+        "times_world": 1201
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 625, "文科": 610},
+          "上海": {"综合": 545},
+          "广东": {"物理": 630, "历史": 605}
+        },
+        "enrollment_plan_2025": 4200,
+        "admission_rate": 0.055
+      },
+      "key_disciplines": [
+        "光学工程", "动力工程及工程热物理", "管理科学与工程",
+        "机械工程", "系统科学", "生物医学工程"
+      ],
+      "featured_programs": [
+        "工程科学试验班",
+        "中德国际学院",
+        "智能制造实验班"
+      ],
+      "campus_area": 1200000,
+      "student_count": 25000,
+      "faculty_count": 2300,
+      "academician_count": 6
+    },
+    {
+      "id": "shu",
+      "name": "上海大学",
+      "english_name": "Shanghai University",
+      "abbreviation": "上大",
+      "type": "综合类",
+      "level": "211/双一流",
+      "location": {
+        "province": "上海市",
+        "city": "上海市",
+        "district": "宝山区",
+        "address": "南陈路333号"
+      },
+      "established": 1994,
+      "motto": "自强不息 先天下之忧而忧 后天下之乐而乐",
+      "website": "https://www.shu.edu.cn",
+      "ranking": {
+        "national": 58,
+        "qs_world": 751,
+        "times_world": 901
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 638, "文科": 625},
+          "上海": {"综合": 555},
+          "广东": {"物理": 642, "历史": 622}
+        },
+        "enrollment_plan_2025": 5500,
+        "admission_rate": 0.048
+      },
+      "key_disciplines": [
+        "机械工程", "冶金工程", "材料科学与工程",
+        "美术学", "社会学", "数学"
+      ],
+      "featured_programs": [
+        "钱伟长学院",
+        "理工科实验班",
+        "中欧工程技术学院"
+      ],
+      "campus_area": 3330000,
+       "student_count": 38000,
+       "faculty_count": 3100,
+       "academician_count": 10
+     },
+    {
+      "id": "hznu",
+      "name": "杭州师范大学",
+      "english_name": "Hangzhou Normal University",
+      "abbreviation": "杭师大",
+      "type": "师范类",
+      "level": "双一流(学科)",
+      "location": {
+        "province": "浙江省",
+        "city": "杭州市",
+        "district": "余杭区",
+        "address": "余杭塘路2318号"
+      },
+      "established": 1908,
+      "motto": "勤慎诚恕 博雅精进",
+      "website": "https://www.hznu.edu.cn",
+      "ranking": {
+        "national": 95,
+        "qs_world": 1401,
+        "times_world": 1401
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 615, "文科": 605},
+          "上海": {"综合": 535},
+          "广东": {"物理": 620, "历史": 600}
+        },
+        "enrollment_plan_2025": 4800,
+        "admission_rate": 0.06
+      },
+      "key_disciplines": [
+        "教育学", "中国语言文学", "生物学",
+        "数学", "化学", "艺术学理论"
+      ],
+      "featured_programs": [
+        "小学教育(师范)",
+        "学前教育(师范)",
+        "经亨颐实验班"
+      ],
+      "campus_area": 1980000,
+      "student_count": 26000,
+      "faculty_count": 2400,
+      "academician_count": 5
+    },
+    {
+      "id": "zjut",
+      "name": "浙江工业大学",
+      "english_name": "Zhejiang University of Technology",
+      "abbreviation": "浙工大",
+      "type": "理工类",
+      "level": "双一流(学科)",
+      "location": {
+        "province": "浙江省",
+        "city": "杭州市",
+        "district": "拱墅区",
+        "address": "潮王路18号"
+      },
+      "established": 1953,
+      "motto": "厚德健行",
+      "website": "https://www.zjut.edu.cn",
+      "ranking": {
+        "national": 78,
+        "qs_world": 1201,
+        "times_world": 1201
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 630, "文科": 615},
+          "上海": {"综合": 550},
+          "广东": {"物理": 635, "历史": 610}
+        },
+        "enrollment_plan_2025": 5200,
+        "admission_rate": 0.052
+      },
+      "key_disciplines": [
+        "化学工程与技术", "机械工程", "控制科学与工程",
+        "药学", "材料科学与工程", "环境科学与工程"
+      ],
+      "featured_programs": [
+        "健行学院",
+        "工程教育实验班",
+        "中外合作办学项目"
+      ],
+      "campus_area": 2130000,
+      "student_count": 32000,
+      "faculty_count": 2900,
+      "academician_count": 7
+    },
+    {
+      "id": "zjgsu",
+      "name": "浙江工商大学",
+      "english_name": "Zhejiang Gongshang University",
+      "abbreviation": "浙商大",
+      "type": "财经类",
+      "level": "双一流(学科)",
+      "location": {
+        "province": "浙江省",
+        "city": "杭州市",
+        "district": "下沙高教园区",
+        "address": "学正街18号"
+      },
+      "established": 1911,
+      "motto": "诚毅勤朴",
+      "website": "https://www.zjgsu.edu.cn",
+      "ranking": {
+        "national": 110,
+        "qs_world": 1501,
+        "times_world": 1501
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 620, "文科": 618},
+          "上海": {"综合": 542},
+          "广东": {"物理": 628, "历史": 615}
+        },
+        "enrollment_plan_2025": 4500,
+        "admission_rate": 0.058
+      },
+      "key_disciplines": [
+        "工商管理", "应用经济学", "统计学",
+        "食品科学与工程", "法学", "外国语言文学"
+      ],
+      "featured_programs": [
+        "会计学(ACCA)",
+        "金融学(CFA)",
+        "泰隆金融学院"
+      ],
+      "campus_area": 1900000,
+      "student_count": 28000,
+      "faculty_count": 2500,
+      "academician_count": 4
+    },
+    {
+      "id": "cuz",
+      "name": "中国美术学院",
+      "english_name": "China Academy of Art",
+      "abbreviation": "国美",
+      "type": "艺术类",
+      "level": "双一流",
+      "location": {
+        "province": "浙江省",
+        "city": "杭州市",
+        "district": "西湖区",
+        "address": "南山路218号"
+      },
+      "established": 1928,
+      "motto": "行健 居敬 会通 履远",
+      "website": "https://www.caa.edu.cn",
+      "ranking": {
+        "national": 90,
+        "qs_world": 801,
+        "times_world": 1001
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 0, "文科": 580},
+          "上海": {"综合": 520},
+          "广东": {"物理": 0, "历史": 575}
+        },
+        "enrollment_plan_2025": 1800,
+        "admission_rate": 0.015
+      },
+      "key_disciplines": [
+        "美术学", "设计学", "艺术学理论",
+        "戏剧与影视学", "建筑学", "风景园林学"
+      ],
+      "featured_programs": [
+        "造型艺术类",
+        "设计艺术类",
+        "图像与媒体艺术类"
+      ],
+      "campus_area": 1230000,
+      "student_count": 9000,
+      "faculty_count": 1000,
+      "academician_count": 2
+    },
+    {
+      "id": "zstu",
+      "name": "浙江理工大学",
+      "english_name": "Zhejiang Sci-Tech University",
+      "abbreviation": "浙理工",
+      "type": "理工类",
+      "level": "双一流(学科)",
+      "location": {
+        "province": "浙江省",
+        "city": "杭州市",
+        "district": "下沙高教园区",
+        "address": "2号大街928号"
+      },
+      "established": 1897,
+      "motto": "厚德致远 博学敦行",
+      "website": "https://www.zstu.edu.cn",
+      "ranking": {
+        "national": 105,
+        "qs_world": 1601,
+        "times_world": 1601
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 618, "文科": 608},
+          "上海": {"综合": 538},
+          "广东": {"物理": 625, "历史": 605}
+        },
+        "enrollment_plan_2025": 4300,
+        "admission_rate": 0.056
+      },
+      "key_disciplines": [
+        "纺织科学与工程", "机械工程", "材料科学与工程",
+        "设计学", "控制科学与工程", "化学"
+      ],
+      "featured_programs": [
+        "纺织工程",
+        "服装设计与工程",
+        "理工实验班"
+      ],
+      "campus_area": 2100000,
+      "student_count": 27000,
+      "faculty_count": 2400,
+      "academician_count": 6
+    },
+    {
+      "id": "zjnu",
+      "name": "浙江师范大学",
+      "english_name": "Zhejiang Normal University",
+      "abbreviation": "浙师大",
+      "type": "师范类",
+      "level": "双一流(学科)",
+      "location": {
+        "province": "浙江省",
+        "city": "金华市",
+        "district": "婺城区",
+        "address": "迎宾大道688号"
+      },
+      "established": 1956,
+      "motto": "砺学砺行 维实维新",
+      "website": "https://www.zjnu.edu.cn",
+      "ranking": {
+        "national": 92,
+        "qs_world": 1301,
+        "times_world": 1301
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 622, "文科": 612},
+          "上海": {"综合": 545},
+          "广东": {"物理": 630, "历史": 608}
+        },
+        "enrollment_plan_2025": 5000,
+        "admission_rate": 0.055
+      },
+      "key_disciplines": [
+        "教育学", "中国语言文学", "数学",
+        "物理学", "化学", "生物学"
+      ],
+      "featured_programs": [
+        "初阳学院",
+        "公费师范生",
+        "卓越教师培养计划"
+      ],
+      "campus_area": 2200000,
+      "student_count": 29000,
+      "faculty_count": 2600,
+      "academician_count": 7
+    },
+    {
+      "id": "nbu",
+      "name": "宁波大学",
+      "english_name": "Ningbo University",
+      "abbreviation": "宁大",
+      "type": "综合类",
+      "level": "双一流",
+      "location": {
+        "province": "浙江省",
+        "city": "宁波市",
+        "district": "江北区",
+        "address": "风华路818号"
+      },
+      "established": 1986,
+      "motto": "实事求是 经世致用",
+      "website": "https://www.nbu.edu.cn",
+      "ranking": {
+        "national": 75,
+        "qs_world": 1101,
+        "times_world": 1101
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 632, "文科": 620},
+          "上海": {"综合": 552},
+          "广东": {"物理": 638, "历史": 615}
+        },
+        "enrollment_plan_2025": 5800,
+        "admission_rate": 0.05
+      },
+      "key_disciplines": [
+        "水产", "力学", "信息与通信工程",
+        "应用经济学", "外国语言文学", "数学"
+      ],
+      "featured_programs": [
+        "阳明创新班",
+        "工程教育实验班",
+        "中外合作办学"
+      ],
+      "campus_area": 2770000,
+      "student_count": 34000,
+      "faculty_count": 2800,
+      "academician_count": 9
     }
-  ],
-  "university_rankings": {
-    "c9_league": [
+   ],
+   "university_rankings": {
+     "c9_league": [
       "北京大学", "清华大学", "复旦大学", "上海交通大学",
       "浙江大学", "南京大学", "中国科学技术大学", "哈尔滨工业大学", "西安交通大学"
     ],
