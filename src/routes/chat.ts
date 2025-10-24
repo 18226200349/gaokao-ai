@@ -3,7 +3,10 @@ import chatController from '../controllers/chat'
 
 const router = express.Router()
 
-// 聊天接口
+// 流式聊天接口
+router.post('/stream', chatController.streamChat)
+
+// 普通聊天接口
 router.post('/', chatController.chat)
 
 export default router

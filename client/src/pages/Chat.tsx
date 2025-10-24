@@ -2,9 +2,8 @@ import React, { useState, useRef, useEffect } from 'react'
 import { Input, Button, List, Avatar, Typography, Space, message, Select, Radio } from 'antd'
 import { SendOutlined, UserOutlined, RobotOutlined, ClearOutlined, FileTextOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import ReactMarkdown from 'react-markdown'
-import rehypeHighlight from 'rehype-highlight'
+// import ReactMarkdown from 'react-markdown'
+// import rehypeHighlight from 'rehype-highlight'
 
 const { TextArea } = Input
 const { Text } = Typography
@@ -106,7 +105,97 @@ const Chat: React.FC = () => {
         questionText = `我想了解${province}${subject}${score}分的高考志愿报名`
       }
       
-      const response = await axios.post('/api/v1/chat', {
+      // 先替换thinking消息为空的流式消息
+      setMessages(prev => {
+        const newMessages = [...prev]
+        const lastIndex = newMessages.length - 1
+        if (newMessages[lastIndex]?.content === 'thinking') {
+          newMessages[lastIndex] = {
+            ...newMessages[lastIndex],
+            content: ''
+          }
+        }
+        return newMessages
+      })
+
+      let accumulatedContent = '';
+
+      // 使用XMLHttpRequest来处理流式数据，因为fetch可能被缓冲
+      console.log('使用XMLHttpRequest发起流式请求');
+      
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', '/api/v1/chat/stream', true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      
+      let lastProcessedIndex = 0;
+      
+      xhr.onprogress = function() {
+        console.log('收到进度更新，当前长度:', xhr.responseText.length);
+        
+        const newText = xhr.responseText.slice(lastProcessedIndex);
+        lastProcessedIndex = xhr.responseText.length;
+        
+        if (newText) {
+          console.log('新接收的文本:', JSON.stringify(newText));
+          
+          const lines = newText.split('\n');
+          for (const line of lines) {
+            const trimmedLine = line.trim();
+            if (trimmedLine && trimmedLine.startsWith('data: ')) {
+              const dataStr = trimmedLine.slice(6).trim();
+              console.log('处理数据行:', dataStr);
+              
+              if (dataStr === '[DONE]') {
+                console.log('收到结束标志');
+                return;
+              }
+              
+              if (dataStr === '') continue;
+              
+              try {
+                const data = JSON.parse(dataStr);
+                console.log('解析数据成功:', data);
+                
+                if (data.type === 'chunk' && data.content) {
+                  accumulatedContent += data.content;
+                  console.log('累积内容更新:', accumulatedContent);
+                  
+                  // 立即更新UI
+                  setMessages(prev => {
+                    const newMessages = [...prev];
+                    const lastIndex = newMessages.length - 1;
+                    if (newMessages[lastIndex]?.id === thinkingMessage.id) {
+                      newMessages[lastIndex] = {
+                        ...newMessages[lastIndex],
+                        content: accumulatedContent,
+                        timestamp: new Date()
+                      };
+                    }
+                    return newMessages;
+                  });
+                } else if (data.type === 'end') {
+                  console.log('收到结束信号');
+                  return;
+                }
+              } catch (parseError) {
+                console.warn('JSON解析失败:', parseError, '原始数据:', dataStr);
+              }
+            }
+          }
+        }
+      };
+      
+      xhr.onload = function() {
+        console.log('XMLHttpRequest完成，状态:', xhr.status);
+      };
+      
+      xhr.onerror = function() {
+        console.error('XMLHttpRequest错误');
+        throw new Error('网络请求失败');
+      };
+      
+      // 发送请求
+      xhr.send(JSON.stringify({
         question: questionText,
         province: province,
         userInfo: {
@@ -117,30 +206,20 @@ const Chat: React.FC = () => {
         subject: subject,
         score: score,
         conversationHistory: conversationHistory
-      })
+      }));
+      
+      // 等待请求完成
+      await new Promise((resolve, reject) => {
+        xhr.onload = resolve;
+        xhr.onerror = reject;
+      });
 
-      const aiMessage: Message = {
-        id: thinkingMessage.id, // 使用相同的ID替换thinking消息
-        content: response.data.data.reply || '抱歉，我现在无法回答这个问题。',
-        isUser: false,
-        timestamp: new Date()
-      }
-
-      // 替换最后一条thinking消息为AI回复
-      setMessages(prev => {
-        const newMessages = [...prev]
-        const lastIndex = newMessages.length - 1
-        if (newMessages[lastIndex]?.content === 'thinking') {
-          newMessages[lastIndex] = aiMessage
-        }
-        return newMessages
-      })
       
       // 更新对话历史
       setConversationHistory(prev => [
         ...prev,
         { role: 'user', content: questionText },
-        { role: 'ai', content: aiMessage.content }
+        { role: 'ai', content: accumulatedContent }
       ])
     } catch (error) {
       console.error('发送消息失败:', error)
@@ -315,60 +394,13 @@ const Chat: React.FC = () => {
                           <div className="ai-message-content" style={{
                             color: 'var(--text-primary)',
                             fontSize: '14px',
-                            lineHeight: '1.8'
+                            lineHeight: '1.8',
+                            whiteSpace: 'pre-wrap'
                           }}>
-                            <ReactMarkdown
-                              rehypePlugins={[rehypeHighlight]}
-                              components={{
-                                p: ({node, ...props}) => <p style={{ margin: '0.5em 0' }} {...props} />,
-                                h1: ({node, ...props}) => <h1 style={{ fontSize: '1.5em', margin: '0.8em 0 0.5em', fontWeight: 600 }} {...props} />,
-                                h2: ({node, ...props}) => <h2 style={{ fontSize: '1.3em', margin: '0.7em 0 0.4em', fontWeight: 600 }} {...props} />,
-                                h3: ({node, ...props}) => <h3 style={{ fontSize: '1.1em', margin: '0.6em 0 0.3em', fontWeight: 600 }} {...props} />,
-                                ul: ({node, ...props}) => <ul style={{ margin: '0.5em 0', paddingLeft: '1.5em' }} {...props} />,
-                                ol: ({node, ...props}) => <ol style={{ margin: '0.5em 0', paddingLeft: '1.5em' }} {...props} />,
-                                li: ({node, ...props}) => <li style={{ margin: '0.3em 0' }} {...props} />,
-                                code: ({node, inline, ...props}: any) => 
-                                  inline ? (
-                                    <code style={{ 
-                                      background: 'rgba(0,0,0,0.05)', 
-                                      padding: '2px 6px', 
-                                      borderRadius: '4px',
-                                      fontSize: '0.9em',
-                                      fontFamily: 'Consolas, Monaco, monospace'
-                                    }} {...props} />
-                                  ) : (
-                                    <code style={{ 
-                                      display: 'block',
-                                      padding: '12px',
-                                      borderRadius: '8px',
-                                      fontSize: '0.9em',
-                                      fontFamily: 'Consolas, Monaco, monospace',
-                                      overflowX: 'auto'
-                                    }} {...props} />
-                                  ),
-                                pre: ({node, ...props}) => (
-                                  <pre style={{ 
-                                    background: '#f6f8fa',
-                                    margin: '0.8em 0',
-                                    borderRadius: '8px',
-                                    overflow: 'hidden'
-                                  }} {...props} />
-                                ),
-                                blockquote: ({node, ...props}) => (
-                                  <blockquote style={{
-                                    borderLeft: '4px solid var(--primary-color)',
-                                    margin: '0.8em 0',
-                                    paddingLeft: '1em',
-                                    color: 'var(--text-secondary)',
-                                    fontStyle: 'italic'
-                                  }} {...props} />
-                                ),
-                                strong: ({node, ...props}) => <strong style={{ fontWeight: 600 }} {...props} />,
-                                em: ({node, ...props}) => <em style={{ fontStyle: 'italic' }} {...props} />,
-                              }}
-                            >
-                              {message.content}
-                            </ReactMarkdown>
+                            {/* 临时使用简单文本渲染来测试流式输出 */}
+                            <span key={`${message.id}-${message.content.length}`}>
+                              {message.content || '▋'}
+                            </span>
                           </div>
                         )}
                         <div style={{ 
