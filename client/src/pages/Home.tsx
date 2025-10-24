@@ -124,7 +124,7 @@ const Home: React.FC = () => {
                 position: 'relative',
                 overflow: 'hidden'
               }}
-              bodyStyle={{ padding: '40px 24px', position: 'relative', zIndex: 1 }}
+              styles={{ body: { padding: '40px 24px', position: 'relative', zIndex: 1 } }}
             >
               <div style={{
                 position: 'absolute',

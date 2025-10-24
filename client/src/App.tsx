@@ -5,6 +5,7 @@ import Layout from './components/Layout'
 import Home from './pages/Home'
 import Chat from './pages/Chat'
 import GaokaoQuery from './pages/GaokaoQuery'
+import Solution from './pages/Solution'
 import './App.css'
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/chat" element={<Chat />} />
             <Route path="/gaokao" element={<GaokaoQuery />} />
+            <Route path="/solution" element={<Solution />} />
           </Routes>
         </Layout>
       </Router>

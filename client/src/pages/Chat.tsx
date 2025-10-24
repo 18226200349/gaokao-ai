@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Input, Button, List, Avatar, Typography, Space, message, Select, Radio } from 'antd'
-import { SendOutlined, UserOutlined, RobotOutlined, ClearOutlined } from '@ant-design/icons'
+import { SendOutlined, UserOutlined, RobotOutlined, ClearOutlined, FileTextOutlined } from '@ant-design/icons'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import ReactMarkdown from 'react-markdown'
+import rehypeHighlight from 'rehype-highlight'
 
 const { TextArea } = Input
 const { Text } = Typography
@@ -15,10 +18,11 @@ interface Message {
 }
 
 const Chat: React.FC = () => {
+  const navigate = useNavigate()
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 'welcome',
-      content: '欢迎使用【高考AI聊天助手】！请输入您的问题，我将为您提供帮助。',
+      content: '欢迎使用【高考AI聊天助手】！请输入您的问题,我将为您提供帮助。',
       isUser: false,
       timestamp: new Date()
     }
@@ -46,12 +50,36 @@ const Chat: React.FC = () => {
     '吉林', '台湾', '香港', '澳门'
   ]
 
-  const sendMessage = async () => {
-    if (!inputValue.trim()) return
+  const sendMessage = async (e?: React.FormEvent) => {
+    if (e) {
+      e.preventDefault()
+    }
+    
+    const trimmedInput = inputValue.trim()
+    
+    // 检查必填项
+    if (!province) {
+      alert('请选择省份')
+      return
+    }
+    if (!subject) {
+      alert('请选择文理科')
+      return
+    }
+    if (!score || score < 0 || score > 750) {
+      alert('请输入考生分数')
+      return
+    }
+    
+    // 如果没有输入内容，构造默认消息
+    let displayText = trimmedInput
+    if (!displayText) {
+      displayText = `我想了解${province}${subject}${score}分的高考志愿报名`
+    }
 
     const userMessage: Message = {
       id: Date.now().toString(),
-      content: inputValue,
+      content: displayText,
       isUser: true,
       timestamp: new Date()
     }
@@ -73,11 +101,9 @@ const Chat: React.FC = () => {
       const interests = subject === '理科' ? ['理工'] : ['文史']
       
       // 构造问题文本，包含省份、文理科和分数信息
-      let questionText = inputValue
-      if (score) {
-        questionText = `${inputValue}（${province}${subject}${score}分）`
-      } else {
-        questionText = `${inputValue}（${province}${subject}）`
+      let questionText = trimmedInput
+      if (!questionText) {
+        questionText = `我想了解${province}${subject}${score}分的高考志愿报名`
       }
       
       const response = await axios.post('/api/v1/chat', {
@@ -149,6 +175,34 @@ const Chat: React.FC = () => {
       timestamp: new Date()
     }])
     setConversationHistory([]) // 清空对话历史
+  }
+
+  const generateSolution = () => {
+    // 验证必填字段
+    if (!province) {
+      message.warning('请选择您的省份')
+      return
+    }
+    if (!subject) {
+      message.warning('请选择文理科类')
+      return
+    }
+    if (!score || score < 0 || score > 750) {
+      message.warning('请输入有效的高考分数（0-750分）')
+      return
+    }
+
+    // 保存用户信息到localStorage
+    const userInfo = {
+      province,
+      subject,
+      score,
+      timestamp: new Date().toISOString()
+    }
+    localStorage.setItem('gaokao_user_info', JSON.stringify(userInfo))
+    
+    // 跳转到方案页面
+    navigate('/solution')
   }
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -253,9 +307,70 @@ const Chat: React.FC = () => {
                       </div>
                     ) : (
                       <>
-                        <Text style={{ color: message.isUser ? 'white' : 'inherit' }}>
-                          {message.content}
-                        </Text>
+                        {message.isUser ? (
+                          <Text style={{ color: 'white' }}>
+                            {message.content}
+                          </Text>
+                        ) : (
+                          <div className="ai-message-content" style={{
+                            color: 'var(--text-primary)',
+                            fontSize: '14px',
+                            lineHeight: '1.8'
+                          }}>
+                            <ReactMarkdown
+                              rehypePlugins={[rehypeHighlight]}
+                              components={{
+                                p: ({node, ...props}) => <p style={{ margin: '0.5em 0' }} {...props} />,
+                                h1: ({node, ...props}) => <h1 style={{ fontSize: '1.5em', margin: '0.8em 0 0.5em', fontWeight: 600 }} {...props} />,
+                                h2: ({node, ...props}) => <h2 style={{ fontSize: '1.3em', margin: '0.7em 0 0.4em', fontWeight: 600 }} {...props} />,
+                                h3: ({node, ...props}) => <h3 style={{ fontSize: '1.1em', margin: '0.6em 0 0.3em', fontWeight: 600 }} {...props} />,
+                                ul: ({node, ...props}) => <ul style={{ margin: '0.5em 0', paddingLeft: '1.5em' }} {...props} />,
+                                ol: ({node, ...props}) => <ol style={{ margin: '0.5em 0', paddingLeft: '1.5em' }} {...props} />,
+                                li: ({node, ...props}) => <li style={{ margin: '0.3em 0' }} {...props} />,
+                                code: ({node, inline, ...props}: any) => 
+                                  inline ? (
+                                    <code style={{ 
+                                      background: 'rgba(0,0,0,0.05)', 
+                                      padding: '2px 6px', 
+                                      borderRadius: '4px',
+                                      fontSize: '0.9em',
+                                      fontFamily: 'Consolas, Monaco, monospace'
+                                    }} {...props} />
+                                  ) : (
+                                    <code style={{ 
+                                      display: 'block',
+                                      padding: '12px',
+                                      borderRadius: '8px',
+                                      fontSize: '0.9em',
+                                      fontFamily: 'Consolas, Monaco, monospace',
+                                      overflowX: 'auto'
+                                    }} {...props} />
+                                  ),
+                                pre: ({node, ...props}) => (
+                                  <pre style={{ 
+                                    background: '#f6f8fa',
+                                    margin: '0.8em 0',
+                                    borderRadius: '8px',
+                                    overflow: 'hidden'
+                                  }} {...props} />
+                                ),
+                                blockquote: ({node, ...props}) => (
+                                  <blockquote style={{
+                                    borderLeft: '4px solid var(--primary-color)',
+                                    margin: '0.8em 0',
+                                    paddingLeft: '1em',
+                                    color: 'var(--text-secondary)',
+                                    fontStyle: 'italic'
+                                  }} {...props} />
+                                ),
+                                strong: ({node, ...props}) => <strong style={{ fontWeight: 600 }} {...props} />,
+                                em: ({node, ...props}) => <em style={{ fontStyle: 'italic' }} {...props} />,
+                              }}
+                            >
+                              {message.content}
+                            </ReactMarkdown>
+                          </div>
+                        )}
                         <div style={{ 
                           fontSize: '12px', 
                           opacity: 0.7, 
@@ -368,7 +483,7 @@ const Chat: React.FC = () => {
           </div>
 
           {/* 消息输入和按钮 */}
-          <div className="chat-input-area" style={{ 
+          <form onSubmit={sendMessage} className="chat-input-area" style={{ 
             display: 'flex', 
             gap: '16px', 
             alignItems: 'center',
@@ -409,9 +524,9 @@ const Chat: React.FC = () => {
             <Space size={12}>
               <Button 
                 type="primary" 
+                htmlType="submit"
                 icon={<SendOutlined />}
                 loading={loading}
-                onClick={sendMessage}
                 size="large"
                 style={{
                   borderRadius: '12px',
@@ -463,8 +578,34 @@ const Chat: React.FC = () => {
               >
                 清空
               </Button>
+              <Button 
+                icon={<FileTextOutlined />}
+                onClick={generateSolution}
+                size="large"
+                style={{
+                  borderRadius: '12px',
+                  background: 'linear-gradient(135deg, #52c41a 0%, #73d13d 100%)',
+                  border: 'none',
+                  color: 'white',
+                  fontWeight: 500,
+                  height: '44px',
+                  minWidth: '100px',
+                  boxShadow: '0 4px 16px rgba(82, 196, 26, 0.3)',
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px)'
+                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(82, 196, 26, 0.4)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)'
+                  e.currentTarget.style.boxShadow = '0 4px 16px rgba(82, 196, 26, 0.3)'
+                }}
+              >
+                生成方案
+              </Button>
             </Space>
-          </div>
+          </form>
         </div>
       </div>
 

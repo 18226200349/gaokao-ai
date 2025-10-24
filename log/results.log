@@ -415,3 +415,7 @@
 2025-10-24 10:20:48 error [www.ts]: GET /api/v1/gaokao/universities?type=university&keyword=%E5%8C%97%E4%BA%AC%E5%A4%A7%E5%AD%A6 Not Found
 2025-10-24 10:31:10 error [www.ts]: GET /api/v1/gaokao/universities?type=university&keyword=%E5%8C%97%E4%BA%AC%E5%A4%A7%E5%AD%A6 Not Found
 2025-10-24 10:43:04 error [www.ts]: GET /api/v1/gaokao/universities?type=university&keyword=%E5%8C%97%E4%BA%AC%E5%A4%A7%E5%AD%A6&location=%E5%8C%97%E4%BA%AC Not Found
+2025-10-24 11:03:10 error [www.ts]: GET / Not Found
+2025-10-24 11:03:25 error [www.ts]: GET / Not Found
+2025-10-24 11:26:26 error [www.ts]: GET /@vite/client Not Found
+2025-10-24 11:26:27 error [www.ts]: GET /@vite/client Not Found
