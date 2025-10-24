@@ -1,0 +1,92 @@
+extends layout
+
+block content
+  link(rel='stylesheet', href='/stylesheets/solution.css')
+
+  .solution-wrapper
+    .solution-header
+      .back-button
+        a(href='/chat') ← 返回问答
+      h1 志愿填报方案 📋
+      p.subtitle 为您量身定制的专业志愿填报建议
+
+    .solution-container
+      // 用户信息卡片
+      .info-card
+        h2.section-title 📊 基本信息
+        .info-grid
+          .info-item
+            .info-label 省份
+            .info-value#province-value -
+          .info-item
+            .info-label 科类
+            .info-value#subject-value -
+          .info-item
+            .info-label 分数
+            .info-value#score-value -
+          .info-item
+            .info-label 位次
+            .info-value#rank-value -
+
+      // 推荐院校方案
+      .recommendation-card
+        h2.section-title 🎯 推荐院校方案
+        .recommendation-tabs
+          button.tab-button.active(data-tab='stable') 稳妥方案
+          button.tab-button(data-tab='moderate') 适中方案
+          button.tab-button(data-tab='reach') 冲刺方案
+        
+        .tab-content#stable-content.active
+          .universities-list
+            // 院校卡片将通过JavaScript动态生成
+        
+        .tab-content#moderate-content
+          .universities-list
+            // 院校卡片将通过JavaScript动态生成
+        
+        .tab-content#reach-content
+          .universities-list
+            // 院校卡片将通过JavaScript动态生成
+
+      // 专业推荐
+      .majors-card
+        h2.section-title 📚 推荐专业
+        .majors-grid
+          // 专业卡片将通过JavaScript动态生成
+
+      // 填报建议
+      .advice-card
+        h2.section-title 💡 填报建议
+        .advice-content
+          .advice-section
+            h3 志愿填报策略
+            ul.advice-list
+              li 采用"冲稳保"策略,合理分配志愿
+              li 前3-5个志愿可以冲刺,选择往年录取分数略高于自己分数的院校
+              li 中间5-10个志愿要稳妥,选择录取分数与自己分数相当的院校
+              li 最后3-5个志愿要保底,选择录取分数低于自己分数的院校
+          
+          .advice-section
+            h3 注意事项
+            ul.advice-list
+              li 认真阅读各高校招生章程,了解专业录取规则
+              li 注意专业录取的特殊要求(如身体条件、单科成绩等)
+              li 服从专业调剂可以降低退档风险
+              li 关注专业的就业前景和个人兴趣匹配度
+
+      // 操作按钮
+      .action-buttons
+        button#export-btn.action-button.primary
+          span.icon 📥
+          span 导出方案
+        button#print-btn.action-button.secondary
+          span.icon 🖨️
+          span 打印方案
+        button#save-btn.action-button.secondary
+          span.icon 💾
+          span 保存方案
+        button#apply-btn.action-button.success
+          span.icon ✅
+          span 一键办理
+
+  script(src='/javascripts/solution.js')

@@ -423,7 +423,7 @@ body {
 }
 
 /* 按钮样式 */
-#send-button, #clear-button {
+#send-button, #clear-button, #generate-solution-btn {
   background: #007aff;
   color: white;
   border: none;
@@ -442,7 +442,12 @@ body {
   box-shadow: 0 2px 5px rgba(255, 59, 48, 0.2);
 }
 
-#send-button:hover, #clear-button:hover {
+#generate-solution-btn {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  box-shadow: 0 2px 5px rgba(17, 153, 142, 0.3);
+}
+
+#send-button:hover, #clear-button:hover, #generate-solution-btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
@@ -455,7 +460,11 @@ body {
   background: #d32f2f;
 }
 
-#send-button:active, #clear-button:active {
+#generate-solution-btn:hover {
+  background: linear-gradient(135deg, #0d7a72 0%, #2bc95e 100%);
+}
+
+#send-button:active, #clear-button:active, #generate-solution-btn:active {
   transform: translateY(0);
 }
 

@@ -297,4 +297,39 @@ document.addEventListener('DOMContentLoaded', function() {
     conversationHistory = [];
     scrollToBottom();
   });
+  
+  // 生成方案按钮点击事件
+  const generateSolutionBtn = document.getElementById('generate-solution-btn');
+  if (generateSolutionBtn) {
+    generateSolutionBtn.addEventListener('click', function() {
+      const provinceSelect = document.getElementById('province-select');
+      const province = provinceSelect ? provinceSelect.value : '';
+      const subjectRadios = document.getElementsByName('subject');
+      let subject = '';
+      for (const radio of subjectRadios) {
+        if (radio.checked) {
+          subject = radio.value;
+          break;
+        }
+      }
+      const scoreInput = document.getElementById('score-input');
+      const score = scoreInput ? scoreInput.value : '';
+      
+      if (!province || !subject || !score) {
+        alert('请先完善基本信息（省份、文理科、分数）');
+        return;
+      }
+      
+      // 保存用户信息到localStorage
+      const userInfo = {
+        province: province,
+        subject: subject,
+        score: parseInt(score)
+      };
+      localStorage.setItem('userInfo', JSON.stringify(userInfo));
+      
+      // 跳转到方案展示页面
+      window.location.href = '/solution';
+    });
+  }
 });

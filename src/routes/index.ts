@@ -13,4 +13,9 @@ router.get('/chat', function(req: any, res: any, next: any) {
   res.render('chat', { title: '高考AI聊天助手' });
 });
 
+/* GET solution page. */
+router.get('/solution', function(req: any, res: any, next: any) {
+  res.render('solution', { title: '志愿填报方案' });
+});
+
 export default router;
