@@ -23,4 +23,7 @@ router.post('/import-excel', upload.single('file'), gaokaoController.importExcel
 // 获取大学列表接口
 router.get('/universities', gaokaoController.getUniversities)
 
+// AI生成排名最高的10所学校接口
+router.get('/universities/top-by-ai', gaokaoController.getTopUniversitiesByAI)
+
 export default router

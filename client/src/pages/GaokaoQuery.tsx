@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Form, Input, Button, Select, Table, message, Space, Typography, Row, Col } from 'antd'
-import { SearchOutlined, BookOutlined, EnvironmentOutlined, StarOutlined } from '@ant-design/icons'
+import { Form, Input, Button, Select, Table, message, Space, Typography, Row, Col, Card, Modal } from 'antd'
+import { SearchOutlined, BookOutlined, EnvironmentOutlined, StarOutlined, RobotOutlined } from '@ant-design/icons'
 import axios from 'axios'
 
 const { Option } = Select
@@ -9,10 +9,31 @@ const { Title, Paragraph } = Typography
 interface UniversityData {
   id: string
   name: string
-  location: string
+  english_name?: string
+  abbreviation?: string
   type: string
   level: string
-  score: number
+  location: {
+    province: string
+    city: string
+    district?: string
+    address?: string
+  }
+  established?: number
+  motto?: string
+  website?: string
+  ranking?: {
+    national?: number
+    qs_world?: number
+    times_world?: number
+  }
+  admission_info?: {
+    "2024_cutoff_scores"?: any
+    enrollment_plan_2025?: number
+    admission_rate?: number
+  }
+  key_disciplines?: string[]
+  featured_programs?: string[]
 }
 
 const GaokaoQuery: React.FC = () => {
@@ -20,15 +41,30 @@ const GaokaoQuery: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState<UniversityData[]>([])
   const [queryType, setQueryType] = useState<'university' | 'major'>('university')
+  const [aiLoading, setAiLoading] = useState(false)
+  const [aiModalVisible, setAiModalVisible] = useState(false)
+  const [aiResult, setAiResult] = useState<{
+    universities: UniversityData[]
+    aiAnalysis: string
+    searchInfo: any
+  } | null>(null)
 
   const columns = [
     {
       title: '名称',
       dataIndex: 'name',
       key: 'name',
-      render: (text: string) => (
-        <div style={{ fontWeight: 500, color: 'var(--text-primary)' }}>
-          {text}
+      width: 200,
+      render: (text: string, record: UniversityData) => (
+        <div>
+          <div style={{ fontWeight: 500, color: 'var(--text-primary)', marginBottom: '4px' }}>
+            {text}
+          </div>
+          {record.abbreviation && (
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
+              {record.abbreviation}
+            </div>
+          )}
         </div>
       )
     },
@@ -36,10 +72,11 @@ const GaokaoQuery: React.FC = () => {
       title: '地区',
       dataIndex: 'location',
       key: 'location',
-      render: (text: string) => (
+      width: 150,
+      render: (location: any) => (
         <Space>
           <EnvironmentOutlined style={{ color: 'var(--primary-color)' }} />
-          {text}
+          <span>{location?.province || location}</span>
         </Space>
       )
     },
@@ -47,31 +84,48 @@ const GaokaoQuery: React.FC = () => {
       title: '类型',
       dataIndex: 'type',
       key: 'type',
+      width: 100,
     },
     {
       title: '层次',
       dataIndex: 'level',
       key: 'level',
+      width: 150,
       render: (text: string) => (
         <Space>
           <StarOutlined style={{ color: '#faad14' }} />
-          {text}
+          <span>{text}</span>
         </Space>
       )
     },
     {
-      title: '参考分数',
-      dataIndex: 'score',
-      key: 'score',
-      render: (score: number) => score ? (
+      title: '全国排名',
+      dataIndex: 'ranking',
+      key: 'ranking',
+      width: 100,
+      render: (ranking: any) => ranking?.national ? (
         <div style={{ 
           color: 'var(--primary-color)', 
           fontWeight: 600,
           fontSize: '16px'
         }}>
-          {score}分
+          第{ranking.national}名
         </div>
       ) : '-',
+    },
+    {
+      title: '操作',
+      key: 'action',
+      width: 100,
+      render: (_: any, record: UniversityData) => (
+        <Button 
+          type="link" 
+          onClick={() => handleViewDetail(record)}
+          style={{ padding: 0 }}
+        >
+          查看详情
+        </Button>
+      ),
     },
   ]
 
@@ -81,10 +135,15 @@ const GaokaoQuery: React.FC = () => {
       const endpoint = queryType === 'university' ? '/api/v1/gaokao/universities' : '/api/v1/gaokao/majors'
       const response = await axios.get(endpoint, { params: values })
       
-      if (response.data.success) {
-        setData(response.data.data || [])
-        if (response.data.data?.length === 0) {
+      console.log('API响应:', response.data)
+      
+      if (response.data.code === 200) {
+        const universities = response.data.data?.universities || []
+        setData(universities)
+        if (universities.length === 0) {
           message.info('未找到相关数据')
+        } else {
+          message.success(`查询成功，找到 ${universities.length} 条记录`)
         }
       } else {
         message.error(response.data.message || '查询失败')
@@ -94,6 +153,44 @@ const GaokaoQuery: React.FC = () => {
       message.error('查询失败，请稍后重试')
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleViewDetail = (record: UniversityData) => {
+    message.info('查看详情功能开发中...')
+    console.log('大学详情:', record)
+  }
+
+  const handleAIRecommend = async () => {
+    const keyword = form.getFieldValue('keyword')
+    if (!keyword) {
+      message.warning('请先输入院校关键词')
+      return
+    }
+
+    setAiLoading(true)
+    try {
+      const params: any = { keyword }
+      const level = form.getFieldValue('level')
+      const location = form.getFieldValue('location')
+      
+      if (level) params.level = level
+      if (location) params.location = location
+
+      const response = await axios.get('/api/v1/gaokao/universities/top-by-ai', { params })
+      
+      if (response.data.code === 200) {
+        setAiResult(response.data.data)
+        setAiModalVisible(true)
+        message.success('AI分析完成！')
+      } else {
+        message.error(response.data.message || 'AI推荐失败')
+      }
+    } catch (error) {
+      console.error('AI推荐失败:', error)
+      message.error('AI推荐失败，请稍后重试')
+    } finally {
+      setAiLoading(false)
     }
   }
 
@@ -108,12 +205,17 @@ const GaokaoQuery: React.FC = () => {
     { label: '双一流', value: { level: '双一流' } },
     { label: '北京高校', value: { location: '北京' } },
     { label: '上海高校', value: { location: '上海' } },
-    { label: '广东高校', value: { location: '广东' } }
+    { label: '广东高校', value: { location: '广东' } },
+    { label: 'AI智能推荐', value: 'ai', isAI: true }
   ]
 
-  const handleQuickSearch = (searchParams: any) => {
-    form.setFieldsValue(searchParams)
-    handleSearch(searchParams)
+  const handleQuickSearch = (searchParams: any, isAI?: boolean) => {
+    if (isAI) {
+      handleAIRecommend()
+    } else {
+      form.setFieldsValue(searchParams)
+      handleSearch(searchParams)
+    }
   }
 
   return (
@@ -150,13 +252,16 @@ const GaokaoQuery: React.FC = () => {
             <Col xs={12} sm={8} md={6} lg={4} key={index}>
               <Button
                 block
-                onClick={() => handleQuickSearch(option.value)}
+                icon={(option as any).isAI ? <RobotOutlined /> : undefined}
+                loading={(option as any).isAI && aiLoading}
+                onClick={() => handleQuickSearch(option.value, (option as any).isAI)}
                 style={{
                   borderRadius: '20px',
-                  border: '1px solid var(--border-medium)',
-                  background: 'transparent',
-                  color: 'var(--text-primary)',
-                  transition: 'all 0.3s ease'
+                  border: (option as any).isAI ? '2px solid var(--primary-color)' : '1px solid var(--border-medium)',
+                  background: (option as any).isAI ? 'linear-gradient(135deg, var(--primary-color), var(--secondary-color))' : 'transparent',
+                  color: (option as any).isAI ? '#fff' : 'var(--text-primary)',
+                  transition: 'all 0.3s ease',
+                  fontWeight: (option as any).isAI ? 600 : 400
                 }}
                 className="quick-search-btn"
               >
@@ -304,6 +409,100 @@ const GaokaoQuery: React.FC = () => {
           }}
         />
       </div>
+
+      {/* AI推荐结果模态框 */}
+      <Modal
+        title={
+          <Space>
+            <RobotOutlined style={{ color: 'var(--primary-color)', fontSize: '20px' }} />
+            <span>AI智能推荐 - 排名最高的院校</span>
+          </Space>
+        }
+        open={aiModalVisible}
+        onCancel={() => setAiModalVisible(false)}
+        width={1000}
+        footer={[
+          <Button key="close" onClick={() => setAiModalVisible(false)}>
+            关闭
+          </Button>,
+          <Button 
+            key="apply" 
+            type="primary" 
+            onClick={() => {
+              if (aiResult) {
+                setData(aiResult.universities)
+                setAiModalVisible(false)
+                message.success('已将AI推荐结果应用到查询列表')
+              }
+            }}
+          >
+            应用到查询结果
+          </Button>
+        ]}
+      >
+        {aiResult && (
+          <div>
+            {/* 搜索信息 */}
+            <Card 
+              size="small" 
+              style={{ marginBottom: '16px', background: 'var(--bg-light)' }}
+            >
+              <Space direction="vertical" size="small">
+                <div>
+                  <strong>搜索关键词：</strong>
+                  <span style={{ color: 'var(--primary-color)' }}>{aiResult.searchInfo.keyword}</span>
+                </div>
+                {aiResult.searchInfo.level && (
+                  <div>
+                    <strong>层次要求：</strong>
+                    <span>{aiResult.searchInfo.level}</span>
+                  </div>
+                )}
+                {aiResult.searchInfo.location && (
+                  <div>
+                    <strong>地区要求：</strong>
+                    <span>{aiResult.searchInfo.location}</span>
+                  </div>
+                )}
+                <div>
+                  <strong>匹配结果：</strong>
+                  <span>共找到 {aiResult.searchInfo.totalMatched} 所院校，展示排名前 {aiResult.universities.length} 所</span>
+                </div>
+              </Space>
+            </Card>
+
+            {/* AI分析 */}
+            <Card 
+              title={<span><StarOutlined /> AI专业分析</span>}
+              size="small"
+              style={{ marginBottom: '16px' }}
+            >
+              <div style={{ 
+                whiteSpace: 'pre-wrap', 
+                lineHeight: '1.8',
+                color: 'var(--text-primary)'
+              }}>
+                {aiResult.aiAnalysis}
+              </div>
+            </Card>
+
+            {/* 院校列表 */}
+            <Card 
+              title={<span><BookOutlined /> 推荐院校列表</span>}
+              size="small"
+            >
+              <Table
+                columns={columns}
+                dataSource={aiResult.universities}
+                rowKey="id"
+                pagination={false}
+                size="small"
+                scroll={{ y: 400 }}
+              />
+            </Card>
+          </div>
+        )}
+      </Modal>
 
       <style>{`
         .quick-search-btn:hover {
