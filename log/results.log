@@ -419,3 +419,4 @@
 2025-10-24 11:03:25 error [www.ts]: GET / Not Found
 2025-10-24 11:26:26 error [www.ts]: GET /@vite/client Not Found
 2025-10-24 11:26:27 error [www.ts]: GET /@vite/client Not Found
+2025-10-24 14:33:50 error [www.ts]: GET /chat?ide_webview_request_time=1761285127170 Not Found

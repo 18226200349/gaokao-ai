@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Tabs, Button, Space, message, Tag, Typography, Row, Col, Divider } from 'antd'
+import { Card, Tabs, Button, Space, message, Tag, Typography, Row, Col } from 'antd'
 import { 
   DownloadOutlined, 
   PrinterOutlined, 
@@ -59,7 +59,7 @@ const Solution: React.FC = () => {
       setUserInfo(info)
       
       // 估算位次
-      const rank = estimateRank(info.score, info.province)
+      const rank = estimateRank(info.score)
       setEstimatedRank(rank)
       
       // 生成推荐方案
@@ -71,7 +71,7 @@ const Solution: React.FC = () => {
   }, [])
 
   // 估算位次
-  const estimateRank = (score: number, province: string): number => {
+  const estimateRank = (score: number): number => {
     // 简化的位次估算算法
     const baseRank = Math.max(1, Math.floor((750 - score) * 100))
     return baseRank
@@ -100,7 +100,7 @@ const Solution: React.FC = () => {
   const generateUniversityList = (
     minScore: number, 
     maxScore: number, 
-    province: string, 
+    _province: string, 
     type: string
   ): University[] => {
     const universities: University[] = []
