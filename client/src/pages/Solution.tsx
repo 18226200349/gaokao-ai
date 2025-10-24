@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Card, Tabs, Button, Space, message, Tag, Typography, Row, Col } from 'antd'
 import { 
   DownloadOutlined, 
@@ -13,6 +13,8 @@ import {
   InfoCircleOutlined
 } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
+// @ts-ignore
+import html2canvas from 'html2canvas'
 
 const { Title, Text, Paragraph } = Typography
 const { TabPane } = Tabs
@@ -43,6 +45,7 @@ interface Major {
 
 const Solution: React.FC = () => {
   const navigate = useNavigate()
+  const solutionRef = useRef<HTMLDivElement>(null)
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null)
   const [estimatedRank, setEstimatedRank] = useState<number>(0)
   const [activeTab, setActiveTab] = useState<string>('stable')
@@ -336,28 +339,46 @@ const Solution: React.FC = () => {
     // 这里可以打开模态框显示详细信息
   }
 
-  // 导出方案
-  const exportSolution = () => {
-    const solutionData = {
-      userInfo,
-      estimatedRank,
-      stableUniversities,
-      moderateUniversities,
-      reachUniversities,
-      recommendedMajors,
-      exportTime: new Date().toLocaleString()
+  // 导出方案为PNG图片
+  const exportSolution = async () => {
+    if (!solutionRef.current) {
+      message.error('无法获取方案内容')
+      return
     }
 
-    const dataStr = JSON.stringify(solutionData, null, 2)
-    const dataBlob = new Blob([dataStr], { type: 'application/json' })
-    const url = URL.createObjectURL(dataBlob)
-    const link = document.createElement('a')
-    link.href = url
-    link.download = `志愿填报方案_${userInfo?.province}_${userInfo?.score}分.json`
-    link.click()
-    URL.revokeObjectURL(url)
-    
-    showNotification('方案导出成功！', 'success')
+    try {
+      message.loading({ content: '正在生成图片...', key: 'export', duration: 0 })
+      
+      // 使用html2canvas将DOM转换为canvas
+      const canvas = await html2canvas(solutionRef.current, {
+        backgroundColor: '#f5f5f5',
+        scale: 2, // 提高清晰度
+        useCORS: true,
+        logging: false,
+        windowWidth: solutionRef.current.scrollWidth,
+        windowHeight: solutionRef.current.scrollHeight
+      })
+
+      // 将canvas转换为图片
+      canvas.toBlob((blob: Blob | null) => {
+        if (blob) {
+          const url = URL.createObjectURL(blob)
+          const link = document.createElement('a')
+          link.href = url
+          link.download = `志愿填报方案_${userInfo?.province}_${userInfo?.score}分_${new Date().getTime()}.png`
+          link.click()
+          URL.revokeObjectURL(url)
+          
+          message.success({ content: '方案导出成功！', key: 'export' })
+          showNotification('方案已保存为图片', 'success')
+        } else {
+          message.error({ content: '导出失败', key: 'export' })
+        }
+      }, 'image/png')
+    } catch (error) {
+      console.error('导出失败:', error)
+      message.error({ content: '导出失败，请重试', key: 'export' })
+    }
   }
 
   // 打印方案
@@ -400,11 +421,15 @@ const Solution: React.FC = () => {
   }
 
   return (
-    <div className="solution-container" style={{
-      padding: '20px',
-      maxWidth: '1400px',
-      margin: '0 auto'
-    }}>
+    <div 
+      ref={solutionRef}
+      className="solution-container" 
+      style={{
+        padding: '20px',
+        maxWidth: '1400px',
+        margin: '0 auto'
+      }}
+    >
       {/* 页面标题 */}
       <div style={{
         textAlign: 'center',

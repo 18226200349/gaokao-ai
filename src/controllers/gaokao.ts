@@ -280,57 +280,176 @@ const gaokaoController = {
   // 获取大学列表
   getUniversities: async function (req: any, res: any, next: any) {
     try {
-      const { level, location, keyword } = req.query;
+      const { level, location, keyword, province, minScore, maxScore } = req.query;
       
-      logger.info('获取大学列表', { level, location, keyword });
+      logger.info('获取大学列表', { level, location, keyword, province, minScore, maxScore });
       
       // 从知识库获取大学数据
-       const universitiesData = await knowledgeBaseService.getUniversitiesData();
-       const universities: University[] = universitiesData?.universities || [];
+      const universitiesData = await knowledgeBaseService.getUniversitiesData();
+      const universities: University[] = universitiesData?.universities || [];
       
       // 过滤数据
       let filteredUniversities = universities;
       
       // 按level过滤（支持模糊匹配，如985、211、双一流）
-       if (level) {
-         filteredUniversities = filteredUniversities.filter(u => 
-           u.level && u.level.includes(level)
-         );
-       }
+      if (level) {
+        filteredUniversities = filteredUniversities.filter(u => 
+          u.level && u.level.includes(level)
+        );
+      }
       
       // 按location过滤
       if (location) {
         filteredUniversities = filteredUniversities.filter(u => 
-          u.location.province === location || u.location.city === location
+          u.location.province.includes(location) || 
+          u.location.city.includes(location)
         );
       }
       
       // 按keyword过滤
       if (keyword) {
-        const keywordLower = keyword.toLowerCase();
+        const keywordLower = String(keyword).toLowerCase();
         filteredUniversities = filteredUniversities.filter(u => 
           u.name.toLowerCase().includes(keywordLower) ||
+          (u.abbreviation && u.abbreviation.toLowerCase().includes(keywordLower)) ||
           u.location.province.toLowerCase().includes(keywordLower) ||
           u.location.city.toLowerCase().includes(keywordLower)
         );
       }
       
+      // 按省份的分数线过滤
+      if (province && (minScore || maxScore)) {
+        filteredUniversities = filteredUniversities.filter(u => {
+          if (!u.admission_info || !u.admission_info['2024_cutoff_scores']) {
+            return false;
+          }
+          
+          const provinceScores = u.admission_info['2024_cutoff_scores'][province];
+          if (!provinceScores) {
+            return false;
+          }
+          
+          // 获取该省的最高分数（理科/文科/物理/历史/综合）
+          const scores = Object.values(provinceScores).filter((s): s is number => typeof s === 'number');
+          if (scores.length === 0) {
+            return false;
+          }
+          
+          const maxProvinceScore = Math.max(...scores);
+          
+          if (minScore && maxProvinceScore < Number(minScore)) {
+            return false;
+          }
+          if (maxScore && maxProvinceScore > Number(maxScore)) {
+            return false;
+          }
+          
+          return true;
+        });
+      }
+      
+      // 格式化返回数据，添加更多展示信息
+      const formattedUniversities = filteredUniversities.map(u => ({
+        id: u.id,
+        name: u.name,
+        location: `${u.location.province} ${u.location.city}`,
+        type: u.type,
+        level: u.level,
+        score: province && u.admission_info && u.admission_info['2024_cutoff_scores'] && u.admission_info['2024_cutoff_scores'][province]
+          ? Math.max(...Object.values(u.admission_info['2024_cutoff_scores'][province]).filter((s): s is number => typeof s === 'number'))
+          : null,
+        ranking: u.ranking ? u.ranking.national : null,
+        website: u.website,
+        keyDisciplines: u.key_disciplines ? u.key_disciplines.slice(0, 5) : [],
+        admissionRate: u.admission_info ? u.admission_info.admission_rate : null
+      }));
+      
       res.json({
+        success: true,
         code: 200,
         message: '操作成功',
-        data: {
-          universities: filteredUniversities,
-          total: filteredUniversities.length
-        }
+        data: formattedUniversities,
+        total: formattedUniversities.length
       });
     } catch (error: any) {
       logger.error('获取大学列表失败', error);
       res.json({
+        success: false,
         code: 500,
         message: '服务器内部错误',
-        data: { 
-          error: error.message 
-        }
+        data: [],
+        error: error.message
+      });
+    }
+  },
+  
+  // 获取专业列表
+  getMajors: async function (req: any, res: any, next: any) {
+    try {
+      const { keyword, category, level } = req.query;
+      
+      logger.info('获取专业列表', { keyword, category, level });
+      
+      // 从知识库获取专业数据
+      const majorsData = await knowledgeBaseService.getMajorsData();
+      const majors = majorsData?.majors || [];
+      
+      // 过滤数据
+      let filteredMajors = majors;
+      
+      // 按关键词过滤
+      if (keyword) {
+        const keywordLower = String(keyword).toLowerCase();
+        filteredMajors = filteredMajors.filter((m: any) => 
+          m.name.toLowerCase().includes(keywordLower) ||
+          (m.description && m.description.toLowerCase().includes(keywordLower)) ||
+          (m.category && m.category.toLowerCase().includes(keywordLower))
+        );
+      }
+      
+      // 按专业类别过滤
+      if (category) {
+        filteredMajors = filteredMajors.filter((m: any) => 
+          m.category === category || m.major_category === category
+        );
+      }
+      
+      // 按学历层次过滤
+      if (level) {
+        filteredMajors = filteredMajors.filter((m: any) => 
+          m.degree_type === level || (m.degree_types && m.degree_types.includes(level))
+        );
+      }
+      
+      // 格式化返回数据
+      const formattedMajors = filteredMajors.map((m: any) => ({
+        id: m.id,
+        name: m.name,
+        code: m.code,
+        category: m.category || m.major_category,
+        type: m.degree_type || '本科',
+        level: m.degree_types ? m.degree_types.join('/') : '本科',
+        description: m.description,
+        employmentRate: m.employment_info ? m.employment_info.rate : null,
+        averageSalary: m.employment_info ? m.employment_info.average_salary : null,
+        topUniversities: m.top_universities ? m.top_universities.slice(0, 5) : []
+      }));
+      
+      res.json({
+        success: true,
+        code: 200,
+        message: '操作成功',
+        data: formattedMajors,
+        total: formattedMajors.length
+      });
+    } catch (error: any) {
+      logger.error('获取专业列表失败', error);
+      res.json({
+        success: false,
+        code: 500,
+        message: '服务器内部错误',
+        data: [],
+        error: error.message
       });
     }
   }

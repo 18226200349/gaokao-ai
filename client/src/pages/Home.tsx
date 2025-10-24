@@ -37,7 +37,7 @@ const Home: React.FC = () => {
 
   const stats = [
     { icon: <StarOutlined />, number: '1000+', label: '权威高校数据' },
-    { icon: <ThunderboltOutlined />, number: '24/7', label: '智能在线服务' },
+    { icon: <ThunderboltOutlined />, number: '全天候', label: '智能在线服务' },
     { icon: <HeartOutlined />, number: '99%', label: '用户满意度' }
   ]
 

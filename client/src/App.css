@@ -162,3 +162,60 @@
     padding: 0;
   }
 }
+
+/* 打印样式 */
+@media print {
+  /* 隐藏导航栏和页脚 */
+  .app-header,
+  .app-footer,
+  .mobile-bottom-nav {
+    display: none !important;
+  }
+  
+  /* 重置内容区域样式 */
+  .app-content {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+  
+  .app-layout {
+    background: white !important;
+  }
+  
+  /* 确保内容从顶部开始 */
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  /* 隐藏所有按钮 */
+  button {
+    display: none !important;
+  }
+  
+  /* 保持内容可读性 */
+  .solution-container,
+  .glass-card {
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+    page-break-inside: avoid;
+  }
+  
+  /* 优化表格打印 */
+  table {
+    page-break-inside: avoid;
+  }
+  
+  /* 优化卡片打印 */
+  .ant-card {
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+    page-break-inside: avoid;
+  }
+  
+  /* 优化标签打印 */
+  .ant-tag {
+    border: 1px solid #ddd !important;
+  }
+}

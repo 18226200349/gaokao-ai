@@ -66,7 +66,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <Footer className="app-footer">
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
             <RobotOutlined />
-            <span>高考AI助手 ©2024 让每一个问题都有权威答案</span>
+            <span>高考AI助手 ©2025 让每一个问题都有权威答案</span>
           </div>
         </Footer>
       )}

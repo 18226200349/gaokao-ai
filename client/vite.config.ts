@@ -9,13 +9,20 @@ export default defineConfig({
     emptyOutDir: true,
   },
   server: {
-    port: 4001,
+    port: 3000,
     host: true,
     hmr: {
       overlay: true,
     },
     watch: {
       usePolling: true,
+    },
+    // 开发环境：前端(3000)代理API请求到后端(4001)
+    proxy: {
+      '/api': {
+        target: 'http://localhost:4001',
+        changeOrigin: true,
+      },
     },
   },
 })

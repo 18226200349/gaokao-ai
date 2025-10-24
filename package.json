@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "npm run build && ts-node bin/www.ts",
-    "dev": "npm run build && nodemon",
+    "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
+    "server:dev": "nodemon",
+    "client:dev": "cd client && npm run dev -- --port 3000",
     "build": "cd client && npm run build",
     "client:install": "cd client && pnpm install",
     "postinstall": "cd client && pnpm install"

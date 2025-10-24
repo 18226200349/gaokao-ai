@@ -23,4 +23,7 @@ router.post('/import-excel', upload.single('file'), gaokaoController.importExcel
 // 获取大学列表接口
 router.get('/universities', gaokaoController.getUniversities)
 
+// 获取专业列表接口
+router.get('/majors', gaokaoController.getMajors)
+
 export default router

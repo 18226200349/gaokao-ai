@@ -2,8 +2,9 @@ import React, { useState, useRef, useEffect } from 'react'
 import { Input, Button, List, Avatar, Typography, Space, message, Select, Radio } from 'antd'
 import { SendOutlined, UserOutlined, RobotOutlined, ClearOutlined, FileTextOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
-// import ReactMarkdown from 'react-markdown'
-// import rehypeHighlight from 'rehype-highlight'
+import ReactMarkdown from 'react-markdown'
+import rehypeHighlight from 'rehype-highlight'
+import 'highlight.js/styles/github.css'
 
 const { TextArea } = Input
 const { Text } = Typography
@@ -33,14 +34,40 @@ const Chat: React.FC = () => {
   const [score, setScore] = useState<number | undefined>(undefined)
   const [conversationHistory, setConversationHistory] = useState<Array<{role: string, content: string}>>([])
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const messagesContainerRef = useRef<HTMLDivElement>(null)
+  const [autoScroll, setAutoScroll] = useState(true)
+  const userScrolledRef = useRef(false)
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    if (messagesContainerRef.current && !userScrolledRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight
+    }
+  }
+
+  // 检测用户是否手动滚动
+  const handleScroll = () => {
+    if (!messagesContainerRef.current) return
+    
+    const { scrollTop, scrollHeight, clientHeight } = messagesContainerRef.current
+    const isAtBottom = Math.abs(scrollHeight - scrollTop - clientHeight) < 10
+    
+    // 如果用户在底部，启用自动滚动；否则禁用
+    userScrolledRef.current = !isAtBottom
+    setAutoScroll(isAtBottom)
   }
 
   useEffect(() => {
-    scrollToBottom()
-  }, [messages])
+    if (autoScroll) {
+      scrollToBottom()
+    }
+  }, [messages, autoScroll])
+
+  // 组件挂载时确保滚动到底部
+  useEffect(() => {
+    setTimeout(() => {
+      scrollToBottom()
+    }, 100)
+  }, [])
 
   const provinces = [
     '北京', '上海', '广东', '江苏', '浙江', '山东', '河南', '四川', '湖北', '湖南',
@@ -94,6 +121,9 @@ const Chat: React.FC = () => {
     setMessages(prev => [...prev, userMessage, thinkingMessage])
     setInputValue('')
     setLoading(true)
+    // 发送新消息时重置滚动状态，启用自动滚动
+    userScrolledRef.current = false
+    setAutoScroll(true)
 
     try {
       // 根据选择的文理科设置兴趣标签
@@ -105,20 +135,8 @@ const Chat: React.FC = () => {
         questionText = `我想了解${province}${subject}${score}分的高考志愿报名`
       }
       
-      // 先替换thinking消息为空的流式消息
-      setMessages(prev => {
-        const newMessages = [...prev]
-        const lastIndex = newMessages.length - 1
-        if (newMessages[lastIndex]?.content === 'thinking') {
-          newMessages[lastIndex] = {
-            ...newMessages[lastIndex],
-            content: ''
-          }
-        }
-        return newMessages
-      })
-
       let accumulatedContent = '';
+      let hasReceivedFirstChunk = false;
 
       // 使用XMLHttpRequest来处理流式数据，因为fetch可能被缓冲
       console.log('使用XMLHttpRequest发起流式请求');
@@ -157,6 +175,13 @@ const Chat: React.FC = () => {
                 console.log('解析数据成功:', data);
                 
                 if (data.type === 'chunk' && data.content) {
+                  // 收到第一个数据块时，替换thinking消息并关闭loading
+                  if (!hasReceivedFirstChunk) {
+                    hasReceivedFirstChunk = true;
+                    setLoading(false);
+                    console.log('收到第一个数据块，关闭loading');
+                  }
+                  
                   accumulatedContent += data.content;
                   console.log('累积内容更新:', accumulatedContent);
                   
@@ -232,11 +257,11 @@ const Chat: React.FC = () => {
         timestamp: new Date()
       }
       
-      // 替换最后一条thinking消息为错误消息
+      // 替换最后一条thinking或空消息为错误消息
       setMessages(prev => {
         const newMessages = [...prev]
         const lastIndex = newMessages.length - 1
-        if (newMessages[lastIndex]?.content === 'thinking') {
+        if (newMessages[lastIndex]?.id === thinkingMessage.id) {
           newMessages[lastIndex] = errorMessage
         }
         return newMessages
@@ -302,7 +327,7 @@ const Chat: React.FC = () => {
       <div className="glass-card" style={{
         width: '100%',
         maxWidth: '720px',
-        height: '90vh',
+        height: '75vh',
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden'
@@ -332,12 +357,16 @@ const Chat: React.FC = () => {
         </div>
 
         {/* 消息区域 */}
-        <div style={{
-          flex: 1,
-          overflowY: 'auto',
-          padding: '20px',
-          scrollBehavior: 'smooth'
-        }}>
+        <div 
+          ref={messagesContainerRef}
+          onScroll={handleScroll}
+          style={{
+            flex: 1,
+            overflowY: 'auto',
+            padding: '20px',
+            scrollBehavior: 'smooth'
+          }}
+        >
           <List
             dataSource={messages}
             renderItem={(message: Message) => (
@@ -374,13 +403,41 @@ const Chat: React.FC = () => {
                     lineHeight: 1.6
                   }}>
                     {message.content === 'thinking' ? (
-                      <div className="thinking-animation">
-                        <div className="thinking-dots">
-                          <span></span>
-                          <span></span>
-                          <span></span>
+                      <div className="thinking-animation" style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        padding: '12px 0'
+                      }}>
+                        <div className="thinking-dots" style={{
+                          display: 'flex',
+                          gap: '6px'
+                        }}>
+                          <span style={{
+                            width: '10px',
+                            height: '10px',
+                            borderRadius: '50%',
+                            background: 'var(--primary-color)',
+                            animation: 'thinking 1.4s infinite ease-in-out',
+                            animationDelay: '0s'
+                          }}></span>
+                          <span style={{
+                            width: '10px',
+                            height: '10px',
+                            borderRadius: '50%',
+                            background: 'var(--primary-color)',
+                            animation: 'thinking 1.4s infinite ease-in-out',
+                            animationDelay: '0.2s'
+                          }}></span>
+                          <span style={{
+                            width: '10px',
+                            height: '10px',
+                            borderRadius: '50%',
+                            background: 'var(--primary-color)',
+                            animation: 'thinking 1.4s infinite ease-in-out',
+                            animationDelay: '0.4s'
+                          }}></span>
                         </div>
-                        <Text style={{ color: 'var(--text-muted)', marginLeft: '8px' }}>
+                        <Text style={{ color: 'var(--text-muted)', marginLeft: '12px', fontSize: '14px' }}>
                           AI正在思考中...
                         </Text>
                       </div>
@@ -391,16 +448,14 @@ const Chat: React.FC = () => {
                             {message.content}
                           </Text>
                         ) : (
-                          <div className="ai-message-content" style={{
+                          <div className="ai-message-content markdown-body" style={{
                             color: 'var(--text-primary)',
                             fontSize: '14px',
-                            lineHeight: '1.8',
-                            whiteSpace: 'pre-wrap'
+                            lineHeight: '1.8'
                           }}>
-                            {/* 临时使用简单文本渲染来测试流式输出 */}
-                            <span key={`${message.id}-${message.content.length}`}>
+                            <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
                               {message.content || '▋'}
-                            </span>
+                            </ReactMarkdown>
                           </div>
                         )}
                         <div style={{ 
@@ -709,6 +764,123 @@ const Chat: React.FC = () => {
         .chat-config-section:hover {
           background: rgba(102, 126, 234, 0.08);
           border-color: rgba(102, 126, 234, 0.15);
+        }
+        
+        /* Markdown样式 */
+        .markdown-body {
+          background: transparent !important;
+        }
+        
+        .markdown-body h1,
+        .markdown-body h2,
+        .markdown-body h3,
+        .markdown-body h4,
+        .markdown-body h5,
+        .markdown-body h6 {
+          color: var(--primary-color);
+          margin-top: 16px;
+          margin-bottom: 8px;
+          font-weight: 600;
+          border-bottom: none;
+        }
+        
+        .markdown-body h1 { font-size: 1.5em; }
+        .markdown-body h2 { font-size: 1.3em; }
+        .markdown-body h3 { font-size: 1.1em; }
+        
+        .markdown-body p {
+          margin-bottom: 8px;
+          color: var(--text-primary);
+        }
+        
+        .markdown-body ul,
+        .markdown-body ol {
+          padding-left: 20px;
+          margin-bottom: 8px;
+        }
+        
+        .markdown-body li {
+          margin-bottom: 4px;
+          color: var(--text-primary);
+        }
+        
+        .markdown-body code {
+          background: rgba(102, 126, 234, 0.1);
+          padding: 2px 6px;
+          border-radius: 4px;
+          font-size: 0.9em;
+          color: var(--primary-color);
+          font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+        
+        .markdown-body pre {
+          background: rgba(0, 0, 0, 0.03);
+          padding: 12px;
+          border-radius: 8px;
+          overflow-x: auto;
+          margin: 8px 0;
+          border: 1px solid rgba(0, 0, 0, 0.06);
+        }
+        
+        .markdown-body pre code {
+          background: transparent;
+          padding: 0;
+          color: inherit;
+          font-size: 0.85em;
+        }
+        
+        .markdown-body blockquote {
+          border-left: 3px solid var(--primary-color);
+          padding-left: 12px;
+          margin: 8px 0;
+          color: var(--text-secondary);
+          font-style: italic;
+        }
+        
+        .markdown-body table {
+          border-collapse: collapse;
+          width: 100%;
+          margin: 8px 0;
+        }
+        
+        .markdown-body table th,
+        .markdown-body table td {
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          padding: 8px 12px;
+          text-align: left;
+        }
+        
+        .markdown-body table th {
+          background: rgba(102, 126, 234, 0.05);
+          font-weight: 600;
+          color: var(--primary-color);
+        }
+        
+        .markdown-body a {
+          color: var(--primary-color);
+          text-decoration: none;
+          border-bottom: 1px solid transparent;
+          transition: border-color 0.3s;
+        }
+        
+        .markdown-body a:hover {
+          border-bottom-color: var(--primary-color);
+        }
+        
+        .markdown-body strong {
+          font-weight: 600;
+          color: var(--text-primary);
+        }
+        
+        .markdown-body em {
+          font-style: italic;
+          color: var(--text-secondary);
+        }
+        
+        .markdown-body hr {
+          border: none;
+          border-top: 1px solid rgba(0, 0, 0, 0.1);
+          margin: 16px 0;
         }
         
         @media (max-width: 768px) {
