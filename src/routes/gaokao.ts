@@ -27,5 +27,7 @@ router.get('/universities', gaokaoController.getUniversities)
 router.get('/majors', gaokaoController.getMajors)
 // AI生成排名最高的10所学校接口
 router.get('/universities/top-by-ai', gaokaoController.getTopUniversitiesByAI)
+// 院校推荐接口
+router.get('/universities/recommend', gaokaoController.recommendUniversities)
 
 export default router

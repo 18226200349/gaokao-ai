@@ -462,20 +462,49 @@ const gaokaoController = {
       }
       
       // 格式化返回数据，添加更多展示信息
-      const formattedUniversities = filteredUniversities.map(u => ({
-        id: u.id,
-        name: u.name,
-        location: `${u.location.province} ${u.location.city}`,
-        type: u.type,
-        level: u.level,
-        score: province && u.admission_info && u.admission_info['2024_cutoff_scores'] && u.admission_info['2024_cutoff_scores'][province]
-          ? Math.max(...Object.values(u.admission_info['2024_cutoff_scores'][province]).filter((s): s is number => typeof s === 'number'))
-          : null,
-        ranking: u.ranking ? u.ranking.national : null,
-        website: u.website,
-        keyDisciplines: u.key_disciplines ? u.key_disciplines.slice(0, 5) : [],
-        admissionRate: u.admission_info ? u.admission_info.admission_rate : null
-      }));
+      const formattedUniversities = filteredUniversities.map(u => {
+        // 计算分数线信息
+        let scoreInfo: any = {
+          max_cutoff_score: null,
+          min_cutoff_score: null,
+          cutoff_scores: null
+        };
+        
+        if (u.admission_info && u.admission_info['2024_cutoff_scores']) {
+           const allScores: number[] = [];
+           const cutoffScores: Record<string, any> = {};
+           
+           // 遍历所有省份的分数线
+           Object.entries(u.admission_info['2024_cutoff_scores']).forEach(([prov, scores]) => {
+             cutoffScores[prov] = scores;
+             // 添加类型断言确保scores是对象类型
+             if (scores && typeof scores === 'object') {
+               const provinceScores = Object.values(scores as Record<string, any>).filter((s): s is number => typeof s === 'number');
+               allScores.push(...provinceScores);
+             }
+           });
+          
+          if (allScores.length > 0) {
+            scoreInfo.max_cutoff_score = Math.max(...allScores);
+            scoreInfo.min_cutoff_score = Math.min(...allScores);
+            scoreInfo.cutoff_scores = cutoffScores;
+          }
+        }
+        
+        return {
+          id: u.id,
+          name: u.name,
+          location: `${u.location.province} ${u.location.city}`,
+          geographical_location: u.location,
+          type: u.type,
+          level: u.level,
+          ranking: u.ranking ? u.ranking.national : null,
+          website: u.website,
+          key_disciplines: u.key_disciplines ? u.key_disciplines.slice(0, 5) : [],
+          admission_rate: u.admission_info ? u.admission_info.admission_rate : null,
+          ...scoreInfo
+        };
+      })
       
       res.json({
         success: true,
@@ -562,6 +591,107 @@ const gaokaoController = {
         code: 500,
         message: '服务器内部错误',
         data: [],
+        error: error.message
+      });
+    }
+  },
+
+  // 根据分数推荐院校
+  recommendUniversities: async function (req: any, res: any, next: any) {
+    try {
+      const { score, province, subject } = req.query;
+      
+      logger.info('获取院校推荐', { score, province, subject });
+      
+      if (!score || !province || !subject) {
+        return res.json({
+          success: false,
+          code: 400,
+          message: '缺少必要参数：score、province、subject',
+          data: null
+        });
+      }
+
+      const userScore = parseInt(score as string);
+      
+      // 从知识库加载院校数据
+      const universitiesData = await knowledgeBaseService.getUniversitiesData();
+      const universities = universitiesData.universities;
+
+      // 筛选有录取分数的院校
+      const validUniversities = universities.filter((uni: any) => {
+        const cutoffScores = uni.admission_info?.['2024_cutoff_scores'];
+        if (!cutoffScores || !cutoffScores[province]) return false;
+        
+        const scoreData = cutoffScores[province][subject];
+        return scoreData && typeof scoreData === 'number';
+      });
+
+      // 按录取分数排序
+      validUniversities.sort((a: any, b: any) => {
+        const scoreA = a.admission_info['2024_cutoff_scores'][province][subject];
+        const scoreB = b.admission_info['2024_cutoff_scores'][province][subject];
+        return scoreB - scoreA;
+      });
+
+      // 分类推荐
+      const safeUniversities: any[] = []; // 稳妥院校(分数低于用户10-30分)
+      const moderateUniversities: any[] = []; // 适中院校(分数与用户相差±10分)
+      const reachUniversities: any[] = []; // 冲刺院校(分数高于用户10-30分)
+
+      validUniversities.forEach((uni: any) => {
+        const cutoffScore = uni.admission_info['2024_cutoff_scores'][province][subject];
+        const diff = cutoffScore - userScore;
+
+        if (diff <= -10 && diff >= -30) {
+          safeUniversities.push({
+            ...uni,
+            cutoff_score: cutoffScore,
+            score_diff: diff,
+            recommendation_type: 'safe'
+          });
+        } else if (diff >= -10 && diff <= 10) {
+          moderateUniversities.push({
+            ...uni,
+            cutoff_score: cutoffScore,
+            score_diff: diff,
+            recommendation_type: 'moderate'
+          });
+        } else if (diff >= 10 && diff <= 30) {
+          reachUniversities.push({
+            ...uni,
+            cutoff_score: cutoffScore,
+            score_diff: diff,
+            recommendation_type: 'reach'
+          });
+        }
+      });
+
+      // 限制数量
+      const result = {
+        safe: safeUniversities.slice(0, 8),
+        moderate: moderateUniversities.slice(0, 10),
+        reach: reachUniversities.slice(0, 6)
+      };
+
+      res.json({
+        success: true,
+        code: 200,
+        message: '操作成功',
+        data: result,
+        total: {
+          safe: result.safe.length,
+          moderate: result.moderate.length,
+          reach: result.reach.length
+        }
+      });
+    } catch (error: any) {
+      logger.error('获取院校推荐失败', error);
+      res.json({
+        success: false,
+        code: 500,
+        message: '服务器内部错误',
+        data: null,
         error: error.message
       });
     }

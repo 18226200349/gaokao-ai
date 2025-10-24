@@ -35,6 +35,7 @@ interface University {
   admissionScore: number
   probability: string
   majorRecommendations: string[]
+  website?: string
 }
 
 interface Major {
@@ -51,6 +52,7 @@ const Solution: React.FC = () => {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null)
   const [estimatedRank, setEstimatedRank] = useState<number>(0)
   const [activeTab, setActiveTab] = useState<string>('stable')
+  const [loading, setLoading] = useState(false)
   const [stableUniversities, setStableUniversities] = useState<University[]>([])
   const [moderateUniversities, setModerateUniversities] = useState<University[]>([])
   const [reachUniversities, setReachUniversities] = useState<University[]>([])
@@ -59,8 +61,15 @@ const Solution: React.FC = () => {
   const [majorModalVisible, setMajorModalVisible] = useState(false)
   const [selectedUniversity, setSelectedUniversity] = useState<University | null>(null)
   const [selectedMajor, setSelectedMajor] = useState<Major | null>(null)
+  const hasLoadedRef = useRef(false)
 
   useEffect(() => {
+    // 防止React.StrictMode导致的重复调用
+    if (hasLoadedRef.current) {
+      return
+    }
+    hasLoadedRef.current = true
+    
     // 从localStorage加载用户信息
     const savedInfo = localStorage.getItem('gaokao_user_info')
     if (savedInfo) {
@@ -77,7 +86,14 @@ const Solution: React.FC = () => {
       message.warning('未找到用户信息，请先填写基本信息')
       navigate('/chat')
     }
-  }, [])
+  }, [navigate])
+  
+  // 监控状态变化
+  useEffect(() => {
+    console.log('状态更新 - 稳妥院校:', stableUniversities)
+    console.log('状态更新 - 适中院校:', moderateUniversities)
+    console.log('状态更新 - 冲刺院校:', reachUniversities)
+  }, [stableUniversities, moderateUniversities, reachUniversities])
 
   // 估算位次
   const estimateRank = (score: number): number => {
@@ -87,19 +103,101 @@ const Solution: React.FC = () => {
   }
 
   // 生成推荐方案
-  const generateRecommendations = (info: UserInfo) => {
-    // 生成稳妥院校（分数线低于考生分数20-30分）
-    const stable = generateUniversityList(info.score - 25, info.score - 15, info.province, '稳妥')
-    setStableUniversities(stable)
-
-    // 生成适中院校（分数线接近考生分数±10分）
-    const moderate = generateUniversityList(info.score - 10, info.score + 10, info.province, '适中')
-    setModerateUniversities(moderate)
-
-    // 生成冲刺院校（分数线高于考生分数10-20分）
-    const reach = generateUniversityList(info.score + 10, info.score + 20, info.province, '冲刺')
-    setReachUniversities(reach)
-
+  const generateRecommendations = async (info: UserInfo) => {
+    try {
+      // 调用后端推荐接口
+      const response = await fetch(
+          `/api/v1/gaokao/universities/recommend?score=${info.score}&province=${encodeURIComponent(info.province)}&subject=${encodeURIComponent(info.subject)}`
+        )
+      
+      if (!response.ok) {
+        throw new Error('获取推荐数据失败')
+      }
+      
+      const result = await response.json()
+      
+      console.log('后端返回的完整数据:', result)
+      console.log('safe数据:', result.data?.safe)
+      console.log('moderate数据:', result.data?.moderate)
+      console.log('reach数据:', result.data?.reach)
+      
+      if (result.success && result.data) {
+        // 转换后端数据格式到前端格式
+        const convertToFrontendFormat = (universities: any[], type: string): University[] => {
+          console.log(`转换${type}类型的院校数据,原始数据:`, universities)
+          const converted = universities.map(uni => {
+            // 计算录取概率
+            let probability = '未知'
+            if (type === 'safe') {
+              probability = '85%'
+            } else if (type === 'moderate') {
+              probability = '60%'
+            } else if (type === 'reach') {
+              probability = '30%'
+            }
+            
+            // 处理location字段,可能是字符串或对象
+            let locationStr = '未知'
+            if (uni.geographical_location) {
+              if (typeof uni.geographical_location === 'string') {
+                locationStr = uni.geographical_location
+              } else if (typeof uni.geographical_location === 'object') {
+                // 如果是对象,提取province字段
+                locationStr = uni.geographical_location.province || uni.geographical_location.city || '未知'
+              }
+            } else if (uni.location) {
+              if (typeof uni.location === 'string') {
+                locationStr = uni.location
+              } else if (typeof uni.location === 'object') {
+                locationStr = uni.location.province || uni.location.city || '未知'
+              }
+            }
+            
+            const formatted = {
+              name: uni.name,
+              location: locationStr,
+              type: uni.type || '综合',
+              level: uni.level || '本科',
+              admissionScore: uni.cutoff_score || uni.score || 0,
+              probability,
+              majorRecommendations: uni.key_disciplines?.slice(0, 3) || uni.major_recommendations || []
+            }
+            console.log('转换后的院校数据:', formatted)
+            return formatted
+          })
+          console.log(`${type}类型转换完成,结果:`, converted)
+          return converted
+        }
+        
+        const safeData = convertToFrontendFormat(result.data.safe || [], 'safe')
+        const moderateData = convertToFrontendFormat(result.data.moderate || [], 'moderate')
+        const reachData = convertToFrontendFormat(result.data.reach || [], 'reach')
+        
+        console.log('准备设置state - 稳妥:', safeData)
+        console.log('准备设置state - 适中:', moderateData)
+        console.log('准备设置state - 冲刺:', reachData)
+        
+        setStableUniversities(safeData)
+        setModerateUniversities(moderateData)
+        setReachUniversities(reachData)
+        
+        console.log('State已更新')
+      } else {
+        throw new Error(result.message || '获取推荐数据失败')
+      }
+    } catch (error) {
+      message.error('获取推荐数据失败,使用默认方案')
+      console.error('获取推荐失败:', error)
+      
+      // 降级到模拟数据
+      const stable = generateUniversityList(info.score - 25, info.score - 15, info.province, '稳妥')
+      setStableUniversities(stable)
+      const moderate = generateUniversityList(info.score - 10, info.score + 10, info.province, '适中')
+      setModerateUniversities(moderate)
+      const reach = generateUniversityList(info.score + 10, info.score + 20, info.province, '冲刺')
+      setReachUniversities(reach)
+    }
+    
     // 生成专业推荐
     const majors = generateMajors(info.subject)
     setRecommendedMajors(majors)
@@ -508,7 +606,11 @@ const Solution: React.FC = () => {
         </Title>
         <Tabs 
           activeKey={activeTab} 
-          onChange={setActiveTab}
+          onChange={(key) => {
+            setActiveTab(key)
+            // 标签页切换时可以触发数据刷新或其他操作
+            console.log('切换到标签页:', key)
+          }}
           type="card"
           size="large"
         >
@@ -525,7 +627,15 @@ const Solution: React.FC = () => {
               <Text type="secondary" style={{ display: 'block', marginBottom: '16px' }}>
                 这些院校的录取分数线低于您的成绩，录取概率较高（85%以上）
               </Text>
-              {stableUniversities.map((uni, index) => renderUniversityCard(uni, index))}
+              {(() => {
+                console.log('渲染稳妥院校,数量:', stableUniversities.length, '数据:', stableUniversities)
+                return null
+              })()}
+              {stableUniversities.length === 0 ? (
+                <div style={{ textAlign: 'center', padding: '40px', color: '#999' }}>暂无推荐院校</div>
+              ) : (
+                stableUniversities.map((uni, index) => renderUniversityCard(uni, index))
+              )}
             </div>
           </TabPane>
           <TabPane
@@ -541,7 +651,15 @@ const Solution: React.FC = () => {
               <Text type="secondary" style={{ display: 'block', marginBottom: '16px' }}>
                 这些院校的录取分数线接近您的成绩，有一定录取机会（60%左右）
               </Text>
-              {moderateUniversities.map((uni, index) => renderUniversityCard(uni, index))}
+              {(() => {
+                console.log('渲染适中院校,数量:', moderateUniversities.length, '数据:', moderateUniversities)
+                return null
+              })()}
+              {moderateUniversities.length === 0 ? (
+                <div style={{ textAlign: 'center', padding: '40px', color: '#999' }}>暂无推荐院校</div>
+              ) : (
+                moderateUniversities.map((uni, index) => renderUniversityCard(uni, index))
+              )}
             </div>
           </TabPane>
           <TabPane
@@ -554,10 +672,18 @@ const Solution: React.FC = () => {
             key="reach"
           >
             <div style={{ padding: '16px' }}>
-              <Text type="secondary" style={{ display: 'block', marginBottom: '16px' }}>
+              <Text type="secondary" style={{ display: 'block', marginBottom: '16px' }}>  
                 这些院校的录取分数线高于您的成绩，可以尝试冲刺（30%左右）
               </Text>
-              {reachUniversities.map((uni, index) => renderUniversityCard(uni, index))}
+              {(() => {
+                console.log('渲染冲刺院校,数量:', reachUniversities.length, '数据:', reachUniversities)
+                return null
+              })()}
+              {reachUniversities.length === 0 ? (
+                <div style={{ textAlign: 'center', padding: '40px', color: '#999' }}>暂无推荐院校</div>
+              ) : (
+                reachUniversities.map((uni, index) => renderUniversityCard(uni, index))
+              )}
             </div>
           </TabPane>
         </Tabs>
@@ -729,6 +855,13 @@ const Solution: React.FC = () => {
             <Descriptions.Item label="类型">
               {selectedUniversity.type}
             </Descriptions.Item>
+            {selectedUniversity.website && (
+              <Descriptions.Item label="官方网站" span={2}>
+                <a href={selectedUniversity.website} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary-color)' }}>
+                  {selectedUniversity.website}
+                </a>
+              </Descriptions.Item>
+            )}
             <Descriptions.Item label="层次" span={2}>
               <Space wrap>
                 {selectedUniversity.level.split('/').map((l, i) => (
