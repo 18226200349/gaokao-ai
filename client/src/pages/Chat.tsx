@@ -85,15 +85,11 @@ const Chat: React.FC = () => {
     
     // 检查必填项
     if (!province) {
-      alert('请选择省份')
+      message.warning('请选择省份')
       return
     }
     if (!subject) {
-      alert('请选择文理科')
-      return
-    }
-    if (!score || score < 0 || score > 750) {
-      alert('请输入考生分数')
+      message.warning('请选择文理科')
       return
     }
     
@@ -139,7 +135,6 @@ const Chat: React.FC = () => {
       let hasReceivedFirstChunk = false;
 
       // 使用XMLHttpRequest来处理流式数据，因为fetch可能被缓冲
-      console.log('使用XMLHttpRequest发起流式请求');
       
       const xhr = new XMLHttpRequest();
       xhr.open('POST', '/api/v1/chat/stream', true);
@@ -148,23 +143,19 @@ const Chat: React.FC = () => {
       let lastProcessedIndex = 0;
       
       xhr.onprogress = function() {
-        console.log('收到进度更新，当前长度:', xhr.responseText.length);
         
         const newText = xhr.responseText.slice(lastProcessedIndex);
         lastProcessedIndex = xhr.responseText.length;
         
         if (newText) {
-          console.log('新接收的文本:', JSON.stringify(newText));
           
           const lines = newText.split('\n');
           for (const line of lines) {
             const trimmedLine = line.trim();
             if (trimmedLine && trimmedLine.startsWith('data: ')) {
               const dataStr = trimmedLine.slice(6).trim();
-              console.log('处理数据行:', dataStr);
               
               if (dataStr === '[DONE]') {
-                console.log('收到结束标志');
                 return;
               }
               
@@ -172,18 +163,15 @@ const Chat: React.FC = () => {
               
               try {
                 const data = JSON.parse(dataStr);
-                console.log('解析数据成功:', data);
                 
                 if (data.type === 'chunk' && data.content) {
                   // 收到第一个数据块时，替换thinking消息并关闭loading
                   if (!hasReceivedFirstChunk) {
                     hasReceivedFirstChunk = true;
                     setLoading(false);
-                    console.log('收到第一个数据块，关闭loading');
                   }
                   
                   accumulatedContent += data.content;
-                  console.log('累积内容更新:', accumulatedContent);
                   
                   // 立即更新UI
                   setMessages(prev => {
@@ -199,11 +187,9 @@ const Chat: React.FC = () => {
                     return newMessages;
                   });
                 } else if (data.type === 'end') {
-                  console.log('收到结束信号');
                   return;
                 }
               } catch (parseError) {
-                console.warn('JSON解析失败:', parseError, '原始数据:', dataStr);
               }
             }
           }
@@ -211,11 +197,9 @@ const Chat: React.FC = () => {
       };
       
       xhr.onload = function() {
-        console.log('XMLHttpRequest完成，状态:', xhr.status);
       };
       
       xhr.onerror = function() {
-        console.error('XMLHttpRequest错误');
         throw new Error('网络请求失败');
       };
       
@@ -247,7 +231,6 @@ const Chat: React.FC = () => {
         { role: 'ai', content: accumulatedContent }
       ])
     } catch (error) {
-      console.error('发送消息失败:', error)
       message.error('发送消息失败，请稍后重试')
       
       const errorMessage: Message = {
@@ -272,13 +255,26 @@ const Chat: React.FC = () => {
   }
 
   const clearMessages = () => {
+    // 清空消息记录
     setMessages([{
       id: 'welcome',
       content: '欢迎使用【高考AI聊天助手】！请输入您的问题，我将为您提供帮助。',
       isUser: false,
       timestamp: new Date()
     }])
-    setConversationHistory([]) // 清空对话历史
+    
+    // 清空对话历史
+    setConversationHistory([])
+    
+    // 重置筛选条件
+    setProvince('北京')
+    setSubject('理科')
+    setScore(undefined)
+    
+    // 清空输入框
+    setInputValue('')
+    
+    message.success('已清空对话并重置所有条件')
   }
 
   const generateSolution = () => {
@@ -557,7 +553,18 @@ const Chat: React.FC = () => {
                 type="number"
                 placeholder="输入分数"
                 value={score}
-                onChange={(e) => setScore(e.target.value ? Number(e.target.value) : undefined)}
+                onChange={(e) => {
+                  const value = e.target.value ? Number(e.target.value) : undefined
+                  if (value === undefined) {
+                    setScore(undefined)
+                  } else if (value >= 0 && value <= 750) {
+                    setScore(value)
+                  } else if (value > 750) {
+                    setScore(750)
+                  } else if (value < 0) {
+                    setScore(0)
+                  }
+                }}
                 style={{ 
                   width: '120px',
                   borderRadius: '8px',

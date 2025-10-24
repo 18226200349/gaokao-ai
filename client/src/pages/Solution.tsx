@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Card, Tabs, Button, Space, message, Tag, Typography, Row, Col } from 'antd'
+import { Card, Tabs, Button, Space, message, Tag, Typography, Row, Col, Modal, Descriptions } from 'antd'
 import { 
   DownloadOutlined, 
   PrinterOutlined, 
@@ -10,7 +10,9 @@ import {
   RocketOutlined,
   EnvironmentOutlined,
   BookOutlined,
-  InfoCircleOutlined
+  InfoCircleOutlined,
+  PercentageOutlined,
+  DollarOutlined
 } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 // @ts-ignore
@@ -53,6 +55,10 @@ const Solution: React.FC = () => {
   const [moderateUniversities, setModerateUniversities] = useState<University[]>([])
   const [reachUniversities, setReachUniversities] = useState<University[]>([])
   const [recommendedMajors, setRecommendedMajors] = useState<Major[]>([])
+  const [universityModalVisible, setUniversityModalVisible] = useState(false)
+  const [majorModalVisible, setMajorModalVisible] = useState(false)
+  const [selectedUniversity, setSelectedUniversity] = useState<University | null>(null)
+  const [selectedMajor, setSelectedMajor] = useState<Major | null>(null)
 
   useEffect(() => {
     // 从localStorage加载用户信息
@@ -329,14 +335,14 @@ const Solution: React.FC = () => {
 
   // 显示院校详情
   const showUniversityDetail = (university: University) => {
-    message.info(`查看 ${university.name} 详细信息`)
-    // 这里可以打开模态框显示详细信息
+    setSelectedUniversity(university)
+    setUniversityModalVisible(true)
   }
 
   // 显示专业详情
   const showMajorDetail = (major: Major) => {
-    message.info(`查看 ${major.name} 详细信息`)
-    // 这里可以打开模态框显示详细信息
+    setSelectedMajor(major)
+    setMajorModalVisible(true)
   }
 
   // 导出方案为PNG图片
@@ -376,7 +382,6 @@ const Solution: React.FC = () => {
         }
       }, 'image/png')
     } catch (error) {
-      console.error('导出失败:', error)
       message.error({ content: '导出失败，请重试', key: 'export' })
     }
   }
@@ -696,6 +701,147 @@ const Solution: React.FC = () => {
           </Button>
         </Space>
       </Card>
+
+      {/* 院校详情弹窗 */}
+      <Modal
+        title={
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <TrophyOutlined style={{ color: 'var(--primary-color)' }} />
+            <span>院校详情</span>
+          </div>
+        }
+        open={universityModalVisible}
+        onCancel={() => setUniversityModalVisible(false)}
+        footer={null}
+        width={800}
+      >
+        {selectedUniversity && (
+          <Descriptions bordered column={2}>
+            <Descriptions.Item label="院校名称" span={2}>
+              <Text strong style={{ fontSize: '16px' }}>{selectedUniversity.name}</Text>
+            </Descriptions.Item>
+            <Descriptions.Item label="地区">
+              <Space>
+                <EnvironmentOutlined />
+                {selectedUniversity.location}
+              </Space>
+            </Descriptions.Item>
+            <Descriptions.Item label="类型">
+              {selectedUniversity.type}
+            </Descriptions.Item>
+            <Descriptions.Item label="层次" span={2}>
+              <Space wrap>
+                {selectedUniversity.level.split('/').map((l, i) => (
+                  <Tag key={i} color="gold" icon={<StarOutlined />}>
+                    {l}
+                  </Tag>
+                ))}
+              </Space>
+            </Descriptions.Item>
+            <Descriptions.Item label="录取分数线">
+              <Text strong style={{ fontSize: '18px', color: 'var(--primary-color)' }}>
+                {selectedUniversity.admissionScore}分
+              </Text>
+            </Descriptions.Item>
+            <Descriptions.Item label="录取概率">
+              <Tag 
+                color={
+                  selectedUniversity.probability === '85%' ? 'green' :
+                  selectedUniversity.probability === '60%' ? 'orange' : 'red'
+                }
+                style={{ fontSize: '16px', padding: '4px 12px' }}
+              >
+                {selectedUniversity.probability}
+              </Tag>
+            </Descriptions.Item>
+            {selectedUniversity.majorRecommendations && selectedUniversity.majorRecommendations.length > 0 && (
+              <Descriptions.Item label="推荐专业" span={2}>
+                <Space wrap>
+                  {selectedUniversity.majorRecommendations.map((major, i) => (
+                    <Tag key={i} color="blue">{major}</Tag>
+                  ))}
+                </Space>
+              </Descriptions.Item>
+            )}
+            <Descriptions.Item label="填报建议" span={2}>
+              <div style={{ lineHeight: '1.8' }}>
+                {selectedUniversity.probability === '85%' && (
+                  <Text>
+                    这是一所<Text strong style={{ color: '#52c41a' }}>稳妥院校</Text>，
+                    您的分数高于该校录取分数线，录取概率很高。建议作为保底志愿填报。
+                  </Text>
+                )}
+                {selectedUniversity.probability === '60%' && (
+                  <Text>
+                    这是一所<Text strong style={{ color: '#fa8c16' }}>适中院校</Text>，
+                    您的分数接近该校录取分数线，有较大录取机会。建议作为主要志愿填报。
+                  </Text>
+                )}
+                {selectedUniversity.probability === '30%' && (
+                  <Text>
+                    这是一所<Text strong style={{ color: '#ff4d4f' }}>冲刺院校</Text>，
+                    该校录取分数线高于您的成绩，可以尝试冲刺，但需要做好备选方案。
+                  </Text>
+                )}
+              </div>
+            </Descriptions.Item>
+          </Descriptions>
+        )}
+      </Modal>
+
+      {/* 专业详情弹窗 */}
+      <Modal
+        title={
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <BookOutlined style={{ color: 'var(--primary-color)' }} />
+            <span>专业详情</span>
+          </div>
+        }
+        open={majorModalVisible}
+        onCancel={() => setMajorModalVisible(false)}
+        footer={null}
+        width={800}
+      >
+        {selectedMajor && (
+          <Descriptions bordered column={2}>
+            <Descriptions.Item label="专业名称" span={2}>
+              <Text strong style={{ fontSize: '16px' }}>{selectedMajor.name}</Text>
+            </Descriptions.Item>
+            <Descriptions.Item label="类别">
+              <Tag color="blue">{selectedMajor.category}</Tag>
+            </Descriptions.Item>
+            <Descriptions.Item label="就业率">
+              <Text strong style={{ color: '#52c41a', fontSize: '16px' }}>
+                <PercentageOutlined /> {selectedMajor.employmentRate}
+              </Text>
+            </Descriptions.Item>
+            <Descriptions.Item label="平均薪资" span={2}>
+              <Text strong style={{ color: '#ff4d4f', fontSize: '16px' }}>
+                <DollarOutlined /> {selectedMajor.averageSalary}
+              </Text>
+            </Descriptions.Item>
+            <Descriptions.Item label="专业介绍" span={2}>
+              <Paragraph style={{ marginBottom: 0 }}>
+                {selectedMajor.description}
+              </Paragraph>
+            </Descriptions.Item>
+            <Descriptions.Item label="就业前景" span={2}>
+              <div style={{ lineHeight: '1.8' }}>
+                <Paragraph>
+                  该专业就业率达到 <Text strong style={{ color: '#52c41a' }}>{selectedMajor.employmentRate}</Text>，
+                  平均薪资为 <Text strong style={{ color: '#ff4d4f' }}>{selectedMajor.averageSalary}</Text>，
+                  就业前景良好。
+                </Paragraph>
+                <Paragraph style={{ marginBottom: 0 }}>
+                  <Text type="secondary">
+                    建议根据个人兴趣和职业规划选择专业，不要盲目追求热门专业。
+                  </Text>
+                </Paragraph>
+              </div>
+            </Descriptions.Item>
+          </Descriptions>
+        )}
+      </Modal>
 
       <style>{`
         @media print {
