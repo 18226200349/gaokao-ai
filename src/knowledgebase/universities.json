@@ -2118,6 +2118,621 @@
       "student_count": 34000,
       "faculty_count": 2800,
       "academician_count": 9
+    },
+    {
+      "id": "bj_college_1",
+      "name": "北京信息科技大学",
+      "english_name": "Beijing Information Science and Technology University",
+      "abbreviation": "北信科",
+      "type": "理工类",
+      "level": "普通本科",
+      "location": {
+        "province": "北京市",
+        "city": "北京市",
+        "district": "海淀区",
+        "address": "清河小营东路12号"
+      },
+      "established": 2008,
+      "motto": "勤以为学 信以立身",
+      "website": "https://www.bistu.edu.cn",
+      "ranking": {
+        "national": 264,
+        "qs_world": 0,
+        "times_world": 0
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 580, "文科": 565},
+          "广东": {"物理": 585, "历史": 570}
+        },
+        "enrollment_plan_2025": 4200,
+        "admission_rate": 0.65
+      },
+      "key_disciplines": [
+        "信息与通信工程", "计算机科学与技术", "控制科学与工程"
+      ],
+      "featured_programs": [
+        "人工智能实验班",
+        "网络空间安全"
+      ],
+      "campus_area": 1200000,
+      "student_count": 20000,
+      "faculty_count": 1500,
+      "academician_count": 0
+    },
+    {
+      "id": "bj_college_2",
+      "name": "北京建筑大学",
+      "english_name": "Beijing University of Civil Engineering and Architecture",
+      "abbreviation": "北建大",
+      "type": "理工类",
+      "level": "普通本科",
+      "location": {
+        "province": "北京市",
+        "city": "北京市",
+        "district": "大兴区",
+        "address": "永源路15号"
+      },
+      "established": 1936,
+      "motto": "实事求是 精益求精",
+      "website": "https://www.bucea.edu.cn",
+      "ranking": {
+        "national": 270,
+        "qs_world": 0,
+        "times_world": 0
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 575, "文科": 560},
+          "广东": {"物理": 580, "历史": 565}
+        },
+        "enrollment_plan_2025": 3800,
+        "admission_rate": 0.68
+      },
+      "key_disciplines": [
+        "建筑学", "土木工程", "城乡规划学"
+      ],
+      "featured_programs": [
+        "建筑学(实验班)",
+        "智能建造"
+      ],
+      "campus_area": 1000000,
+      "student_count": 18000,
+      "faculty_count": 1300,
+      "academician_count": 0
+    },
+    {
+      "id": "bj_college_3",
+      "name": "北京印刷学院",
+      "english_name": "Beijing Institute of Graphic Communication",
+      "abbreviation": "北印",
+      "type": "理工类",
+      "level": "普通本科",
+      "location": {
+        "province": "北京市",
+        "city": "北京市",
+        "district": "大兴区",
+        "address": "兴华大街(二段)1号"
+      },
+      "established": 1958,
+      "motto": "守正出新 笃志敏行",
+      "website": "https://www.bigc.edu.cn",
+      "ranking": {
+        "national": 360,
+        "qs_world": 0,
+        "times_world": 0
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 560, "文科": 550},
+          "广东": {"物理": 565, "历史": 555}
+        },
+        "enrollment_plan_2025": 3200,
+        "admission_rate": 0.72
+      },
+      "key_disciplines": [
+        "印刷工程", "编辑出版学", "数字媒体技术"
+      ],
+      "featured_programs": [
+        "出版传媒实验班",
+        "数字印刷"
+      ],
+      "campus_area": 800000,
+      "student_count": 15000,
+      "faculty_count": 1100,
+      "academician_count": 0
+    },
+    {
+      "id": "bj_college_4",
+      "name": "北京服装学院",
+      "english_name": "Beijing Institute of Fashion Technology",
+      "abbreviation": "北服",
+      "type": "艺术类",
+      "level": "普通本科",
+      "location": {
+        "province": "北京市",
+        "city": "北京市",
+        "district": "朝阳区",
+        "address": "樱花东街甲2号"
+      },
+      "established": 1959,
+      "motto": "与美同行",
+      "website": "https://www.bift.edu.cn",
+      "ranking": {
+        "national": 340,
+        "qs_world": 0,
+        "times_world": 0
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 555, "文科": 558},
+          "广东": {"物理": 560, "历史": 562}
+        },
+        "enrollment_plan_2025": 2800,
+        "admission_rate": 0.70
+      },
+      "key_disciplines": [
+        "设计学", "纺织科学与工程", "艺术学理论"
+      ],
+      "featured_programs": [
+        "服装与服饰设计",
+        "时尚管理"
+      ],
+      "campus_area": 600000,
+      "student_count": 13000,
+      "faculty_count": 900,
+      "academician_count": 0
+    },
+    {
+      "id": "bj_college_5",
+      "name": "北京物资学院",
+      "english_name": "Beijing Wuzi University",
+      "abbreviation": "北物资",
+      "type": "财经类",
+      "level": "普通本科",
+      "location": {
+        "province": "北京市",
+        "city": "北京市",
+        "district": "通州区",
+        "address": "富河大街321号"
+      },
+      "established": 1980,
+      "motto": "厚德博学 笃行日新",
+      "website": "https://www.bwu.edu.cn",
+      "ranking": {
+        "national": 380,
+        "qs_world": 0,
+        "times_world": 0
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 550, "文科": 548},
+          "广东": {"物理": 555, "历史": 552}
+        },
+        "enrollment_plan_2025": 3000,
+        "admission_rate": 0.75
+      },
+      "key_disciplines": [
+        "物流管理", "供应链管理", "电子商务"
+      ],
+      "featured_programs": [
+        "智慧物流实验班",
+        "供应链金融"
+      ],
+      "campus_area": 700000,
+      "student_count": 14000,
+      "faculty_count": 1000,
+      "academician_count": 0
+    },
+    {
+      "id": "bj_college_6",
+      "name": "中国劳动关系学院",
+      "english_name": "China University of Labor Relations",
+      "abbreviation": "劳动关系",
+      "type": "政法类",
+      "level": "普通本科",
+      "location": {
+        "province": "北京市",
+        "city": "北京市",
+        "district": "海淀区",
+        "address": "增光路45号"
+      },
+      "established": 1949,
+      "motto": "刚健创新 和而不同",
+      "website": "https://www.culr.edu.cn",
+      "ranking": {
+        "national": 420,
+        "qs_world": 0,
+        "times_world": 0
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 545, "文科": 543},
+          "广东": {"物理": 550, "历史": 548}
+        },
+        "enrollment_plan_2025": 2500,
+        "admission_rate": 0.78
+      },
+      "key_disciplines": [
+        "劳动关系", "人力资源管理", "社会工作"
+      ],
+      "featured_programs": [
+        "劳动关系协调",
+        "工会学"
+      ],
+      "campus_area": 500000,
+      "student_count": 12000,
+      "faculty_count": 800,
+      "academician_count": 0
+    },
+    {
+      "id": "bj_college_7",
+      "name": "北京石油化工学院",
+      "english_name": "Beijing Institute of Petrochemical Technology",
+      "abbreviation": "北石化",
+      "type": "理工类",
+      "level": "普通本科",
+      "location": {
+        "province": "北京市",
+        "city": "北京市",
+        "district": "大兴区",
+        "address": "清源北路19号"
+      },
+      "established": 1978,
+      "motto": "团结 勤奋 求实 创新",
+      "website": "https://www.bipt.edu.cn",
+      "ranking": {
+        "national": 390,
+        "qs_world": 0,
+        "times_world": 0
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 548, "文科": 540},
+          "广东": {"物理": 552, "历史": 545}
+        },
+        "enrollment_plan_2025": 3500,
+        "admission_rate": 0.76
+      },
+      "key_disciplines": [
+        "化学工程与技术", "机械工程", "材料科学与工程"
+      ],
+      "featured_programs": [
+        "新能源材料",
+        "智能制造"
+      ],
+      "campus_area": 900000,
+      "student_count": 16000,
+      "faculty_count": 1200,
+      "academician_count": 0
+    },
+    {
+      "id": "bj_college_8",
+      "name": "北京农学院",
+      "english_name": "Beijing University of Agriculture",
+      "abbreviation": "北农",
+      "type": "农林类",
+      "level": "普通本科",
+      "location": {
+        "province": "北京市",
+        "city": "北京市",
+        "district": "昌平区",
+        "address": "回龙观镇北农路7号"
+      },
+      "established": 1956,
+      "motto": "艰苦奋斗 求真务实",
+      "website": "https://www.bua.edu.cn",
+      "ranking": {
+        "national": 400,
+        "qs_world": 0,
+        "times_world": 0
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 542, "文科": 538},
+          "广东": {"物理": 548, "历史": 542}
+        },
+        "enrollment_plan_2025": 3000,
+        "admission_rate": 0.80
+      },
+      "key_disciplines": [
+        "园艺学", "兽医学", "农业工程"
+      ],
+      "featured_programs": [
+        "都市农业",
+        "智慧农业"
+      ],
+      "campus_area": 1100000,
+      "student_count": 14000,
+      "faculty_count": 1000,
+      "academician_count": 0
+    },
+    {
+      "id": "bj_college_9",
+      "name": "北京联合大学",
+      "english_name": "Beijing Union University",
+      "abbreviation": "北联大",
+      "type": "综合类",
+      "level": "普通本科",
+      "location": {
+        "province": "北京市",
+        "city": "北京市",
+        "district": "朝阳区",
+        "address": "北四环东路97号"
+      },
+      "established": 1985,
+      "motto": "学以致用",
+      "website": "https://www.buu.edu.cn",
+      "ranking": {
+        "national": 320,
+        "qs_world": 0,
+        "times_world": 0
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 552, "文科": 545},
+          "广东": {"物理": 558, "历史": 550}
+        },
+        "enrollment_plan_2025": 5000,
+        "admission_rate": 0.74
+      },
+      "key_disciplines": [
+        "旅游管理", "软件工程", "通信工程"
+      ],
+      "featured_programs": [
+        "应用型人才培养",
+        "校企合作班"
+      ],
+      "campus_area": 1400000,
+      "student_count": 25000,
+      "faculty_count": 1800,
+      "academician_count": 0
+    },
+    {
+      "id": "bj_college_10",
+      "name": "北京电子科技学院",
+      "english_name": "Beijing Electronic Science and Technology Institute",
+      "abbreviation": "北电科",
+      "type": "理工类",
+      "level": "普通本科",
+      "location": {
+        "province": "北京市",
+        "city": "北京市",
+        "district": "丰台区",
+        "address": "富丰路7号"
+      },
+      "established": 1947,
+      "motto": "忠诚 奉献 求实 创新",
+      "website": "https://www.besti.edu.cn",
+      "ranking": {
+        "national": 410,
+        "qs_world": 0,
+        "times_world": 0
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "北京": {"理科": 565, "文科": 555},
+          "广东": {"物理": 570, "历史": 560}
+        },
+        "enrollment_plan_2025": 1500,
+        "admission_rate": 0.60
+      },
+      "key_disciplines": [
+        "密码学", "网络空间安全", "信息安全"
+      ],
+      "featured_programs": [
+        "保密管理",
+        "信息对抗"
+      ],
+      "campus_area": 400000,
+      "student_count": 8000,
+      "faculty_count": 600,
+      "academician_count": 0
+    },
+    {
+      "id": "sh_college_1",
+      "name": "上海理工大学",
+      "english_name": "University of Shanghai for Science and Technology",
+      "abbreviation": "上理工",
+      "type": "理工类",
+      "level": "普通本科",
+      "location": {
+        "province": "上海市",
+        "city": "上海市",
+        "district": "杨浦区",
+        "address": "军工路516号"
+      },
+      "established": 1906,
+      "motto": "信义勤爱 思学志远",
+      "website": "https://www.usst.edu.cn",
+      "ranking": {
+        "national": 85,
+        "qs_world": 0,
+        "times_world": 0
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "上海": {"综合": 545},
+          "广东": {"物理": 595, "历史": 580}
+        },
+        "enrollment_plan_2025": 5500,
+        "admission_rate": 0.58
+      },
+      "key_disciplines": [
+        "光学工程", "动力工程及工程热物理", "机械工程"
+      ],
+      "featured_programs": [
+        "工程力学拔尖班",
+        "中德工程学院"
+      ],
+      "campus_area": 1200000,
+      "student_count": 25000,
+      "faculty_count": 2000,
+      "academician_count": 2
+    },
+    {
+      "id": "sh_college_2",
+      "name": "上海师范大学",
+      "english_name": "Shanghai Normal University",
+      "abbreviation": "上师大",
+      "type": "师范类",
+      "level": "普通本科",
+      "location": {
+        "province": "上海市",
+        "city": "上海市",
+        "district": "徐汇区",
+        "address": "桂林路100号"
+      },
+      "established": 1954,
+      "motto": "厚德博学 求是笃行",
+      "website": "https://www.shnu.edu.cn",
+      "ranking": {
+        "national": 110,
+        "qs_world": 0,
+        "times_world": 0
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "上海": {"综合": 540},
+          "广东": {"物理": 590, "历史": 578}
+        },
+        "enrollment_plan_2025": 5000,
+        "admission_rate": 0.62
+      },
+      "key_disciplines": [
+        "教育学", "中国语言文学", "数学"
+      ],
+      "featured_programs": [
+        "师范类专业",
+        "小学教育"
+      ],
+      "campus_area": 1500000,
+      "student_count": 28000,
+      "faculty_count": 2200,
+      "academician_count": 1
+    },
+    {
+      "id": "sh_college_3",
+      "name": "上海海事大学",
+      "english_name": "Shanghai Maritime University",
+      "abbreviation": "上海事",
+      "type": "理工类",
+      "level": "普通本科",
+      "location": {
+        "province": "上海市",
+        "city": "上海市",
+        "district": "浦东新区",
+        "address": "海港大道1550号"
+      },
+      "established": 1909,
+      "motto": "厚德博学 航运天下",
+      "website": "https://www.shmtu.edu.cn",
+      "ranking": {
+        "national": 135,
+        "qs_world": 0,
+        "times_world": 0
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "上海": {"综合": 535},
+          "广东": {"物理": 585, "历史": 572}
+        },
+        "enrollment_plan_2025": 4500,
+        "admission_rate": 0.65
+      },
+      "key_disciplines": [
+        "交通运输工程", "船舶与海洋工程", "管理科学与工程"
+      ],
+      "featured_programs": [
+        "航海技术",
+        "物流管理"
+      ],
+      "campus_area": 1330000,
+      "student_count": 22000,
+      "faculty_count": 1800,
+      "academician_count": 0
+    },
+    {
+      "id": "sh_college_4",
+      "name": "上海海洋大学",
+      "english_name": "Shanghai Ocean University",
+      "abbreviation": "上海洋",
+      "type": "农林类",
+      "level": "普通本科",
+      "location": {
+        "province": "上海市",
+        "city": "上海市",
+        "district": "浦东新区",
+        "address": "沪城环路999号"
+      },
+      "established": 1912,
+      "motto": "勤朴忠实",
+      "website": "https://www.shou.edu.cn",
+      "ranking": {
+        "national": 155,
+        "qs_world": 0,
+        "times_world": 0
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "上海": {"综合": 530},
+          "广东": {"物理": 580, "历史": 568}
+        },
+        "enrollment_plan_2025": 4000,
+        "admission_rate": 0.68
+      },
+      "key_disciplines": [
+        "水产", "海洋科学", "食品科学与工程"
+      ],
+      "featured_programs": [
+        "水产养殖学",
+        "海洋渔业科学与技术"
+      ],
+      "campus_area": 1600000,
+      "student_count": 20000,
+      "faculty_count": 1600,
+      "academician_count": 1
+    },
+    {
+      "id": "sh_college_5",
+      "name": "上海中医药大学",
+      "english_name": "Shanghai University of Traditional Chinese Medicine",
+      "abbreviation": "上中医",
+      "type": "医药类",
+      "level": "双一流",
+      "location": {
+        "province": "上海市",
+        "city": "上海市",
+        "district": "浦东新区",
+        "address": "蔡伦路1200号"
+      },
+      "established": 1956,
+      "motto": "勤奋 仁爱 求实 创新",
+      "website": "https://www.shutcm.edu.cn",
+      "ranking": {
+        "national": 115,
+        "qs_world": 0,
+        "times_world": 0
+      },
+      "admission_info": {
+        "2024_cutoff_scores": {
+          "上海": {"综合": 548},
+          "广东": {"物理": 592, "历史": 582}
+        },
+        "enrollment_plan_2025": 3500,
+        "admission_rate": 0.60
+      },
+      "key_disciplines": [
+        "中医学", "中药学", "中西医结合"
+      ],
+      "featured_programs": [
+        "中医学(九年本硕博连读)",
+        "针灸推拿学"
+      ],
+      "campus_area": 950000,
+      "student_count": 15000,
+      "faculty_count": 1400,
+      "academician_count": 2
     }
    ],
    "university_rankings": {
