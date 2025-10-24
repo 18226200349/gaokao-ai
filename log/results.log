@@ -420,3 +420,16 @@
 2025-10-24 11:26:26 error [www.ts]: GET /@vite/client Not Found
 2025-10-24 11:26:27 error [www.ts]: GET /@vite/client Not Found
 2025-10-24 14:33:50 error [www.ts]: GET /chat?ide_webview_request_time=1761285127170 Not Found
+2025-10-24 15:35:16 error [www.ts]: GET /api/v1/gaokao/universities?level=985 Not Found
+2025-10-24 15:35:18 error [www.ts]: GET /api/v1/gaokao/universities?level=211 Not Found
+2025-10-24 15:35:46 error [www.ts]: GET /api/v1/gaokao/universities?level=211 Not Found
+2025-10-24 15:38:23 info [www.ts]: 获取大学列表
+2025-10-24 15:38:32 info [www.ts]: 获取大学列表
+2025-10-24 15:38:57 info [www.ts]: 获取大学列表
+2025-10-24 15:39:08 info [www.ts]: 获取大学列表
+2025-10-24 15:39:14 info [www.ts]: 获取大学列表
+2025-10-24 15:39:16 info [www.ts]: 获取大学列表
+2025-10-24 15:39:20 info [www.ts]: 获取大学列表
+2025-10-24 15:39:31 info [www.ts]: 获取大学列表
+2025-10-24 15:39:43 info [www.ts]: 获取大学列表
+2025-10-24 15:39:53 info [www.ts]: 获取大学列表
