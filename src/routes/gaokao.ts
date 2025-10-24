@@ -20,4 +20,7 @@ router.get('/provinces', gaokaoController.getProvinces)
 // 导入Excel文件并生成报名方案接口
 router.post('/import-excel', upload.single('file'), gaokaoController.importExcel)
 
+// 获取大学列表接口
+router.get('/universities', gaokaoController.getUniversities)
+
 export default router

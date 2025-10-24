@@ -2,6 +2,22 @@
 import gaokaoService from '../services/gaokaoService'
 import { Response } from 'express';
 import ExcelJS from 'exceljs';
+import { knowledgeBaseService } from '../services/knowledgeBaseService';
+import logger from '../../logger';
+
+interface University {
+  id: string;
+  name: string;
+  type: string;
+  level: string;
+  location: {
+    province: string;
+    city: string;
+    district?: string;
+    address?: string;
+  };
+  [key: string]: any;
+}
 
 const gaokaoController = {
   // 处理高考报名咨询请求
@@ -253,6 +269,64 @@ const gaokaoController = {
       res.json({
         code: 500,
         success: false,
+        message: '服务器内部错误',
+        data: { 
+          error: error.message 
+        }
+      });
+    }
+  },
+  
+  // 获取大学列表
+  getUniversities: async function (req: any, res: any, next: any) {
+    try {
+      const { level, location, keyword } = req.query;
+      
+      logger.info('获取大学列表', { level, location, keyword });
+      
+      // 从知识库获取大学数据
+       const universitiesData = await knowledgeBaseService.getUniversitiesData();
+       const universities: University[] = universitiesData?.universities || [];
+      
+      // 过滤数据
+      let filteredUniversities = universities;
+      
+      // 按level过滤（支持模糊匹配，如985、211、双一流）
+       if (level) {
+         filteredUniversities = filteredUniversities.filter(u => 
+           u.level && u.level.includes(level)
+         );
+       }
+      
+      // 按location过滤
+      if (location) {
+        filteredUniversities = filteredUniversities.filter(u => 
+          u.location.province === location || u.location.city === location
+        );
+      }
+      
+      // 按keyword过滤
+      if (keyword) {
+        const keywordLower = keyword.toLowerCase();
+        filteredUniversities = filteredUniversities.filter(u => 
+          u.name.toLowerCase().includes(keywordLower) ||
+          u.location.province.toLowerCase().includes(keywordLower) ||
+          u.location.city.toLowerCase().includes(keywordLower)
+        );
+      }
+      
+      res.json({
+        code: 200,
+        message: '操作成功',
+        data: {
+          universities: filteredUniversities,
+          total: filteredUniversities.length
+        }
+      });
+    } catch (error: any) {
+      logger.error('获取大学列表失败', error);
+      res.json({
+        code: 500,
         message: '服务器内部错误',
         data: { 
           error: error.message 
